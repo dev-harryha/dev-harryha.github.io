@@ -66,7 +66,17 @@
 		initESW('https://service.force.com');
 	}
 </script>
-<h1>Index.html</h1>
-<p>Click <a href='/index2'>here</a> to go to Index2.html</p>
+<h1>Welcome!</h1>
+<div>
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username">
+</div>
+
+<div>
+    <label for="pass">Password (8 characters minimum):</label>
+    <input type="password" id="pass" name="password"
+           minlength="8" required>
+</div>
+<p> <a href='/index2'><input type="button" value="Sign in"></a> </p>
 </body>
 </html>
