@@ -74,11 +74,16 @@
             initESW('https://service.force.com');
         }  
     };
+
+    var hideButton = function() {
+        document.getElementsByClassName('helpButton').style = 'display: none !important';
+    }
 	
 </script>
 <h1>Welcome!</h1>
 
 <p> <input type="button" value="Chat with WU" onclick="initChat()"> </p>
+<p> <input type="button" value="Hide Chat" onclick="hideButton()"> </p>
 
 <p> <a href='https://dev-harryha.github.io/'> Link to GitHub Pages </a> </p>
 <p> <a href='https://agitated-ptolemy-228313.netlify.com/'> Link to Netlify Pages </a> </p>
