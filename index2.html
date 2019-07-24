@@ -84,6 +84,29 @@
 				"doFind":true,
 				"label":"Email"
 			}]
+		}, {
+			"entityName":"Case",
+			"showOnCreate":true,
+			"saveToTranscript":"CaseId",
+			"entityFieldMaps": [{
+				"isExactMatch":false,
+				"fieldName":"Subject",
+				"doCreate":true,
+				"doFind":false,
+				"label":"issue"
+			  }, {
+				"isExactMatch":false,
+				"fieldName":"Status",
+				"doCreate":true,
+				"doFind":false,
+				"label":"Status"
+			  }, {
+				"isExactMatch":false,
+				"fieldName":"Origin",
+				"doCreate":true,
+				"doFind":false,
+				"label":"Origin"
+			}]
 		}];
 
 
