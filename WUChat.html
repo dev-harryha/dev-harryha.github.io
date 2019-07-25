@@ -78,7 +78,6 @@
             
             embedded_svc.settings.extraPrechatInfo = [{
                 "entityName":"Contact",
-                "showOnCreate":false,
                 "saveToTranscript":"Contact",
                 "showOnCreate":true,
                 "entityFieldMaps":[{
@@ -103,18 +102,17 @@
             }, {
                 'entityName':'Account',
                 'showOnCreate':true,
-                'saveToTranscript':'AccountId',
                 'entityFieldMaps':[{
                     'isExactMatch':true,
                     'fieldName':'Name',
-                    'doCreate':false,
+                    'doCreate':true,
                     'doFind':true,
                     'label':'AccountName'
                 }, {
                     "doCreate": true,
-                    "doFind": false,
+                    "doFind": true,
                     "fieldName": "RecordTypeId",
-                    "isExactMatch": false, 
+                    "isExactMatch": true, 
                     "label": "Record Type ID"
                 }]
             }, {
