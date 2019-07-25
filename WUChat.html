@@ -52,6 +52,13 @@
                 "label":"issue",
                 "value":"Western Union",
                 "displayToAgent":true
+            }, {
+                "label":"Record Type ID",
+                "value":"01215000001cpF3AAI"
+            },
+            {
+                "label":"AccountName",
+                "value":"Testing"
             }]; 
             
             embedded_svc.settings.extraPrechatInfo = [{
@@ -83,16 +90,16 @@
                 'saveToTranscript':'AccountId',
                 'entityFieldMaps':[{
                     'isExactMatch':true,
-                    'fieldName':'FirstName__c',
+                    'fieldName':'Name',
                     'doCreate':false,
                     'doFind':true,
-                    'label':'FirstName'
+                    'label':'AccountName'
                 }, {
-                    'isExactMatch':true,
-                    'fieldName':'LastName__c',
-                    'doCreate':false,
-                    'doFind':true,
-                    'label':'LastName'
+                    "doCreate": true,
+                    "doFind": false,
+                    "fieldName": "RecordTypeId",
+                    "isExactMatch": false, 
+                    "label": "Record Type ID"
                 }]}, {
                 "entityName":"Case",
                 "showOnCreate":true,
