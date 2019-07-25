@@ -118,7 +118,7 @@
                 }]
             }];
 
-            embedded_svc.init(
+        /*embedded_svc.init(
 			'https://wuicare--VPM2.cs65.my.salesforce.com',
 			'https://vpm2-wucare.cs65.force.com/care',
 			gslbBaseURL,
@@ -132,9 +132,22 @@
 				eswLiveAgentDevName: 'EmbeddedServiceLiveAgent_Parent04I0m000000007bEAA_16b95707fb2',
 				isOfflineSupportEnabled: false
 			}
-		);
-
-            
+		);*/
+        embedded_svc.init(
+            'https://wuicare--VPM2.cs65.my.salesforce.com',
+            'https://vpm2-wucare.cs65.force.com/care',
+            gslbBaseURL,
+            '00D0m0000009fEK',
+            'WUCare_Embedded_Service_Non_Auth',
+            {
+                baseLiveAgentContentURL: 'https://c.la1-c1cs-ord.salesforceliveagent.com/content',
+                deploymentId: '5721500000007Ds',
+                buttonId: '5731500000008OV',
+                baseLiveAgentURL: 'https://d.la1-c1cs-ord.salesforceliveagent.com/chat',
+                eswLiveAgentDevName: 'EmbeddedServiceLiveAgent_Parent04I0m000000007lEAA_16b9ed43360',
+                isOfflineSupportEnabled: false
+            }
+        );   
         } else {
             embedded_svc.init(
                 'https://wuicare--VPM2.cs65.my.salesforce.com',
@@ -165,7 +178,7 @@
 		initESW('https://service.force.com');
 	}
 </script>
-<h1>Welcome!v1</h1>
+<h1>Welcome!v3</h1>
 <div>
     <label for="username">Username: </label>
     <input type="text" id="username" name="username">
