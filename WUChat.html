@@ -119,8 +119,8 @@
                 }, {
                     "isExactMatch":true,
                     "fieldName":"Channel_Type__c",
-                    "doCreate":false,
-                    "doFind":true,
+                    "doCreate":true,
+                    "doFind":false,
                     "label":"CaseChannelType"
                 }, {
                     "isExactMatch":true,
@@ -145,7 +145,7 @@
                 'entityName':'Account',
                 'showOnCreate':true,
                 "linkToEntityName":"Case",
-                "linkToEntityField":"AccountId, ContactId",
+                "linkToEntityField":"AccountId",
                 'entityFieldMaps':[{
                     "doCreate":true,
                     "doFind":true,
