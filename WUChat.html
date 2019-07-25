@@ -78,22 +78,24 @@
             
             embedded_svc.settings.extraPrechatInfo = [{
                 "entityName":"Contact",
-                "saveToTranscript":"Contact",
+                "saveToTranscript":"ContactId",
                 "showOnCreate":true,
+                "linkToEntityName":"Case",
+                "linkToEntityField":"ContactId",
                 "entityFieldMaps":[{
-                    "doCreate":false,
+                    "doCreate":true,
                     "doFind":true,
                     "fieldName":"LastName",
                     "isExactMatch":true,
                     "label":"LastName"
                 }, {
-                    "doCreate":false,
+                    "doCreate":true,
                     "doFind":true,
                     "fieldName":"FirstName",
                     "isExactMatch":true,
                     "label":"First Name"
                 }, {
-                    "doCreate":false,
+                    "doCreate":true,
                     "doFind":true,
                     "fieldName":"Email",
                     "isExactMatch":true,
@@ -102,6 +104,8 @@
             }, {
                 'entityName':'Account',
                 'showOnCreate':true,
+                "linkToEntityName":"Case",
+                "linkToEntityField":"AccountId",
                 'entityFieldMaps':[{
                     'isExactMatch':true,
                     'fieldName':'Name',
@@ -118,7 +122,7 @@
             }, {
                 "entityName":"Case",
                 "showOnCreate":true,
-                "saveToTranscript":"Case, CaseId",
+                "saveToTranscript":"CaseId",
                 "entityFieldMaps": [{
                     "isExactMatch":true,
                     "fieldName":"Subject",
@@ -224,7 +228,7 @@
 		initESW('https://service.force.com');
 	}
 </script>
-<h1>Welcome!v2</h1>
+<h1>Welcome!v3</h1>
 <div>
     <label for="username">Username: </label>
     <input type="text" id="username" name="username">
