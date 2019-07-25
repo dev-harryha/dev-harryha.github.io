@@ -70,6 +70,7 @@
                 "value":"True",
                 "displayToAgent":true
             }, {
+                // Person Account RecordType for Identified Customer
                 "label":"AccountRecordType",
                 "value":"01215000001cpF3AAI"
             }/* Does not actually disable pre-chat...
@@ -89,27 +90,61 @@
             }*/]; 
             
             embedded_svc.settings.extraPrechatInfo = [{
+                // Creating a person account using the recordtypeid and linking to case
+                'entityName':'Account',
+                'showOnCreate':true,
+                "saveToTranscript":"AccountId",
+                "linkToEntityName":"Case",
+                "linkToEntityField":"AccountId",
+                'entityFieldMaps':[{
+                    "doCreate":true,
+                    "doFind":true,
+                    "fieldName":"LastName",
+                    "isExactMatch":true,
+                    "label":"Last Name"
+                }, {
+                    'doCreate':true,
+                    'doFind':true,
+                    'fieldName':'FirstName',
+                    'isExactMatch':true,
+                    'label':'First Name'
+                }, {
+                    "doCreate":true,
+                    "doFind":true,
+                    "fieldName":"PersonEmail",
+                    "isExactMatch":true,
+                    "label":"Email"
+                }, {
+                    "doCreate": true,
+                    "doFind": true,
+                    "fieldName": "RecordTypeId",
+                    "isExactMatch": true, 
+                    "label": "AccountRecordType"
+                }]
+            }, {
                 // Not creating the contact, but finding the contact from the PersonAccount and linking it to the Case
                 "entityFieldMaps":[{
                     "doCreate":false,
-                    "doFind":false,
+                    "doFind":true,
                     "fieldName":"LastName",
                     "isExactMatch":true,
                     "label":"Last Name"
                 }, {
                     "doCreate":false,
-                    "doFind":false,
+                    "doFind":true,
                     "fieldName":"FirstName",
                     "isExactMatch":true,
                     "label":"First Name"
                 }, {
                     "doCreate":false,
-                    "doFind":false,
+                    "doFind":true,
                     "fieldName":"Email",
                     "isExactMatch":true,
                     "label":"Email"
                 }],
                 "entityName":"Contact",
+                "linkToEntityName":"Case",
+                "linkToEntityField":"ContactId"
             }, {
                 // Creating the map for the case fields required for WU
                 "entityName":"Case",
@@ -157,38 +192,6 @@
                     "fieldName":"IsChatCreatedCaseText__c",
                     "isExactMatch":true,
                     "label":"CaseChatCreatedCaseText"
-                }]
-            }, {
-                // Creating a person account using the recordtypeid and linking to case
-                'entityName':'Account',
-                'showOnCreate':true,
-                "saveToTranscript":"AccountId",
-                "linkToEntityName":"Case",
-                "linkToEntityField":"AccountId",
-                'entityFieldMaps':[{
-                    "doCreate":true,
-                    "doFind":true,
-                    "fieldName":"LastName",
-                    "isExactMatch":true,
-                    "label":"Last Name"
-                }, {
-                    'doCreate':true,
-                    'doFind':true,
-                    'fieldName':'FirstName',
-                    'isExactMatch':true,
-                    'label':'First Name'
-                }, {
-                    "doCreate":true,
-                    "doFind":true,
-                    "fieldName":"PersonEmail",
-                    "isExactMatch":true,
-                    "label":"Email"
-                }, {
-                    "doCreate": true,
-                    "doFind": true,
-                    "fieldName": "RecordTypeId",
-                    "isExactMatch": true, 
-                    "label": "AccountRecordType"
                 }]
             }];
 
@@ -252,7 +255,7 @@
 		initESW('https://service.force.com');
 	}
 </script>
-<h1>WUCHAT Welcome!v1</h1>
+<h1>WUCHAT Welcome!</h1>
 <div>
     <label for="username">Username: </label>
     <input type="text" id="username" name="username">
