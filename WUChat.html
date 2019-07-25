@@ -31,7 +31,7 @@
 		embedded_svc.settings.disabledMinimizedText = 'Chat Offline'; //(Defaults to Agent Offline)
 
 		//embedded_svc.settings.loadingText = ''; //(Defaults to Loading)
-		embedded_svc.settings.storageDomain = 'dev-harryha.github.io'; //(Sets the domain for your deployment so that visitors can navigate subdomains during a chat session)
+		embedded_svc.settings.storageDomain = 'westernunion.com'; //(Sets the domain for your deployment so that visitors can navigate subdomains during a chat session)
 
 		// Settings for Chat
 		//embedded_svc.settings.directToButtonRouting = function(prechatFormData) {
@@ -41,13 +41,163 @@
 		//embedded_svc.settings.prepopulatedPrechatFields = {}; //Sets the auto-population of pre-chat form fields
 		//embedded_svc.settings.fallbackRouting = []; //An array of button IDs, user IDs, or userId_buttonId
         //embedded_svc.settings.offlineSupportMinimizedText = '...'; //(Defaults to Contact Us)
+        embedded_svc.settings.extraPrechatFormDetails = [{
+            "label":"CaseSubject",
+            "value":"Western Union",
+            "displayToAgent":true
+        }, {
+            "label":"CaseChannelType",
+            "value":"WU.com Money Transfer",
+            "displayToAgent":true
+        }, {
+            "label":"CaseIntakeChannel",
+            "value":"WU.com - Chat",
+            "displayToAgent":true
+        }, {
+            "label":"CaseCallerType",
+            "value":"Sender",
+            "displayToAgent":true
+        }, {
+            "label":"CaseChatCreatedCaseText",
+            "value":"True",
+            "displayToAgent":true
+        }, {
+            // Person Account RecordType for Identified Customer
+            "label":"AccountRecordType",
+            "value":"01215000001cpF3AAI"
+        }];
         
-        
+
+        embedded_svc.settings.extraPrechatInfo = [{
+            // Creating a person account using the recordtypeid and linking to case
+            'entityName':'Account',
+            'showOnCreate':true,
+            "saveToTranscript":"AccountId",
+            "linkToEntityName":"Case",
+            "linkToEntityField":"AccountId",
+            'entityFieldMaps':[{
+                "doCreate":true,
+                "doFind":true,
+                "fieldName":"LastName",
+                "isExactMatch":true,
+                "label":"Last Name"
+            }, {
+                'doCreate':true,
+                'doFind':true,
+                'fieldName':'FirstName',
+                'isExactMatch':true,
+                'label':'First Name'
+            }, {
+                "doCreate":true,
+                "doFind":true,
+                "fieldName":"PersonEmail",
+                "isExactMatch":true,
+                "label":"Email"
+            }, {
+                "doCreate": true,
+                "doFind": true,
+                "fieldName": "RecordTypeId",
+                "isExactMatch": true, 
+                "label": "AccountRecordType"
+            }]
+        }, {
+            // Not creating the contact, but finding the contact from the PersonAccount and linking it to the Case
+            "entityFieldMaps":[{
+                "doCreate":false,
+                "doFind":true,
+                "fieldName":"LastName",
+                "isExactMatch":true,
+                "label":"Last Name"
+            }, {
+                "doCreate":false,
+                "doFind":true,
+                "fieldName":"FirstName",
+                "isExactMatch":true,
+                "label":"First Name"
+            }, {
+                "doCreate":false,
+                "doFind":true,
+                "fieldName":"Email",
+                "isExactMatch":true,
+                "label":"Email"
+            }],
+            "entityName":"Contact",
+            "saveToTranscript":"ContactId",
+            "linkToEntityName":"Case",
+            "linkToEntityField":"ContactId"
+        }, {
+            // Creating the map for the case fields required for WU
+            "entityName":"Case",
+            "showOnCreate":true,
+            "saveToTranscript":"CaseId",
+            "entityFieldMaps": [{
+                "doCreate":true,
+                "doFind":false,
+                "fieldName":"Subject",
+                "isExactMatch":true,
+                "label":"CaseSubject"
+              }, {
+                "doCreate":true,
+                "doFind":false,
+                "fieldName":"Status",
+                "isExactMatch":true,
+                "label":"Status"
+              }, {
+                "doCreate":true,
+                "doFind":false,
+                "fieldName":"Origin",
+                "isExactMatch":true,
+                "label":"Origin"
+            }, {
+                "doCreate":true,
+                "doFind":false,
+                "fieldName":"Channel_Type__c",
+                "isExactMatch":true,
+                "label":"CaseChannelType"
+            }, {
+                "doCreate":true,
+                "doFind":false,
+                "fieldName":"Intake_Channel__c",
+                "isExactMatch":true,
+                "label":"CaseIntakeChannel"
+            }, {
+                "doCreate":true,
+                "doFind":false,
+                "fieldName":"Caller_Type__c",
+                "isExactMatch":true,
+                "label":"CaseCallerType"
+            }, {
+                "doCreate":true,
+                "doFind":false,
+                "fieldName":"IsChatCreatedCaseText__c",
+                "isExactMatch":true,
+                "label":"CaseChatCreatedCaseText"
+            }]
+        }];
 
 		embedded_svc.settings.enabledFeatures = ['LiveAgent'];
 		embedded_svc.settings.entryFeature = 'LiveAgent';
         // Condition would be here to check language and/or auth vs unauth users.
         if(true) {
+            let tempFirstName = {
+                "label":"First Name",
+                "name":"FirstName",
+                "value":"Donald",
+                "displayToAgent":true
+            };
+            let tempLastName = {
+                "label":"Last Name",
+                "value":"Duck",
+                "displayToAgent":true
+            }; 
+            let tempEmail = {
+                "label":"Email",
+                "value":"donaldduck@wuchattest.com",
+                "displayToAgent":true
+            };
+
+            embedded_svc.settings.extraPrechatFormDetails.push(tempFirstName, tempLastName, tempEmail);
+            /* 
             // Preset values that will be used for the records created below
             embedded_svc.settings.extraPrechatFormDetails = [{
                 "label":"CaseSubject",
@@ -73,7 +223,7 @@
                 // Person Account RecordType for Identified Customer
                 "label":"AccountRecordType",
                 "value":"01215000001cpF3AAI"
-            }/* Does not actually disable pre-chat...
+            }//Does not actually disable pre-chat...
             ,{
                 "label":"First Name",
                 "name":"FirstName",
@@ -87,113 +237,8 @@
                 "label":"Email",
                 "value":"donaldduck@wuchattest.com",
                 "displayToAgent":true
-            }*/]; 
+            }];*/ 
             
-            embedded_svc.settings.extraPrechatInfo = [{
-                // Creating a person account using the recordtypeid and linking to case
-                'entityName':'Account',
-                'showOnCreate':true,
-                "saveToTranscript":"AccountId",
-                "linkToEntityName":"Case",
-                "linkToEntityField":"AccountId",
-                'entityFieldMaps':[{
-                    "doCreate":true,
-                    "doFind":true,
-                    "fieldName":"LastName",
-                    "isExactMatch":true,
-                    "label":"Last Name"
-                }, {
-                    'doCreate':true,
-                    'doFind':true,
-                    'fieldName':'FirstName',
-                    'isExactMatch':true,
-                    'label':'First Name'
-                }, {
-                    "doCreate":true,
-                    "doFind":true,
-                    "fieldName":"PersonEmail",
-                    "isExactMatch":true,
-                    "label":"Email"
-                }, {
-                    "doCreate": true,
-                    "doFind": true,
-                    "fieldName": "RecordTypeId",
-                    "isExactMatch": true, 
-                    "label": "AccountRecordType"
-                }]
-            }, {
-                // Not creating the contact, but finding the contact from the PersonAccount and linking it to the Case
-                "entityFieldMaps":[{
-                    "doCreate":false,
-                    "doFind":true,
-                    "fieldName":"LastName",
-                    "isExactMatch":true,
-                    "label":"Last Name"
-                }, {
-                    "doCreate":false,
-                    "doFind":true,
-                    "fieldName":"FirstName",
-                    "isExactMatch":true,
-                    "label":"First Name"
-                }, {
-                    "doCreate":false,
-                    "doFind":true,
-                    "fieldName":"Email",
-                    "isExactMatch":true,
-                    "label":"Email"
-                }],
-                "entityName":"Contact",
-                "linkToEntityName":"Case",
-                "linkToEntityField":"ContactId"
-            }, {
-                // Creating the map for the case fields required for WU
-                "entityName":"Case",
-                "showOnCreate":true,
-                "saveToTranscript":"CaseId",
-                "entityFieldMaps": [{
-                    "doCreate":true,
-                    "doFind":false,
-                    "fieldName":"Subject",
-                    "isExactMatch":true,
-                    "label":"CaseSubject"
-                  }, {
-                    "doCreate":true,
-                    "doFind":false,
-                    "fieldName":"Status",
-                    "isExactMatch":true,
-                    "label":"Status"
-                  }, {
-                    "doCreate":true,
-                    "doFind":false,
-                    "fieldName":"Origin",
-                    "isExactMatch":true,
-                    "label":"Origin"
-                }, {
-                    "doCreate":true,
-                    "doFind":false,
-                    "fieldName":"Channel_Type__c",
-                    "isExactMatch":true,
-                    "label":"CaseChannelType"
-                }, {
-                    "doCreate":true,
-                    "doFind":false,
-                    "fieldName":"Intake_Channel__c",
-                    "isExactMatch":true,
-                    "label":"CaseIntakeChannel"
-                }, {
-                    "doCreate":true,
-                    "doFind":false,
-                    "fieldName":"Caller_Type__c",
-                    "isExactMatch":true,
-                    "label":"CaseCallerType"
-                }, {
-                    "doCreate":true,
-                    "doFind":false,
-                    "fieldName":"IsChatCreatedCaseText__c",
-                    "isExactMatch":true,
-                    "label":"CaseChatCreatedCaseText"
-                }]
-            }];
 
         /*embedded_svc.init(
 			'https://wuicare--VPM2.cs65.my.salesforce.com',
@@ -255,7 +300,7 @@
 		initESW('https://service.force.com');
 	}
 </script>
-<h1>WUCHAT Welcome!</h1>
+<h1>WUCHAT Welcome!v1</h1>
 <div>
     <label for="username">Username: </label>
     <input type="text" id="username" name="username">
