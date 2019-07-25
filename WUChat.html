@@ -71,9 +71,6 @@
             }, {
                 "label":"AccountRecordType",
                 "value":"01215000001cpF3AAI"
-            }, {
-                "label":"AccountName",
-                "value":"Testing Testing"
             }]; 
             
             embedded_svc.settings.extraPrechatInfo = [{
@@ -148,7 +145,7 @@
                 'entityName':'Account',
                 'showOnCreate':true,
                 "linkToEntityName":"Case",
-                "linkToEntityField":"AccountId",
+                "linkToEntityField":"AccountId,PersonContactId",
                 'entityFieldMaps':[{
                     "doCreate":true,
                     "doFind":true,
@@ -236,7 +233,7 @@
 		initESW('https://service.force.com');
 	}
 </script>
-<h1>Welcome!v2</h1>
+<h1>Welcome!v3</h1>
 <div>
     <label for="username">Username: </label>
     <input type="text" id="username" name="username">
