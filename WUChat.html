@@ -75,30 +75,6 @@
             }]; 
             
             embedded_svc.settings.extraPrechatInfo = [{
-                // Not creating the contact, but finding the contact from the PersonAccount and linking it to the Case
-                "entityName":"Contact",
-                "linkToEntityName": "Case",
-                "linkToEntityField": "ContactId",
-                "entityFieldMaps":[{
-                    "doCreate":false,
-                    "doFind":true,
-                    "fieldName":"LastName",
-                    "isExactMatch":true,
-                    "label":"Last Name"
-                }, {
-                    "doCreate":false,
-                    "doFind":true,
-                    "fieldName":"FirstName",
-                    "isExactMatch":true,
-                    "label":"First Name"
-                }, {
-                    "doCreate":false,
-                    "doFind":true,
-                    "fieldName":"Email",
-                    "isExactMatch":true,
-                    "label":"Email"
-                }]
-            }, {
                 // Creating the map for the case fields required for WU
                 "entityName":"Case",
                 "showOnCreate":true,
@@ -177,6 +153,30 @@
                     "isExactMatch": true, 
                     "label": "AccountRecordType"
                 }]
+            }, {
+                // Not creating the contact, but finding the contact from the PersonAccount and linking it to the Case
+                "entityFieldMaps":[{
+                    "doCreate":false,
+                    "doFind":true,
+                    "fieldName":"LastName",
+                    "isExactMatch":true,
+                    "label":"Last Name"
+                }, {
+                    "doCreate":false,
+                    "doFind":true,
+                    "fieldName":"FirstName",
+                    "isExactMatch":true,
+                    "label":"First Name"
+                }, {
+                    "doCreate":false,
+                    "doFind":true,
+                    "fieldName":"Email",
+                    "isExactMatch":true,
+                    "label":"Email"
+                }],
+                "entityName":"Contact",
+                "linkToEntityName": "Case",
+                "linkToEntityField": "ContactId"
             }];
 
         /*embedded_svc.init(
@@ -239,7 +239,7 @@
 		initESW('https://service.force.com');
 	}
 </script>
-<h1>Welcome!v2</h1>
+<h1>Welcome!v3</h1>
 <div>
     <label for="username">Username: </label>
     <input type="text" id="username" name="username">
