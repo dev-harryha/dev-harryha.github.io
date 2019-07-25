@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+</head>
+<body>
+<style type='text/css'>
+	.embeddedServiceHelpButton .helpButton .uiButton {
+		background-color: #FFDA1A;
+		font-family: "Salesforce Sans", sans-serif;
+		color: #333333;
+	}
+	.embeddedServiceHelpButton .helpButton .uiButton:focus {
+		outline: 1px solid #FFDA1A;
+	}
+	@font-face {
+		font-family: 'Salesforce Sans';
+		src: url('https://www.sfdcstatic.com/system/shared/common/assets/fonts/SalesforceSans/SalesforceSans-Regular.woff') format('woff'),
+		url('https://www.sfdcstatic.com/system/shared/common/assets/fonts/SalesforceSans/SalesforceSans-Regular.ttf') format('truetype');
+	}
+</style>
+
+<script type='text/javascript' src='https://service.force.com/embeddedservice/5.0/esw.min.js'></script>
+<script type='text/javascript'>
+	var initESW = function(gslbBaseURL) {
+		embedded_svc.settings.displayHelpButton = true; //Or false
+		embedded_svc.settings.language = 'en-US'; //For example, enter 'en' or 'en-US'
+		//embedded_svc.settings.smallCompanyLogoImgURL = 'https://wuicare--vpm2--c.cs65.visual.force.com/resource/1563475528000/WU_Chat_Icon';
+
+		embedded_svc.settings.defaultMinimizedText = 'Chat with WU'; //(Defaults to Chat with an Expert)
+		embedded_svc.settings.disabledMinimizedText = 'Chat Offline'; //(Defaults to Agent Offline)
+
+		//embedded_svc.settings.loadingText = ''; //(Defaults to Loading)
+		embedded_svc.settings.storageDomain = 'dev-harryha.github.io'; //(Sets the domain for your deployment so that visitors can navigate subdomains during a chat session)
+
+		// Settings for Chat
+		//embedded_svc.settings.directToButtonRouting = function(prechatFormData) {
+			// Dynamically changes the button ID based on what the visitor enters in the pre-chat form.
+			// Returns a valid button ID.
+		//};
+		//embedded_svc.settings.prepopulatedPrechatFields = {}; //Sets the auto-population of pre-chat form fields
+		//embedded_svc.settings.fallbackRouting = []; //An array of button IDs, user IDs, or userId_buttonId
+        //embedded_svc.settings.offlineSupportMinimizedText = '...'; //(Defaults to Contact Us)
+        
+        
+
+		embedded_svc.settings.enabledFeatures = ['LiveAgent'];
+		embedded_svc.settings.entryFeature = 'LiveAgent';
+        // Condition would be here to check language and/or auth vs unauth users.
+        if(true) {
+            // Preset values that will be used for the records created below
+            embedded_svc.settings.extraPrechatFormDetails = [{
+                "label":"CaseSubject",
+                "value":"Western Union",
+                "displayToAgent":true
+            }, {
+                "label":"CaseChannelType",
+                "value":"WU.com Money Transfer",
+                "displayToAgent":true
+            }, {
+                "label":"CaseIntakeChannel",
+                "value":"WU.com - Chat",
+                "displayToAgent":true
+            }, {
+                "label":"CaseCallerType",
+                "value":"Sender",
+                "displayToAgent":true
+            }, {
+                "label":"CaseChatCreatedCaseText",
+                "value":"True",
+                "displayToAgent":true
+            }, {
+                "label":"AccountRecordType",
+                "value":"01215000001cpF3AAI"
+            }]; 
+            
+            embedded_svc.settings.extraPrechatInfo = [{
+                // Creating the map for the case fields required for WU
+                "entityName":"Case",
+                "showOnCreate":true,
+                "saveToTranscript":"CaseId",
+                "entityFieldMaps": [{
+                    "isExactMatch":true,
+                    "fieldName":"Subject",
+                    "doCreate":true,
+                    "doFind":false,
+                    "label":"CaseSubject"
+                  }, {
+                    "isExactMatch":true,
+                    "fieldName":"Status",
+                    "doCreate":true,
+                    "doFind":false,
+                    "label":"Status"
+                  }, {
+                    "isExactMatch":true,
+                    "fieldName":"Origin",
+                    "doCreate":true,
+                    "doFind":false,
+                    "label":"Origin"
+                }, {
+                    "isExactMatch":true,
+                    "fieldName":"Channel_Type__c",
+                    "doCreate":true,
+                    "doFind":false,
+                    "label":"CaseChannelType"
+                }, {
+                    "isExactMatch":true,
+                    "fieldName":"Intake_Channel__c",
+                    "doCreate":true,
+                    "doFind":false,
+                    "label":"CaseIntakeChannel"
+                }, {
+                    "isExactMatch":true,
+                    "fieldName":"Caller_Type__c",
+                    "doCreate":true,
+                    "doFind":false,
+                    "label":"CaseCallerType"
+                }, {
+                    "isExactMatch":true,
+                    "fieldName":"IsChatCreatedCaseText__c",
+                    "doCreate":true,
+                    "doFind":false,
+                    "label":"CaseChatCreatedCaseText"
+                }]
+            }, {
+                // Creating a person account using the recordtypeid and linking to case
+                'entityName':'Account',
+                'showOnCreate':true,
+                "linkToEntityName":"Case",
+                "linkToEntityField":"AccountId",
+                'entityFieldMaps':[{
+                    "doCreate":true,
+                    "doFind":true,
+                    "fieldName":"LastName",
+                    "isExactMatch":true,
+                    "label":"Last Name"
+                }, {
+                    'isExactMatch':true,
+                    'fieldName':'FirstName',
+                    'doCreate':true,
+                    'doFind':true,
+                    'label':'First Name'
+                }, {
+                    "doCreate":true,
+                    "doFind":true,
+                    "fieldName":"PersonEmail",
+                    "isExactMatch":true,
+                    "label":"Email"
+                }, {
+                    "doCreate": true,
+                    "doFind": true,
+                    "fieldName": "RecordTypeId",
+                    "isExactMatch": true, 
+                    "label": "AccountRecordType"
+                }]
+            }, {
+                // Not creating the contact, but finding the contact from the PersonAccount and linking it to the Case
+                "entityName":"Contact",
+                "linkToEntityName": "Case",
+                "linkToEntityField": "ContactId",
+                "entityFieldMaps":[{
+                    "doCreate":false,
+                    "doFind":true,
+                    "fieldName":"LastName",
+                    "isExactMatch":true,
+                    "label":"Last Name"
+                }, {
+                    "doCreate":false,
+                    "doFind":true,
+                    "fieldName":"FirstName",
+                    "isExactMatch":true,
+                    "label":"First Name"
+                }, {
+                    "doCreate":false,
+                    "doFind":true,
+                    "fieldName":"Email",
+                    "isExactMatch":true,
+                    "label":"Email"
+                }]
+            }];
+
+        /*embedded_svc.init(
+			'https://wuicare--VPM2.cs65.my.salesforce.com',
+			'https://vpm2-wucare.cs65.force.com/care',
+			gslbBaseURL,
+			'00D0m0000009fEK',
+			'WUCare_Embedded_Service',
+			{
+				baseLiveAgentContentURL: 'https://c.la1-c1cs-ord.salesforceliveagent.com/content',
+				deploymentId: '5721500000007Ds',
+				buttonId: '5731500000008OV',
+				baseLiveAgentURL: 'https://d.la1-c1cs-ord.salesforceliveagent.com/chat',
+				eswLiveAgentDevName: 'EmbeddedServiceLiveAgent_Parent04I0m000000007bEAA_16b95707fb2',
+				isOfflineSupportEnabled: false
+			}
+		);*/
+        embedded_svc.init(
+            'https://wuicare--VPM2.cs65.my.salesforce.com',
+            'https://vpm2-wucare.cs65.force.com/care',
+            gslbBaseURL,
+            '00D0m0000009fEK',
+            'WUCare_Embedded_Service_Non_Auth',
+            {
+                baseLiveAgentContentURL: 'https://c.la1-c1cs-ord.salesforceliveagent.com/content',
+                deploymentId: '5721500000007Ds',
+                buttonId: '5731500000008OV',
+                baseLiveAgentURL: 'https://d.la1-c1cs-ord.salesforceliveagent.com/chat',
+                eswLiveAgentDevName: 'EmbeddedServiceLiveAgent_Parent04I0m000000007lEAA_16b9ed43360',
+                isOfflineSupportEnabled: false
+            }
+        );   
+        } else {
+            embedded_svc.init(
+                'https://wuicare--VPM2.cs65.my.salesforce.com',
+                'https://vpm2-wucare.cs65.force.com/care',
+                gslbBaseURL,
+                '00D0m0000009fEK',
+                'WUCare_Embedded_Service_Non_Auth',
+                {
+                    baseLiveAgentContentURL: 'https://c.la1-c1cs-ord.salesforceliveagent.com/content',
+                    deploymentId: '5721500000007Ds',
+                    buttonId: '5731500000008OV',
+                    baseLiveAgentURL: 'https://d.la1-c1cs-ord.salesforceliveagent.com/chat',
+                    eswLiveAgentDevName: 'EmbeddedServiceLiveAgent_Parent04I0m000000007lEAA_16b9ed43360',
+                    isOfflineSupportEnabled: false
+                }
+            );
+        }        
+	};
+
+	if (!window.embedded_svc) {
+		var s = document.createElement('script');
+		s.setAttribute('src', 'https://wuicare--VPM2.cs65.my.salesforce.com/embeddedservice/5.0/esw.min.js');
+		s.onload = function() {
+			initESW(null);
+		};
+		document.body.appendChild(s);
+	} else {
+		initESW('https://service.force.com');
+	}
+</script>
+<h1>WUCHAT2 Welcome!</h1>
+<div>
+    <label for="username">Username: </label>
+    <input type="text" id="username" name="username">
+</div>
+
+<div>
+    <label for="pass">Password (8 characters minimum): </label>
+    <input type="password" id="pass" name="password"
+           minlength="8" required>
+</div>
+<p> <a href='/index2'><input type="button" value="Sign in"></a> </p>
+
+<p> <a href='/index'>Home</a> </p>
+<p> <a href='/indexUnAuth'>UnAuth1</a> </p>
+<p> <a href='/indexUnAuth2'>UnAuth2</a> </p>
+
+<p> <a href='https://dev-harryha.github.io/'> Link to GitHub Pages </a> </p>
+<p> <a href='https://agitated-ptolemy-228313.netlify.com/'> Link to Netlify Pages </a> </p>
+
+</body>
+</html>
