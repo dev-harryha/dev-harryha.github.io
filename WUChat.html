@@ -49,21 +49,36 @@
         // Condition would be here to check language and/or auth vs unauth users.
         if(true) {
             embedded_svc.settings.extraPrechatFormDetails = [{
-                "label":"issue",
+                "label":"CaseSubject",
                 "value":"Western Union",
+                "displayToAgent":true
+            }, {
+                "label":"CaseChannelType",
+                "value":"WU.com Money Transfer",
+                "displayToAgent":true
+            }, {
+                "label":"CaseIntakeChannel",
+                "value":"WU.com - Chat",
+                "displayToAgent":true
+            }, {
+                "label":"CaseCallerType",
+                "value":"Sender",
+                "displayToAgent":true
+            }, {
+                "label":"CaseChatCreatedCaseText",
+                "value":"True",
                 "displayToAgent":true
             }, {
                 "label":"Record Type ID",
                 "value":"01215000001cpF3AAI"
-            },
-            {
+            }, {
                 "label":"AccountName",
                 "value":"Testing Testing"
             }]; 
             
             embedded_svc.settings.extraPrechatInfo = [{
                 "entityName":"Contact",
-                "showOnCreate":true,
+                "showOnCreate":false,
                 "saveToTranscript":"Contact",
                 "showOnCreate":true,
                 "entityFieldMaps":[{
@@ -105,13 +120,13 @@
             }, {
                 "entityName":"Case",
                 "showOnCreate":true,
-                "saveToTranscript":"CaseId",
+                "saveToTranscript":"Case, CaseId",
                 "entityFieldMaps": [{
                     "isExactMatch":false,
                     "fieldName":"Subject",
                     "doCreate":true,
                     "doFind":false,
-                    "label":"issue"
+                    "label":"CaseSubject"
                   }, {
                     "isExactMatch":false,
                     "fieldName":"Status",
@@ -124,6 +139,30 @@
                     "doCreate":true,
                     "doFind":false,
                     "label":"Origin"
+                }, {
+                    "isExactMatch":false,
+                    "fieldName":"CaseChannel_Type__c",
+                    "doCreate":true,
+                    "doFind":false,
+                    "label":"CaseChannelType"
+                }, {
+                    "isExactMatch":false,
+                    "fieldName":"CaseIntake_Channel__c",
+                    "doCreate":true,
+                    "doFind":false,
+                    "label":"CaseIntakeChannel"
+                }, {
+                    "isExactMatch":false,
+                    "fieldName":"CaseCaller_Type__c",
+                    "doCreate":true,
+                    "doFind":false,
+                    "label":"CaseCallerType"
+                }, {
+                    "isExactMatch":false,
+                    "fieldName":"IsChatCreatedCaseText",
+                    "doCreate":true,
+                    "doFind":false,
+                    "label":"CaseChatCreatedCaseText"
                 }]
             }];
 
