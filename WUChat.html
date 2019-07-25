@@ -87,7 +87,7 @@
                     "doFind":true,
                     "fieldName":"LastName",
                     "isExactMatch":true,
-                    "label":"LastName"
+                    "label":"Last Name"
                 }, {
                     "doCreate":true,
                     "doFind":true,
@@ -102,24 +102,6 @@
                     "label":"Email"
                 }]
             }, {
-                'entityName':'Account',
-                'showOnCreate':true,
-                "linkToEntityName":"Case",
-                "linkToEntityField":"AccountId",
-                'entityFieldMaps':[{
-                    'isExactMatch':true,
-                    'fieldName':'Name',
-                    'doCreate':true,
-                    'doFind':true,
-                    'label':'AccountName'
-                }, {
-                    "doCreate": true,
-                    "doFind": true,
-                    "fieldName": "RecordTypeId",
-                    "isExactMatch": true, 
-                    "label": "Record Type ID"
-                }]
-            }, {
                 "entityName":"Case",
                 "showOnCreate":true,
                 "saveToTranscript":"CaseId",
@@ -127,45 +109,63 @@
                     "isExactMatch":true,
                     "fieldName":"Subject",
                     "doCreate":true,
-                    "doFind":false,
+                    "doFind":true,
                     "label":"CaseSubject"
                   }, {
                     "isExactMatch":true,
                     "fieldName":"Status",
                     "doCreate":true,
-                    "doFind":false,
+                    "doFind":true,
                     "label":"Status"
                   }, {
                     "isExactMatch":true,
                     "fieldName":"Origin",
                     "doCreate":true,
-                    "doFind":false,
+                    "doFind":true,
                     "label":"Origin"
                 }, {
                     "isExactMatch":true,
                     "fieldName":"CaseChannel_Type__c",
                     "doCreate":true,
-                    "doFind":false,
+                    "doFind":true,
                     "label":"CaseChannelType"
                 }, {
                     "isExactMatch":true,
                     "fieldName":"CaseIntake_Channel__c",
                     "doCreate":true,
-                    "doFind":false,
+                    "doFind":true,
                     "label":"CaseIntakeChannel"
                 }, {
                     "isExactMatch":true,
                     "fieldName":"CaseCaller_Type__c",
                     "doCreate":true,
-                    "doFind":false,
+                    "doFind":true,
                     "label":"CaseCallerType"
                 }, {
                     "isExactMatch":true,
                     "fieldName":"IsChatCreatedCaseText",
                     "doCreate":true,
-                    "doFind":false,
+                    "doFind":true,
                     "label":"CaseChatCreatedCaseText"
                 }]
+            }, {
+                'entityName':'Account',
+                'showOnCreate':true,
+                //"linkToEntityName":"Case",
+                //"linkToEntityField":"AccountId",
+                'entityFieldMaps':[{
+                    'isExactMatch':true,
+                    'fieldName':'Name',
+                    'doCreate':true,
+                    'doFind':true,
+                    'label':'AccountName'
+                }/*, {
+                    "doCreate": true,
+                    "doFind": true,
+                    "fieldName": "RecordTypeId",
+                    "isExactMatch": true, 
+                    "label": "Record Type ID"
+                }*/]
             }];
 
         /*embedded_svc.init(
