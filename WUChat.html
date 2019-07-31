@@ -7,16 +7,11 @@
 <style type='text/css'>
 	.embeddedServiceHelpButton .helpButton .uiButton {
 		background-color: #FFDA1A;
-		font-family: "Salesforce Sans", sans-serif;
+		font-family: "Arial", sans-serif;
 		color: #333333;
 	}
 	.embeddedServiceHelpButton .helpButton .uiButton:focus {
 		outline: 1px solid #FFDA1A;
-	}
-	@font-face {
-		font-family: 'Salesforce Sans';
-		src: url('https://www.sfdcstatic.com/system/shared/common/assets/fonts/SalesforceSans/SalesforceSans-Regular.woff') format('woff'),
-		url('https://www.sfdcstatic.com/system/shared/common/assets/fonts/SalesforceSans/SalesforceSans-Regular.ttf') format('truetype');
 	}
 </style>
 
@@ -28,7 +23,7 @@
 		//embedded_svc.settings.smallCompanyLogoImgURL = 'https://wuicare--vpm2--c.cs65.visual.force.com/resource/1563475528000/WU_Chat_Icon';
 
 		embedded_svc.settings.defaultMinimizedText = 'Chat with WU'; //(Defaults to Chat with an Expert)
-		embedded_svc.settings.disabledMinimizedText = 'Chat Offline'; //(Defaults to Agent Offline)
+		embedded_svc.settings.disabledMinimizedText = 'Chat Unavailable'; //(Defaults to Agent Offline)
 
 		//embedded_svc.settings.loadingText = ''; //(Defaults to Loading)
 		embedded_svc.settings.storageDomain = 'dev-harryha.github.io'; //(Sets the domain for your deployment so that visitors can navigate subdomains during a chat session)
@@ -101,7 +96,7 @@
                 "label": "AccountRecordType"
             }]
         }, {
-            // Not creating the contact, but finding the contact from the PersonAccount and linking it to the Case
+            // Not creating the contact, but finding the contact from the PersonAccount and linking it to the Case (not possible it seems..)
             "entityFieldMaps":[{
                 "doCreate":false,
                 "doFind":true,
@@ -179,6 +174,9 @@
 		embedded_svc.settings.entryFeature = 'LiveAgent';
         // Condition would be here to check language and/or auth vs unauth users.
         if(true) {
+            /* Here would be where we need to retrieve/read the cookie
+                to get the logged in user's fname, lname, and email
+            */
             let tempFirstName = {
                 "label":"First Name",
                 "name":"FirstName",
