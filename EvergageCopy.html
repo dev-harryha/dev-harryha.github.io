@@ -9,27 +9,49 @@
 		background-color: #FFDA1A;
 		font-family: "Arial", sans-serif;
 		color: #333333;
+		font-size: 13px;
 	}
-	.embeddedServiceHelpButton .helpButton .uiButton:focus {
-		outline: 1px solid #FFDA1A;
+    .embeddedServiceHelpButton .helpButton {
+        right: 120px !important;
+    }
+    .embeddedServiceHelpButton .helpButton .uiButton:focus {
+        outline: 1px solid #FFDA1A;
     }
     .embeddedServiceHelpButton .helpButton .uiButton:hover {
-		background-color: #ffcc00
-	}
-	.embeddedServiceHelpButton .helpButtonEnabled:hover {
-		background-color: #ffcc00
-	}
+        background-color: #ffcc00
+    }
+    .embeddedServiceHelpButton .helpButtonEnabled:hover {
+        background-color: #ffcc00
+    }
 </style>
 
 <script type='text/javascript' src='https://service.force.com/embeddedservice/5.0/esw.min.js'></script>
 <script type='text/javascript'>
+	// Retrieve the logged in user details from browser sessionStorage. This snippet provided by WU team.
+    var getLoggedInUserdetails =  function() {
+        var userDetails = {};
+        var gatewayCutomer = window.sessionStorage.getItem('GatewayCustomer');
+        if(gatewayCutomer) {
+            var gatewayCutomerObject = JSON.parse(gatewayCutomer);
+            if(gatewayCutomerObject && gatewayCutomerObject.preferredCustomer && gatewayCutomerObject.preferredCustomer.accountNbr) {
+                userDetails = { 
+                    "fname" : gatewayCutomerObject.name.firstName, 
+                    "lname" : gatewayCutomerObject.name.lastName, 
+                    "email" : gatewayCutomerObject.email
+                    };
+            }                  
+        }
+        return JSON.stringify(userDetails);
+    };
+
 	var initESW = function(gslbBaseURL) {
 		embedded_svc.settings.displayHelpButton = true; //Or false
 		embedded_svc.settings.language = 'en-US'; //For example, enter 'en' or 'en-US'
 		//embedded_svc.settings.smallCompanyLogoImgURL = 'https://wuicare--vpm2--c.cs65.visual.force.com/resource/1563475528000/WU_Chat_Icon';
 
-		embedded_svc.settings.defaultMinimizedText = 'Chat with WU'; //(Defaults to Chat with an Expert)
+		embedded_svc.settings.defaultMinimizedText = 'Chat with Us'; //(Defaults to Chat with an Expert)
 		embedded_svc.settings.disabledMinimizedText = 'Chat Unavailable'; //(Defaults to Agent Offline)
+		embedded_svc.settings.widgetFontSize = "14px";
 
 		//embedded_svc.settings.loadingText = ''; //(Defaults to Loading)
 		embedded_svc.settings.storageDomain = 'dev-harryha.github.io'; //(Sets the domain for your deployment so that visitors can navigate subdomains during a chat session)
@@ -68,6 +90,7 @@
             "value":"01215000001cpF3AAI"
         }];
         
+
         embedded_svc.settings.extraPrechatInfo = [{
             // Creating a person account using the recordtypeid and linking to case
             'entityName':'Account',
@@ -101,7 +124,7 @@
                 "label": "AccountRecordType"
             }]
         }, {
-            // Not creating the contact, but finding the contact from the PersonAccount and linking it to the Case
+            // Not creating the contact, but finding the contact from the PersonAccount and linking it to the Case (not possible it seems..)
             "entityFieldMaps":[{
                 "doCreate":false,
                 "doFind":false,
@@ -116,9 +139,9 @@
                 "label":"First Name"
             }, {
                 "doCreate":false,
-                "doFind":false,
+                "doFind":true,
                 "fieldName":"Email",
-                "isExactMatch":false,
+                "isExactMatch":true,
                 "label":"Email"
             }],
             "entityName":"Contact",
@@ -176,23 +199,67 @@
         }];
 
 		embedded_svc.settings.enabledFeatures = ['LiveAgent'];
-		embedded_svc.settings.entryFeature = 'LiveAgent';
-        
-        embedded_svc.init(
-            'https://wuicare--VPM2.cs65.my.salesforce.com',
-            'https://vpm2-wucare.cs65.force.com/care',
-            gslbBaseURL,
-            '00D0m0000009fEK',
-            'WUCare_Embedded_Service_Non_Auth',
-            {
-                baseLiveAgentContentURL: 'https://c.la1-c1cs-ord.salesforceliveagent.com/content',
-                deploymentId: '5721500000007Ds',
-                buttonId: '5731500000008OV',
-                baseLiveAgentURL: 'https://d.la1-c1cs-ord.salesforceliveagent.com/chat',
-                eswLiveAgentDevName: 'EmbeddedServiceLiveAgent_Parent04I0m000000007lEAA_16b9ed43360',
-                isOfflineSupportEnabled: false
-            }
-        );   
+        embedded_svc.settings.entryFeature = 'LiveAgent';
+
+        embedded_svc.settings.westernUnionUserDetails = getLoggedInUserdetails();
+        console.log(embedded_svc.settings.westernUnionUserDetails);
+        // Condition would be here to check language and/or auth vs unauth users.
+        if(embedded_svc.settings.westernUnionUserDetails === '{}') {
+            embedded_svc.init(
+                'https://wuicare--VPM2.cs65.my.salesforce.com',
+                'https://vpm2-wucare.cs65.force.com/care',
+                gslbBaseURL,
+                '00D0m0000009fEK',
+                'WUCare_Embedded_Service_Non_Auth',
+                {
+                    baseLiveAgentContentURL: 'https://c.la1-c1cs-ord.salesforceliveagent.com/content',
+                    deploymentId: '5721500000007Ds',
+                    buttonId: '5731500000008OV',
+                    baseLiveAgentURL: 'https://d.la1-c1cs-ord.salesforceliveagent.com/chat',
+                    eswLiveAgentDevName: 'EmbeddedServiceLiveAgent_Parent04I0m000000007lEAA_16b9ed43360',
+                    isOfflineSupportEnabled: false
+                }
+            );
+        } else {
+            /* Here would be where we need to retrieve/read the cookie
+                to get the logged in user's fname, lname, and email
+            */
+            const loggedInUser = JSON.parse(embedded_svc.settings.westernUnionUserDetails);
+
+            const tempFirstName = {
+                "label":"First Name",
+                "name":"FirstName",
+                "value":loggedInUser.fname,
+                "displayToAgent":true
+            };
+            const tempLastName = {
+                "label":"Last Name",
+                "value":loggedInUser.lname,
+                "displayToAgent":true
+            }; 
+            const tempEmail = {
+                "label":"Email",
+                "value":loggedInUser.email,
+                "displayToAgent":true
+            };
+
+            embedded_svc.settings.extraPrechatFormDetails.push(tempFirstName, tempLastName, tempEmail);
+            embedded_svc.init(
+                'https://wuicare--VPM2.cs65.my.salesforce.com',
+                'https://vpm2-wucare.cs65.force.com/care',
+                gslbBaseURL,
+                '00D0m0000009fEK',
+                'WUCare_Embedded_Service',
+                {
+                    baseLiveAgentContentURL: 'https://c.la1-c1cs-ord.salesforceliveagent.com/content',
+                    deploymentId: '5721500000007Ds',
+                    buttonId: '5731500000008OV',
+                    baseLiveAgentURL: 'https://d.la1-c1cs-ord.salesforceliveagent.com/chat',
+                    eswLiveAgentDevName: 'EmbeddedServiceLiveAgent_Parent04I0m000000007bEAA_16b95707fb2',
+                    isOfflineSupportEnabled: false
+                }
+            ); 
+        }        
 	};
 
 	if (!window.embedded_svc) {
