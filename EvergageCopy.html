@@ -5,15 +5,20 @@
 </head>
 <body>
 <style type='text/css'>
-	.embeddedServiceHelpButton .helpButton .uiButton {
-		background-color: #FFDA1A;
-		font-family: "Arial", sans-serif;
-		color: #333333;
-		font-size: 13px;
-	}
-    .embeddedServiceHelpButton .helpButton {
-        right: 120px !important;
+	@media only screen and (max-width: 600px) {
+        .embeddedServiceHelpButton .helpButton {
+            bottom: 10px;
+            left: 10px;
+        }
     }
+    
+    .embeddedServiceHelpButton .helpButton .uiButton {
+            background-color: #FFDA1A;
+            font-family: "Arial", sans-serif;
+            color: #333333;
+            font-size:14px;
+        }
+    
     .embeddedServiceHelpButton .helpButton .uiButton:focus {
         outline: 1px solid #FFDA1A;
     }
