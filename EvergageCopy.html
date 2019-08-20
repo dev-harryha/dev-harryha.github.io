@@ -254,7 +254,7 @@
         console.log(embedded_svc.settings.westernUnionUserDetails);
         // Condition would be here to check language and/or auth vs unauth users.
         if(embedded_svc.settings.westernUnionUserDetails === '{}') {
-            /*embedded_svc.init(
+            embedded_svc.init(
                 'https://wuicare--VPM2.cs65.my.salesforce.com',
                 'https://vpm2-wucare.cs65.force.com/care',
                 gslbBaseURL,
@@ -268,8 +268,8 @@
                     eswLiveAgentDevName: 'EmbeddedServiceLiveAgent_Parent04I0m000000007lEAA_16b9ed43360',
                     isOfflineSupportEnabled: false
                 }
-            ); */
-            embedded_svc.init(
+            );
+            /*embedded_svc.init(
                 'https://wuicare--VPM2.cs65.my.salesforce.com',
                 'https://vpm2-wucare.cs65.force.com/care',
                 gslbBaseURL,
@@ -283,7 +283,7 @@
                     eswLiveAgentDevName: 'EmbeddedServiceLiveAgent_Parent04I0m000000CaSyEAK_16c9bd1ded7',
                     isOfflineSupportEnabled: false
                 }
-            );
+            );*/
         } else {
             /* Here would be where we need to retrieve/read the cookie
                 to get the logged in user's fname, lname, and email
