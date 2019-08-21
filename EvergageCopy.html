@@ -84,7 +84,7 @@
 		document.getElementById('acceptInvite').onclick = function() { embedded_svc.inviteAPI.inviteButton.acceptInvite(); }; // use this API call to start chat from invitations
 		document.addEventListener('keyup', function(event) { if (event.keyCode == 27) { embedded_svc.inviteAPI.inviteButton.rejectInvite(); }})
 	})();
-	// Retrieve the logged in user details from browser sessionStorage. This snippet provided by WU team.
+	// Retrieve the logged in user details from browser sessionStorage. This snippet provided by WU team
     var getLoggedInUserdetails =  function() {
         var userDetails = {};
         var gatewayCutomer = window.sessionStorage.getItem('GatewayCustomer');
@@ -343,7 +343,7 @@
 		initESW('https://service.force.com');
 	}
 </script>
-<h1>WUCHAT Welcome!v2</h1>
+<h1>WUCHAT Welcome!</h1>
 <div>
     <label for="username">Username: </label>
     <input type="text" id="username" name="username">
