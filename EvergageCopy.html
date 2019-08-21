@@ -23,12 +23,12 @@
             color: #333333;
             font-size:14px;
             min-width: 2em;
-            width: 95px;
+            width: 120px;
     }
 
     .embeddedServiceSidebarMinimizedDefaultUI.helpButton {
         min-width: 2em;
-        width: 95px;
+        width: 120px;
     }
     
     .embeddedServiceHelpButton .helpButton .uiButton:focus {
@@ -261,6 +261,7 @@
         console.log(embedded_svc.settings.westernUnionUserDetails);
         // Condition would be here to check language and/or auth vs unauth users.
         if(embedded_svc.settings.westernUnionUserDetails === '{}') {
+            //Change the parameters below for each different org. To get the code below, go to Setup>Embedded Service> Get Code
             embedded_svc.init(
                 'https://wuicare--VPM2.cs65.my.salesforce.com',
                 'https://vpm2-wucare.cs65.force.com/care',
@@ -292,9 +293,6 @@
                 }
             );*/
         } else {
-            /* Here would be where we need to retrieve/read the cookie
-                to get the logged in user's fname, lname, and email
-            */
             const loggedInUser = JSON.parse(embedded_svc.settings.westernUnionUserDetails);
 
             const tempFirstName = {
@@ -315,6 +313,7 @@
             };
 
             embedded_svc.settings.extraPrechatFormDetails.push(tempFirstName, tempLastName, tempEmail);
+            //Change the parameters below for each different org. To get the code below, go to Setup>Embedded Service> Get Code
             embedded_svc.init(
                 'https://wuicare--VPM2.cs65.my.salesforce.com',
                 'https://vpm2-wucare.cs65.force.com/care',
