@@ -25,7 +25,7 @@
 <p> <a href='https://agitated-ptolemy-228313.netlify.com/'> Link to Netlify Pages </a> </p>
 
 
-/**************** START CHAT CODE ****************/
+<!-- START CHAT CODE -->
 <style type='text/css'>
 	@media only screen and (max-width: 600px) {
         .embeddedServiceHelpButton .helpButton .uiButton {
@@ -105,7 +105,8 @@
 		document.getElementById('rejectInvite').onclick = function() { embedded_svc.inviteAPI.inviteButton.rejectInvite(); }; // use this API call to reject invitations
 		document.getElementById('acceptInvite').onclick = function() { embedded_svc.inviteAPI.inviteButton.acceptInvite(); }; // use this API call to start chat from invitations
 		document.addEventListener('keyup', function(event) { if (event.keyCode == 27) { embedded_svc.inviteAPI.inviteButton.rejectInvite(); }})
-	})();
+    })();
+    console.log(window.location.href);
 	// Retrieve the logged in user details from browser sessionStorage. This snippet provided by WU team
     var getLoggedInUserdetails =  function() {
         var userDetails = {};
