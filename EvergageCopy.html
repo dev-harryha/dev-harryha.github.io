@@ -273,6 +273,15 @@
         //console.log(embedded_svc.settings.westernUnionUserDetails);
         // Condition would be here to check language and/or auth vs unauth users.
         if(embedded_svc.settings.westernUnionUserDetails === '{}') {
+            embedded_svc.addEventHandler("onHelpButtonClick", function(data) {
+                console.log("onHelpButtonClick event was fired.");
+                let a = document.createElement('a');
+                let linkText = document.createTextNode("Privacy Statement");
+                a.appendChild(linkText);
+                a.title = "Privacy Statement";
+                a.href = "https://wwww.westernunion.com";
+                document.querySelector(".fieldList").appendChild(a);
+            });
             //Change the parameters below for each different org. To get the code below, go to Setup>Embedded Service> Get Code
             embedded_svc.init(
                 'https://wuicare--VPM2.cs65.my.salesforce.com',
