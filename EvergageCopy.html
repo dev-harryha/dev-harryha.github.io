@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
 </head>
 <body>
-<h1>WUCHAT Welcome!v1</h1>
+<h1>WUCHAT Welcome!v2</h1>
 <div>
     <label for="username">Username: </label>
     <input type="text" id="username" name="username">
@@ -273,14 +273,14 @@
         //console.log(embedded_svc.settings.westernUnionUserDetails);
         // Condition would be here to check language and/or auth vs unauth users.
         if(embedded_svc.settings.westernUnionUserDetails === '{}') {
-            embedded_svc.addEventHandler("onChatRequestSuccess", function(data) {
-                console.log("onChatRequestSuccess event was fired.");
-                let a = document.createElement('a');
+            embedded_svc.addEventHandler("onHelpButtonClick", function(data) {
+                console.log("onHelpButtonClick event was fired.");
+                /*let a = document.createElement('a');
                 let linkText = document.createTextNode("Privacy Statement");
                 a.appendChild(linkText);
                 a.title = "Privacy Statement";
                 a.href = "https://wwww.westernunion.com";
-                document.querySelector(".fieldList").appendChild(a);
+                document.querySelector(".fieldList").appendChild(a);*/
             });
             //Change the parameters below for each different org. To get the code below, go to Setup>Embedded Service> Get Code
             embedded_svc.init(
@@ -347,12 +347,6 @@
         document.body.appendChild(s);
 	} else {
         initESW('https://service.force.com');
-        let a = document.createElement('a');
-        let linkText = document.createTextNode("Privacy Statement");
-        a.appendChild(linkText);
-        a.title = "Privacy Statement";
-        a.href = "https://wwww.westernunion.com";
-        document.querySelector(".fieldList").appendChild(a);
 	}
 </script>
 </body>
