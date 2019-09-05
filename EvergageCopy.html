@@ -298,12 +298,6 @@
                     isOfflineSupportEnabled: false
                 }
             );
-            let a = document.createElement('a');
-                let linkText = document.createTextNode("Privacy Statement");
-                a.appendChild(linkText);
-                a.title = "Privacy Statement";
-                a.href = "https://wwww.westernunion.com";
-                document.querySelector(".fieldList").appendChild(a);
         } else {
             const loggedInUser = JSON.parse(embedded_svc.settings.westernUnionUserDetails);
 
@@ -350,9 +344,15 @@
 		s.onload = function() {
 			initESW(null);
 		};
-		document.body.appendChild(s);
+        document.body.appendChild(s);
 	} else {
-		initESW('https://service.force.com');
+        initESW('https://service.force.com');
+        let a = document.createElement('a');
+        let linkText = document.createTextNode("Privacy Statement");
+        a.appendChild(linkText);
+        a.title = "Privacy Statement";
+        a.href = "https://wwww.westernunion.com";
+        document.querySelector(".fieldList").appendChild(a);
 	}
 </script>
 </body>
