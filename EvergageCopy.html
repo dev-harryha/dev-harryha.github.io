@@ -270,13 +270,6 @@
         }];
 
         embedded_svc.settings.westernUnionUserDetails = getLoggedInUserdetails();
-        console.log("onChatRequestSuccess event was fired.");
-                let a = document.createElement('a');
-                let linkText = document.createTextNode("Privacy Statement");
-                a.appendChild(linkText);
-                a.title = "Privacy Statement";
-                a.href = "https://wwww.westernunion.com";
-                document.querySelector(".fieldList").appendChild(a);
         //console.log(embedded_svc.settings.westernUnionUserDetails);
         // Condition would be here to check language and/or auth vs unauth users.
         if(embedded_svc.settings.westernUnionUserDetails === '{}') {
@@ -305,6 +298,12 @@
                     isOfflineSupportEnabled: false
                 }
             );
+            let a = document.createElement('a');
+                let linkText = document.createTextNode("Privacy Statement");
+                a.appendChild(linkText);
+                a.title = "Privacy Statement";
+                a.href = "https://wwww.westernunion.com";
+                document.querySelector(".fieldList").appendChild(a);
         } else {
             const loggedInUser = JSON.parse(embedded_svc.settings.westernUnionUserDetails);
 
