@@ -275,7 +275,7 @@
         if(embedded_svc.settings.westernUnionUserDetails === '{}') {
             embedded_svc.addEventHandler("onHelpButtonClick", function(data) {
                 console.log("onHelpButtonClick event was fired.");
-                const targetNode = document.querySelector('div.stateBody.embeddedServiceSidebarState');
+                const targetNode = document.querySelector('body.slds-scope');
                 const config = { attributes: true, childList: true, characterData: true , subtree: true};
                 // Callback function to execute when mutations are observed
                 const callback = function(mutationsList, observer) {
