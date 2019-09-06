@@ -276,7 +276,7 @@
             embedded_svc.addEventHandler("onHelpButtonClick", function(data) {
                 console.log("onHelpButtonClick event was fired.");
                 const targetNode = document.querySelector('body');
-                const config = { attributes: true, childList: true, characterData: true };
+                const config = { attributes: true, childList: true, characterData: true , subtree: true};
                 // Callback function to execute when mutations are observed
                 const callback = function(mutationsList, observer) {
                     for(let mutation of mutationsList) {
