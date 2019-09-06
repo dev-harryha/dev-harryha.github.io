@@ -280,6 +280,7 @@
                 // Callback function to execute when mutations are observed
                 const callback = function(mutationsList, observer) {
                     for(let mutation of mutationsList) {
+                        console.log(mutation);
                         if (mutation.type === 'childList') {
                             console.log('A child node has been added or removed.');
                         }
