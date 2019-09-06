@@ -275,6 +275,16 @@
         /* START */
         embedded_svc.addEventHandler("onHelpButtonClick", function(data) {
             console.log("onHelpButtonClick event was fired.");
+            var target = document.querySelector('.dockableContainer');
+
+            var observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                console.log(mutation.type);
+            });    
+            });
+
+            var config = { attributes: true, childList: true, characterData: true };
+            observer.observe(target, config);
         });
         
         embedded_svc.addEventHandler("onChatRequestSuccess", function(data) {
