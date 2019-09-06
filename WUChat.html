@@ -4,35 +4,98 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
 </head>
 <body>
+<h1>WUCHAT Welcome!v1</h1>
+<div>
+    <label for="username">Username: </label>
+    <input type="text" id="username" name="username">
+</div>
+
+<div>
+    <label for="pass">Password (8 characters minimum): </label>
+    <input type="password" id="pass" name="password"
+           minlength="8" required>
+</div>
+<p> <a href='/index2'><input type="button" value="Sign in"></a> </p>
+
+<p> <a href='/index'>Home</a> </p>
+<p> <a href='/indexUnAuth'>UnAuth1</a> </p>
+<p> <a href='/indexUnAuth2'>UnAuth2</a> </p>
+
+<p> <a href='https://dev-harryha.github.io/'> Link to GitHub Pages </a> </p>
+<p> <a href='https://agitated-ptolemy-228313.netlify.com/'> Link to Netlify Pages </a> </p>
+
+
+<!-- START CHAT CODE -->
 <style type='text/css'>
-	.embeddedServiceHelpButton .helpButton .uiButton {
-		background-color: #FFDA1A;
-		font-family: "Arial", sans-serif;
-		color: #333333;
-	}
-	.embeddedServiceHelpButton .helpButton .uiButton:focus {
-		outline: 1px solid #FFDA1A;
+	@media only screen and (max-width: 600px) {
+        .embeddedServiceHelpButton .helpButton .uiButton {
+            min-width: 2em;
+            width: 95px;
+        }
+        .embeddedServiceSidebarMinimizedDefaultUI.helpButton {
+            min-width: 2em;
+            width: 95px;
+            padding: 0 14px;
+        }
+    }
+    
+    .embeddedServiceHelpButton .helpButton .uiButton {
+            background-color: #FFDA1A;
+            font-family: "Arial", sans-serif;
+            color: #333333;
+            font-size:14px;
+            min-width: 2em;
+            width: 120px;
+    }
+
+    .embeddedServiceSidebarMinimizedDefaultUI.helpButton {
+        min-width: 2em;
+        width: 120px;
+    }
+    
+    .embeddedServiceHelpButton .helpButton .uiButton:focus {
+        outline: 1px solid #FFDA1A;
     }
     .embeddedServiceHelpButton .helpButton .uiButton:hover {
-		background-color: #ffcc00
-	}
-	.embeddedServiceHelpButton .helpButtonEnabled:hover {
-		background-color: #ffcc00
-	}
+        background-color: #ffcc00
+    }
+    .embeddedServiceHelpButton .helpButtonEnabled:hover {
+        background-color: #ffcc00
+    }
 </style>
 
 <script type='text/javascript' src='https://service.force.com/embeddedservice/5.0/esw.min.js'></script>
 <script type='text/javascript'>
+    //console.log(window.location.href);
+	// Retrieve the logged in user details from browser sessionStorage. This snippet provided by WU team
+    var getLoggedInUserdetails =  function() {
+        var userDetails = {};
+        var gatewayCutomer = window.sessionStorage.getItem('GatewayCustomer');
+        if(gatewayCutomer) {
+            var gatewayCutomerObject = JSON.parse(gatewayCutomer);
+            if(gatewayCutomerObject && gatewayCutomerObject.preferredCustomer && gatewayCutomerObject.preferredCustomer.accountNbr) {
+                userDetails = { 
+                    "fname" : gatewayCutomerObject.name.firstName, 
+                    "lname" : gatewayCutomerObject.name.lastName, 
+                    "email" : gatewayCutomerObject.email
+                    };
+            }                  
+        }
+        return JSON.stringify(userDetails);
+    };
+
 	var initESW = function(gslbBaseURL) {
 		embedded_svc.settings.displayHelpButton = true; //Or false
-		embedded_svc.settings.language = 'en-US'; //For example, enter 'en' or 'en-US'
-		//embedded_svc.settings.smallCompanyLogoImgURL = 'https://wuicare--vpm2--c.cs65.visual.force.com/resource/1563475528000/WU_Chat_Icon';
+		embedded_svc.settings.language = 'en'; //For example, enter 'en' or 'en-US'
+        //embedded_svc.settings.smallCompanyLogoImgURL = 'https://wuicare--vpm2--c.cs65.visual.force.com/resource/1563475528000/WU_Chat_Icon';
+        embedded_svc.settings.avatarImgURL = 'https://www.westernunion.com/content/dam/wu/us/en/Logo_40x40.png';
 
-		embedded_svc.settings.defaultMinimizedText = 'Chat with WU'; //(Defaults to Chat with an Expert)
-		embedded_svc.settings.disabledMinimizedText = 'Chat Unavailable'; //(Defaults to Agent Offline)
+		embedded_svc.settings.defaultMinimizedText = 'Chat'; //(Defaults to Chat with an Expert)
+		embedded_svc.settings.disabledMinimizedText = 'Chat'; //(Defaults to Agent Offline)
+		embedded_svc.settings.widgetFontSize = "14px";
 
 		//embedded_svc.settings.loadingText = ''; //(Defaults to Loading)
-		embedded_svc.settings.storageDomain = 'dev-harryha.github.io'; //(Sets the domain for your deployment so that visitors can navigate subdomains during a chat session)
+		embedded_svc.settings.storageDomain = window.location.host; //(Sets the domain for your deployment so that visitors can navigate subdomains during a chat session)
 
 		// Settings for Chat
 		//embedded_svc.settings.directToButtonRouting = function(prechatFormData) {
@@ -42,6 +105,11 @@
 		//embedded_svc.settings.prepopulatedPrechatFields = {}; //Sets the auto-population of pre-chat form fields
 		//embedded_svc.settings.fallbackRouting = []; //An array of button IDs, user IDs, or userId_buttonId
         //embedded_svc.settings.offlineSupportMinimizedText = '...'; //(Defaults to Contact Us)
+
+        
+		embedded_svc.settings.enabledFeatures = ['LiveAgent'];
+        embedded_svc.settings.entryFeature = 'LiveAgent';
+
         embedded_svc.settings.extraPrechatFormDetails = [{
             "label":"CaseSubject",
             "value":"Western Union",
@@ -61,6 +129,10 @@
         }, {
             "label":"CaseChatCreatedCaseText",
             "value":"True",
+            "displayToAgent":true
+        }, {
+            "label":"PreferredLanguage",
+            "value":"English",
             "displayToAgent":true
         }, {
             // Person Account RecordType for Identified Customer
@@ -105,27 +177,24 @@
             // Not creating the contact, but finding the contact from the PersonAccount and linking it to the Case (not possible it seems..)
             "entityFieldMaps":[{
                 "doCreate":false,
-                "doFind":true,
+                "doFind":false,
                 "fieldName":"LastName",
-                "isExactMatch":true,
+                "isExactMatch":false,
                 "label":"Last Name"
             }, {
                 "doCreate":false,
-                "doFind":true,
+                "doFind":false,
                 "fieldName":"FirstName",
-                "isExactMatch":true,
+                "isExactMatch":false,
                 "label":"First Name"
             }, {
                 "doCreate":false,
-                "doFind":true,
+                "doFind":false,
                 "fieldName":"Email",
                 "isExactMatch":true,
                 "label":"Email"
             }],
-            "entityName":"Contact",
-            "saveToTranscript":"ContactId",
-            "linkToEntityName":"Case",
-            "linkToEntityField":"ContactId"
+            "entityName":"Contact"
         }, {
             // Creating the map for the case fields required for WU
             "entityName":"Case",
@@ -135,161 +204,201 @@
                 "doCreate":true,
                 "doFind":false,
                 "fieldName":"Subject",
-                "isExactMatch":true,
+                "isExactMatch":false,
                 "label":"CaseSubject"
               }, {
                 "doCreate":true,
                 "doFind":false,
                 "fieldName":"Status",
-                "isExactMatch":true,
+                "isExactMatch":false,
                 "label":"Status"
               }, {
                 "doCreate":true,
                 "doFind":false,
                 "fieldName":"Origin",
-                "isExactMatch":true,
+                "isExactMatch":false,
                 "label":"Origin"
             }, {
                 "doCreate":true,
                 "doFind":false,
                 "fieldName":"Channel_Type__c",
-                "isExactMatch":true,
+                "isExactMatch":false,
                 "label":"CaseChannelType"
             }, {
                 "doCreate":true,
                 "doFind":false,
                 "fieldName":"Intake_Channel__c",
-                "isExactMatch":true,
+                "isExactMatch":false,
                 "label":"CaseIntakeChannel"
             }, {
                 "doCreate":true,
                 "doFind":false,
                 "fieldName":"Caller_Type__c",
-                "isExactMatch":true,
+                "isExactMatch":false,
                 "label":"CaseCallerType"
             }, {
                 "doCreate":true,
                 "doFind":false,
                 "fieldName":"IsChatCreatedCaseText__c",
-                "isExactMatch":true,
+                "isExactMatch":false,
                 "label":"CaseChatCreatedCaseText"
+            }, {
+                "doCreate":true,
+                "doFind":false,
+                "fieldName":"Preferred_Language__c",
+                "isExactMatch":false,
+                "label":"PreferredLanguage"
+            }, {
+                "doCreate":true,
+                "doFind":false,
+                "fieldName":"Supplied_First_Name__c",
+                "isExactMatch":false,
+                "label":"First Name"
+            }, {
+                "doCreate":true,
+                "doFind":false,
+                "fieldName":"Supplied_Last_Name__c",
+                "isExactMatch":false,
+                "label":"Last Name"
+            }, {
+                "doCreate":true,
+                "doFind":false,
+                "fieldName":"SuppliedEmail",
+                "isExactMatch":false,
+                "label":"Email"
             }]
         }];
+        
 
-		embedded_svc.settings.enabledFeatures = ['LiveAgent'];
-		embedded_svc.settings.entryFeature = 'LiveAgent';
+        embedded_svc.settings.westernUnionUserDetails = getLoggedInUserdetails();
+        //console.log(embedded_svc.settings.westernUnionUserDetails);
+        /* START */
+        embedded_svc.addEventHandler("onHelpButtonClick", function(data) {
+            console.log("onHelpButtonClick event was fired.");
+        });
+        
+        embedded_svc.addEventHandler("onChatRequestSuccess", function(data) {
+            console.log("onChatRequestSuccess event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
+        });
+        
+        embedded_svc.addEventHandler("onChatEstablished", function(data) {
+            console.log("onChatEstablished event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
+        });
+        
+        embedded_svc.addEventHandler("onChasitorMessage", function(data) {
+            console.log("onChasitorMessage event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
+        });
+        
+        embedded_svc.addEventHandler("onAgentMessage", function(data) {
+            console.log("onAgentMessage event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
+        });
+        
+        embedded_svc.addEventHandler("onChatConferenceInitiated", function(data) {
+            console.log("onChatConferenceInitiated event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
+        });
+        
+        embedded_svc.addEventHandler("onAgentJoinedConference", function(data) {
+            console.log("onAgentJoinedConference event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
+        });
+        
+        embedded_svc.addEventHandler("onAgentLeftConference", function(data) {
+            console.log("onAgentLeftConference event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
+        });
+        
+        embedded_svc.addEventHandler("onChatConferenceEnded", function(data) {
+            console.log("onChatConferenceEnded event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
+        });
+        
+        embedded_svc.addEventHandler("onChatTransferSuccessful", function(data) {
+            console.log("onChatTransferSuccessful event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
+        });
+        
+        embedded_svc.addEventHandler("onChatEndedByChasitor", function(data) {
+            console.log("onChatEndedByChasitor event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
+        });
+        
+        embedded_svc.addEventHandler("onChatEndedByAgent", function(data) {
+            console.log("onChatEndedByAgent event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
+        });
+        
+        embedded_svc.addEventHandler("onQueueUpdate", function(data) {
+            console.log("onQueueUpdate event was fired. liveAgentSessionKey was " + data.liveAgentSessionKey + "and queuePosition was " + data.queuePosition);
+        });
+        
+        embedded_svc.addEventHandler("onIdleTimeoutOccurred", function(data) {
+            console.log("onIdleTimeoutOccurred event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
+        });
+        
+        embedded_svc.addEventHandler("onConnectionError", function(data) {
+            console.log("onConnectionError event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
+        });
+        
+        embedded_svc.addEventHandler("onClickSubmitButton", function(data) {
+            console.log("onClickSubmitButton event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
+        });
+        embedded_svc.addEventHandler("onInviteAccepted", function(data) {
+            console.log("onInviteAccepted event was fired.");
+        });
+        
+        embedded_svc.addEventHandler("onInviteRejected", function(data) {
+            console.log("onInviteRejected event was fired.");
+        });
+        /* END */
         // Condition would be here to check language and/or auth vs unauth users.
-        if(true) {
-            /* Here would be where we need to retrieve/read the cookie
-                to get the logged in user's fname, lname, and email
-            */
-            let tempFirstName = {
-                "label":"First Name",
-                "name":"FirstName",
-                "value":"Donald",
-                "displayToAgent":true
-            };
-            let tempLastName = {
-                "label":"Last Name",
-                "value":"Duck",
-                "displayToAgent":true
-            }; 
-            let tempEmail = {
-                "label":"Email",
-                "value":"donaldduck@wuchattest.com",
-                "displayToAgent":true
-            };
-
-            embedded_svc.settings.extraPrechatFormDetails.push(tempFirstName, tempLastName, tempEmail);
-            /* 
-            // Preset values that will be used for the records created below
-            embedded_svc.settings.extraPrechatFormDetails = [{
-                "label":"CaseSubject",
-                "value":"Western Union",
-                "displayToAgent":true
-            }, {
-                "label":"CaseChannelType",
-                "value":"WU.com Money Transfer",
-                "displayToAgent":true
-            }, {
-                "label":"CaseIntakeChannel",
-                "value":"WU.com - Chat",
-                "displayToAgent":true
-            }, {
-                "label":"CaseCallerType",
-                "value":"Sender",
-                "displayToAgent":true
-            }, {
-                "label":"CaseChatCreatedCaseText",
-                "value":"True",
-                "displayToAgent":true
-            }, {
-                // Person Account RecordType for Identified Customer
-                "label":"AccountRecordType",
-                "value":"01215000001cpF3AAI"
-            }//Does not actually disable pre-chat...
-            ,{
-                "label":"First Name",
-                "name":"FirstName",
-                "value":"Donald",
-                "displayToAgent":true
-            }, {
-                "label":"Last Name",
-                "value":"Duck",
-                "displayToAgent":true
-            }, {
-                "label":"Email",
-                "value":"donaldduck@wuchattest.com",
-                "displayToAgent":true
-            }];*/ 
-            
-
-        /*embedded_svc.init(
-			'https://wuicare--VPM2.cs65.my.salesforce.com',
-			'https://vpm2-wucare.cs65.force.com/care',
-			gslbBaseURL,
-			'00D0m0000009fEK',
-			'WUCare_Embedded_Service',
-			{
-				baseLiveAgentContentURL: 'https://c.la1-c1cs-ord.salesforceliveagent.com/content',
-				deploymentId: '5721500000007Ds',
-				buttonId: '5731500000008OV',
-				baseLiveAgentURL: 'https://d.la1-c1cs-ord.salesforceliveagent.com/chat',
-				eswLiveAgentDevName: 'EmbeddedServiceLiveAgent_Parent04I0m000000007bEAA_16b95707fb2',
-				isOfflineSupportEnabled: false
-			}
-		);*/
-        embedded_svc.init(
-            'https://wuicare--VPM2.cs65.my.salesforce.com',
-            'https://vpm2-wucare.cs65.force.com/care',
-            gslbBaseURL,
-            '00D0m0000009fEK',
-            'WUCare_Embedded_Service_Non_Auth',
-            {
-                baseLiveAgentContentURL: 'https://c.la1-c1cs-ord.salesforceliveagent.com/content',
-                deploymentId: '5721500000007Ds',
-                buttonId: '5731500000008OV',
-                baseLiveAgentURL: 'https://d.la1-c1cs-ord.salesforceliveagent.com/chat',
-                eswLiveAgentDevName: 'EmbeddedServiceLiveAgent_Parent04I0m000000007lEAA_16b9ed43360',
-                isOfflineSupportEnabled: false
-            }
-        );   
-        } else {
+        if(embedded_svc.settings.westernUnionUserDetails === '{}') {
+            //Change the parameters below for each different org. To get the code below, go to Setup>Embedded Service> Get Code
             embedded_svc.init(
                 'https://wuicare--VPM2.cs65.my.salesforce.com',
                 'https://vpm2-wucare.cs65.force.com/care',
                 gslbBaseURL,
                 '00D0m0000009fEK',
-                'WUCare_Embedded_Service_Non_Auth',
+                'HH_Embedded_Service',
                 {
                     baseLiveAgentContentURL: 'https://c.la1-c1cs-ord.salesforceliveagent.com/content',
                     deploymentId: '5721500000007Ds',
                     buttonId: '5731500000008OV',
                     baseLiveAgentURL: 'https://d.la1-c1cs-ord.salesforceliveagent.com/chat',
-                    eswLiveAgentDevName: 'EmbeddedServiceLiveAgent_Parent04I0m000000007lEAA_16b9ed43360',
+                    eswLiveAgentDevName: 'EmbeddedServiceLiveAgent_Parent04I0m000000CaTNEA0_16d071acbc6',
                     isOfflineSupportEnabled: false
                 }
             );
+        } else {
+            const loggedInUser = JSON.parse(embedded_svc.settings.westernUnionUserDetails);
+
+            const tempFirstName = {
+                "label":"First Name",
+                "name":"FirstName",
+                "value":loggedInUser.fname,
+                "displayToAgent":true
+            };
+            const tempLastName = {
+                "label":"Last Name",
+                "value":loggedInUser.lname,
+                "displayToAgent":true
+            }; 
+            const tempEmail = {
+                "label":"Email",
+                "value":loggedInUser.email,
+                "displayToAgent":true
+            };
+
+            embedded_svc.settings.extraPrechatFormDetails.push(tempFirstName, tempLastName, tempEmail);
+            //Change the parameters below for each different org. To get the code below, go to Setup>Embedded Service> Get Code
+            embedded_svc.init(
+                'https://wuicare--VPM2.cs65.my.salesforce.com',
+                'https://vpm2-wucare.cs65.force.com/care',
+                gslbBaseURL,
+                '00D0m0000009fEK',
+                'WUCare_Embedded_Service',
+                {
+                    baseLiveAgentContentURL: 'https://c.la1-c1cs-ord.salesforceliveagent.com/content',
+                    deploymentId: '5721500000007Ds',
+                    buttonId: '5731500000008OV',
+                    baseLiveAgentURL: 'https://d.la1-c1cs-ord.salesforceliveagent.com/chat',
+                    eswLiveAgentDevName: 'EmbeddedServiceLiveAgent_Parent04I0m000000007bEAA_16b95707fb2',
+                    isOfflineSupportEnabled: false
+                }
+            ); 
         }        
 	};
 
@@ -299,30 +408,10 @@
 		s.onload = function() {
 			initESW(null);
 		};
-		document.body.appendChild(s);
+        document.body.appendChild(s);
 	} else {
-		initESW('https://service.force.com');
+        initESW('https://service.force.com');
 	}
 </script>
-<h1>WUCHAT Welcome!v1</h1>
-<div>
-    <label for="username">Username: </label>
-    <input type="text" id="username" name="username">
-</div>
-
-<div>
-    <label for="pass">Password (8 characters minimum): </label>
-    <input type="password" id="pass" name="password"
-           minlength="8" required>
-</div>
-<p> <a href='/index2'><input type="button" value="Sign in"></a> </p>
-
-<p> <a href='/index'>Home</a> </p>
-<p> <a href='/indexUnAuth'>UnAuth1</a> </p>
-<p> <a href='/indexUnAuth2'>UnAuth2</a> </p>
-
-<p> <a href='https://dev-harryha.github.io/'> Link to GitHub Pages </a> </p>
-<p> <a href='https://agitated-ptolemy-228313.netlify.com/'> Link to Netlify Pages </a> </p>
-
 </body>
 </html>
