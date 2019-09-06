@@ -84,6 +84,15 @@
         return JSON.stringify(userDetails);
     };
 
+    var createPrivacyStatement = function() {
+        var a = document.createElement('a');
+        var linkText = document.createTextNode("Privacy Statement");
+        a.appendChild(linkText);
+        a.title = "Privacy Statement";
+        a.href = "https://westernunion.com";
+        document.querySelector("ul.fieldList").appendChild(a);
+    }
+
 	var initESW = function(gslbBaseURL) {
 		embedded_svc.settings.displayHelpButton = true; //Or false
 		embedded_svc.settings.language = 'en'; //For example, enter 'en' or 'en-US'
@@ -283,17 +292,19 @@
                     for(let mutation of mutationsList) {
                         if (mutation.type === 'attributes' && mutation.target.className === 'Email slds-style-inputtext input') {
                             console.log(mutation);
+                            createPrivacyStatement();
                             break;
                         }
                     }
-                    // stop observing
-                    observer.disconnect();
                 };
                 // Create an observer instance linked to the callback function
                 const observer = new MutationObserver(callback);
 
                 // Start observing the target node for configured mutations
                 observer.observe(targetNode, config);
+
+                // stop observing
+                //observer.disconnect();
             });
             //Change the parameters below for each different org. To get the code below, go to Setup>Embedded Service> Get Code
             embedded_svc.init(
