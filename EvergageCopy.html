@@ -311,7 +311,8 @@
                             break;
                         }
                     }
-                    
+                    console.log('Stop listening');
+                    observer.disconnect();
                 };
                 // Create an observer instance linked to the callback function
                 const observer = new MutationObserver(mutationCallback);
