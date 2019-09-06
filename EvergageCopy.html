@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
 </head>
 <body>
-<h1>WUCHAT Welcome!v1</h1>
+<h1>WUCHAT Welcome!v2</h1>
 <div>
     <label for="username">Username: </label>
     <input type="text" id="username" name="username">
@@ -66,7 +66,20 @@
 
 <script type='text/javascript' src='https://service.force.com/embeddedservice/5.0/esw.min.js'></script>
 <script type='text/javascript'>
-    //console.log(window.location.href);
+    // Create an observer instance linked to the callback function
+    const observer = new MutationObserver(mutationCallback);
+    const myRecords;
+    const targetNode = document.body;
+    const config = { attributes: true };
+    // Callback function to execute when mutations are observed
+    function mutationCallback (mutationsList, observer) {
+        for(let mutation of mutationsList) {
+            if (mutation.type === 'attributes' && mutation.target.className === 'Email slds-style-inputtext input') {
+                console.log(mutation);
+                break;
+            }
+        }
+    };
 	// Retrieve the logged in user details from browser sessionStorage. This snippet provided by WU team
     var getLoggedInUserdetails =  function() {
         var userDetails = {};
@@ -84,7 +97,7 @@
         return JSON.stringify(userDetails);
     };
 
-    let myRecords;
+    
 
     var createPrivacyStatement = function() {
         var a = document.createElement('a');
@@ -287,27 +300,12 @@
         if(embedded_svc.settings.westernUnionUserDetails === '{}') {
             embedded_svc.addEventHandler("onHelpButtonClick", function(data) {
                 console.log("onHelpButtonClick event was fired.");
-                //const targetNode = document.querySelector('input');
-                const targetNode = document.body;
-                const config = { attributes: true };
-                // Callback function to execute when mutations are observed
-                const callback = function(mutationsList, observer) {
-                    for(let mutation of mutationsList) {
-                        if (mutation.type === 'attributes' && mutation.target.className === 'Email slds-style-inputtext input') {
-                            console.log(mutation);
-                            myRecords = observer.takeRecords();
-                            break;
-                        }
-                    }
-                };
-                // Create an observer instance linked to the callback function
-                const observer = new MutationObserver(callback);
-
-                // Start observing the target node for configured mutations
-                observer.observe(targetNode, config);
-
+                console.log('Start observing the target node for configured mutations');
+                observer.observe(targetNode, config);                
+            });
+            embedded_svc.addEventHandler("onClickSubmitButton", function(data) {
+                console.log("onClickSubmitButton event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
                 observer.disconnect();
-                console.log(myRecords);
             });
             //Change the parameters below for each different org. To get the code below, go to Setup>Embedded Service> Get Code
             embedded_svc.init(
