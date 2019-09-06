@@ -84,7 +84,7 @@
         return JSON.stringify(userDetails);
     };
 
-    var createPrivacyStatement = function() {
+    var createPrivacyStatement = function(observer) {
         var a = document.createElement('a');
         var linkText = document.createTextNode("Privacy Statement");
         a.appendChild(linkText);
@@ -292,13 +292,13 @@
                 console.log("onHelpButtonClick event was fired.");
                 //const targetNode = document.querySelector('input');
                 const targetNode = document.body;
-                const config = { attributes: true, childList: true, characterData: true , subtree: true};
+                const config = { attributes: true };
                 // Callback function to execute when mutations are observed
                 const callback = function(mutationsList, observer) {
                     for(let mutation of mutationsList) {
                         if (mutation.type === 'attributes' && mutation.target.className === 'Email slds-style-inputtext input') {
                             console.log(mutation);
-                            createPrivacyStatement();
+                            createPrivacyStatement(observer);
                             break;
                         }
                     }
