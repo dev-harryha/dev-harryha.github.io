@@ -69,7 +69,7 @@
     // Create an observer instance linked to the callback function
     /*const observer = new MutationObserver(mutationCallback);
     const targetNode = document.body;
-    const config = { attributes: true };
+    const config = { attributes: true  subtree: true};
     // Callback function to execute when mutations are observed
     function mutationCallback (mutationsList, observer) {
         for(let mutation of mutationsList) {
@@ -307,11 +307,8 @@
                     for(let mutation of mutationsList) {
                         if (mutation.type === 'attributes' && mutation.target.className === 'Email slds-style-inputtext input') {
                             console.log(mutation);
-                            // stop observingdata-interactive-lib-uid
-                            //observer.disconnect();
-                            // empties observer instance and returns records 
-                            //observer.takeRecords();
-                            //break;
+                            createPrivacyStatement();
+                            break;
                         }
                     }
                     
