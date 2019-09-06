@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
 </head>
 <body>
-<h1>WUCHAT Welcome!v2</h1>
+<h1>WUCHAT Welcome!v1</h1>
 <div>
     <label for="username">Username: </label>
     <input type="text" id="username" name="username">
@@ -67,7 +67,7 @@
 <script type='text/javascript' src='https://service.force.com/embeddedservice/5.0/esw.min.js'></script>
 <script type='text/javascript'>
     // Create an observer instance linked to the callback function
-    const observer = new MutationObserver(mutationCallback);
+    /*const observer = new MutationObserver(mutationCallback);
     const targetNode = document.body;
     const config = { attributes: true };
     // Callback function to execute when mutations are observed
@@ -78,7 +78,7 @@
                 break;
             }
         }
-    };
+    };*/
 	// Retrieve the logged in user details from browser sessionStorage. This snippet provided by WU team
     var getLoggedInUserdetails =  function() {
         var userDetails = {};
@@ -299,12 +299,28 @@
         if(embedded_svc.settings.westernUnionUserDetails === '{}') {
             embedded_svc.addEventHandler("onHelpButtonClick", function(data) {
                 console.log("onHelpButtonClick event was fired.");
-                console.log('Start observing the target node for configured mutations');
-                observer.observe(targetNode, config);                
-            });
-            embedded_svc.addEventHandler("onClickSubmitButton", function(data) {
-                console.log("onClickSubmitButton event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
-                observer.disconnect();
+                //const targetNode = document.querySelector('input');
+                const targetNode = document.body;
+                const config = { attributes: true, childList: true, characterData: true , subtree: true};
+                // Callback function to execute when mutations are observed
+                const callback = function(mutationsList, observer) {
+                    for(let mutation of mutationsList) {
+                        if (mutation.type === 'attributes' && mutation.target.className === 'Email slds-style-inputtext input') {
+                            console.log(mutation);
+                            // stop observingdata-interactive-lib-uid
+                            //observer.disconnect();
+                            // empties observer instance and returns records 
+                            //observer.takeRecords();
+                            //break;
+                        }
+                    }
+                    
+                };
+                // Create an observer instance linked to the callback function
+                const observer = new MutationObserver(callback);
+
+                // Start observing the target node for configured mutations
+                observer.observe(targetNode, config);
             });
             //Change the parameters below for each different org. To get the code below, go to Setup>Embedded Service> Get Code
             embedded_svc.init(
