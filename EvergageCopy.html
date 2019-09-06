@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
 </head>
 <body>
-<h1>WUCHAT Welcome!v2</h1>
+<h1>WUCHAT Welcome!v1</h1>
 <div>
     <label for="username">Username: </label>
     <input type="text" id="username" name="username">
@@ -90,7 +90,13 @@
         a.appendChild(linkText);
         a.title = "Privacy Statement";
         a.href = "https://westernunion.com";
+        a.target = '_blank';
         document.querySelector("ul.fieldList").appendChild(a);
+
+        if(observer) {
+            // stop observing
+            observer.disconnect();
+        }
     }
 
 	var initESW = function(gslbBaseURL) {
@@ -302,9 +308,6 @@
 
                 // Start observing the target node for configured mutations
                 observer.observe(targetNode, config);
-
-                // stop observing
-                //observer.disconnect();
             });
             //Change the parameters below for each different org. To get the code below, go to Setup>Embedded Service> Get Code
             embedded_svc.init(
