@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
 </head>
 <body>
-<h1>WUCHAT Welcome!v2</h1>
+<h1>WUCHAT Welcome!vWORK!</h1>
 <div>
     <label for="username">Username: </label>
     <input type="text" id="username" name="username">
@@ -108,7 +108,7 @@
         document.querySelector("ul.fieldList").appendChild(a);
 
         if(observer) {
-            console.log('observer not null');
+            console.log('observer not null, disconnecting');
             observer.disconnect();
         }
     }
@@ -312,10 +312,10 @@
                     for(let mutation of mutationsList) {
                         if (mutation.type === 'attributes' && mutation.target.className === 'Email slds-style-inputtext input') {
                             console.log(mutation);
+                            createPrivacyStatement(observer);
                             break;
                         }
                     }
-                    createPrivacyStatement(observer);
                 };
                 // Create an observer instance linked to the callback function
                 const observer = new MutationObserver(mutationCallback);
