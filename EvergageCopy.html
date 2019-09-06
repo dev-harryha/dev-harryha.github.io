@@ -275,16 +275,24 @@
         if(embedded_svc.settings.westernUnionUserDetails === '{}') {
             embedded_svc.addEventHandler("onHelpButtonClick", function(data) {
                 console.log("onHelpButtonClick event was fired.");
-                var target = document.querySelector('.dockableContainer');
-    
-                var observer = new MutationObserver(function(mutations) {
-                mutations.forEach(function(mutation) {
-                    console.log(mutation.type);
-                });    
-                });
-    
-                var config = { attributes: true, childList: true, characterData: true };
-                observer.observe(target, config);
+                const target = document.querySelector('body');
+                const config = { attributes: true, childList: true, characterData: true };
+                // Callback function to execute when mutations are observed
+                const callback = function(mutationsList, observer) {
+                    for(let mutation of mutationsList) {
+                        if (mutation.type === 'childList') {
+                            console.log('A child node has been added or removed.');
+                        }
+                        else if (mutation.type === 'attributes') {
+                            console.log('The ' + mutation.attributeName + ' attribute was modified.');
+                        }
+                    }
+                };
+                // Create an observer instance linked to the callback function
+                const observer = new MutationObserver(callback);
+
+                // Start observing the target node for configured mutations
+                observer.observe(targetNode, config);
             });
             //Change the parameters below for each different org. To get the code below, go to Setup>Embedded Service> Get Code
             embedded_svc.init(
