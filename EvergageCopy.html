@@ -273,6 +273,19 @@
         //console.log(embedded_svc.settings.westernUnionUserDetails);
         // Condition would be here to check language and/or auth vs unauth users.
         if(embedded_svc.settings.westernUnionUserDetails === '{}') {
+            embedded_svc.addEventHandler("onHelpButtonClick", function(data) {
+                console.log("onHelpButtonClick event was fired.");
+                var target = document.querySelector('.dockableContainer');
+    
+                var observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                    console.log(mutation.type);
+                });    
+                });
+    
+                var config = { attributes: true, childList: true, characterData: true };
+                observer.observe(target, config);
+            });
             //Change the parameters below for each different org. To get the code below, go to Setup>Embedded Service> Get Code
             embedded_svc.init(
                 'https://wuicare--VPM2.cs65.my.salesforce.com',
