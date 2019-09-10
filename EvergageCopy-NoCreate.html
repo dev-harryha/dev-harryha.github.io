@@ -66,7 +66,6 @@
 
 <script type='text/javascript' src='https://service.force.com/embeddedservice/5.0/esw.min.js'></script>
 <script type='text/javascript'>
-    //console.log(window.location.href);
 	// Retrieve the logged in user details from browser sessionStorage. This snippet provided by WU team
     var getLoggedInUserdetails =  function() {
         var userDetails = {};
@@ -136,6 +135,11 @@
             "label":"PreferredLanguage",
             "value":"English",
             "displayToAgent":true
+        }, {
+            "label":"ChatOrigin",
+            "value":window.location.href,
+            "transcriptFields":["Chat_Origin__c"],
+            "displayToAgent":false
         }];
         
 
