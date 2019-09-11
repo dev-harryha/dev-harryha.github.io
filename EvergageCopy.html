@@ -62,7 +62,7 @@
     .embeddedServiceHelpButton .helpButtonEnabled:hover {
         background-color: #ffcc00
     }
-    .chatPrivacyDiv {
+    .embeddedChatPrivacy {
         position: absolute;
         font-size: 10px;
         bottom: 0;
@@ -104,7 +104,7 @@
 
     var createPrivacyStatement = function(observer) {
         var privacyDiv = document.createElement('DIV');
-        privacyDiv.className = 'chatPrivacyDiv';
+        privacyDiv.className = 'embeddedChatPrivacy';
         var privacyTextA = document.createTextNode("The chat may be logged and monitored for quality assurance purposes. Please avoid sending any sensitive personal information. ");
         var privacyTextB = document.createTextNode(" about Western Union's privacy practices.");
         var a = document.createElement('a');
