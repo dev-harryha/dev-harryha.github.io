@@ -322,11 +322,12 @@
                 // Callback function to execute when mutations are observed
                 const mutationCallback = function(mutationsList, observer) {
                     for(let mutation of mutationsList) {
-                        if (mutation.type === 'attributes' && mutation.target.className === 'Email slds-style-inputtext input') {
+                        /*if (mutation.type === 'attributes' && mutation.target.className === 'Email slds-style-inputtext input') {
                             console.log(mutation);
                             createPrivacyStatement(observer);
                             break;
-                        }
+                        }*/
+                            console.log(mutation);
                     }
                 };
                 // Create an observer instance linked to the callback function
