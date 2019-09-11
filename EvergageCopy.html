@@ -62,6 +62,9 @@
     .embeddedServiceHelpButton .helpButtonEnabled:hover {
         background-color: #ffcc00
     }
+    .chatPrivacyDiv {
+        font-size:8px;
+    }
 </style>
 
 <script type='text/javascript' src='https://service.force.com/embeddedservice/5.0/esw.min.js'></script>
@@ -99,6 +102,8 @@
     
 
     var createPrivacyStatement = function(observer) {
+        var privacyDiv = document.createElement('DIV');
+        privacyDiv.className = 'chatPrivacyDiv';
         var privacyTextA = document.createTextNode("The chat may be logged and monitored for quality assurance purposes. Please avoid sending any sensitive personal information. ");
         var privacyTextB = document.createTextNode(" about Western Union's privacy practices.");
         var a = document.createElement('a');
@@ -107,9 +112,11 @@
         a.title = "Learn more";
         a.href = "https://partners.westernunion.com/content/wucom/global/en/privacy-statement.html";
         a.target = '_blank';
+        document.querySelector("ul.fieldList").appendChild(privacyDiv);
         document.querySelector("ul.fieldList").appendChild(privacyTextA);
         document.querySelector("ul.fieldList").appendChild(a);
         document.querySelector("ul.fieldList").appendChild(privacyTextB);
+        document.querySelector("ul.fieldList").appendChild(privacyDiv);
 
         if(observer) {
             console.log('observer not null, disconnecting');
