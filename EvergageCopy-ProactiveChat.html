@@ -62,6 +62,13 @@
     .embeddedServiceHelpButton .helpButtonEnabled:hover {
         background-color: #ffcc00
     }
+    .embeddedChatPrivacy {
+        position: absolute;
+        font-size: 10px;
+        bottom: 0;
+        padding: 0 24px 10px;
+        text-align: justify;
+    }
 
     #snapins_invite { background-color: #FFFFFF; font-family: "Arial", sans-serif; overflow: visible; border-radius: 8px; visibility: hidden; }
 	.embeddedServiceInvitation { background-color: transparent; max-width: 500px; max-height: 210px; -webkit-box-shadow: 0 7px 12px rgba(0,0,0,0.28); -moz-box-shadow: 0 7px 12px rgba(0,0,0,0.28); box-shadow: 0 7px 12px rgba(0,0,0,0.28); }
@@ -97,7 +104,7 @@
 	</div>
 </div>
 <!-- End of Invitations -->
-
+<!-- The following js library is required -->
 <script type='text/javascript' src='https://service.force.com/embeddedservice/5.0/esw.min.js'></script>
 <script type='text/javascript'>
     (function() {
@@ -124,10 +131,32 @@
         return JSON.stringify(userDetails);
     };
 
+    // Function that creates the Privacy Statement in the pre-chat form and also closes out the mutation observer.
+    var createPrivacyStatement = function(observer) {
+        var privacyDiv = document.createElement('DIV');
+        privacyDiv.className = 'embeddedChatPrivacy';
+        var privacyTextA = document.createTextNode("The chat may be logged and monitored for quality assurance purposes. Please avoid sending any sensitive personal information. ");
+        var privacyTextB = document.createTextNode(" about Western Union's privacy practices.");
+        var a = document.createElement('a');
+        var linkText = document.createTextNode("Learn more");
+        a.appendChild(linkText);
+        a.title = "Learn more";
+        a.href = "https://partners.westernunion.com/content/wucom/global/en/privacy-statement.html";
+        a.target = '_blank';
+        privacyDiv.appendChild(privacyTextA);
+        privacyDiv.appendChild(a);
+        privacyDiv.appendChild(privacyTextB);
+        document.querySelector("div.formContent.embeddedServiceSidebarForm").appendChild(privacyDiv);
+
+        if(observer) {
+            console.log('observer not null, disconnecting');
+            observer.disconnect();
+        }
+    }
+
 	var initESW = function(gslbBaseURL) {
 		embedded_svc.settings.displayHelpButton = true; //Or false
 		embedded_svc.settings.language = 'en'; //For example, enter 'en' or 'en-US'
-        //embedded_svc.settings.smallCompanyLogoImgURL = 'https://wuicare--vpm2--c.cs65.visual.force.com/resource/1563475528000/WU_Chat_Icon';
         embedded_svc.settings.avatarImgURL = 'https://www.westernunion.com/content/dam/wu/us/en/Logo_40x40.png';
 
 		embedded_svc.settings.defaultMinimizedText = 'Chat'; //(Defaults to Chat with an Expert)
@@ -183,39 +212,7 @@
         
 
         embedded_svc.settings.extraPrechatInfo = [{
-            // Creating a person account using the recordtypeid and linking to case
-            'entityName':'Account',
-            'showOnCreate':true,
-            "saveToTranscript":"AccountId",
-            "linkToEntityName":"Case",
-            "linkToEntityField":"AccountId",
-            'entityFieldMaps':[{
-                "doCreate":true,
-                "doFind":false,
-                "fieldName":"LastName",
-                "isExactMatch":false,
-                "label":"Last Name"
-            }, {
-                'doCreate':true,
-                'doFind':false,
-                'fieldName':'FirstName',
-                'isExactMatch':false,
-                'label':'First Name'
-            }, {
-                "doCreate":true,
-                "doFind":true,
-                "fieldName":"PersonEmail",
-                "isExactMatch":true,
-                "label":"Email"
-            }, {
-                "doCreate": true,
-                "doFind": false,
-                "fieldName": "RecordTypeId",
-                "isExactMatch": false, 
-                "label": "AccountRecordType"
-            }]
-        }, {
-            // Not creating the contact, but finding the contact from the PersonAccount and linking it to the Case (not possible it seems..)
+            // Not creating the person account or contact as this is done by Apex triggers established by WU already.
             "entityFieldMaps":[{
                 "doCreate":false,
                 "doFind":false,
@@ -304,54 +301,80 @@
             }, {
                 "doCreate":true,
                 "doFind":false,
-                "fieldName":"Email",
+                "fieldName":"SuppliedEmail",
                 "isExactMatch":false,
                 "label":"Email"
             }]
         }];
 
-        // Forcing it to go to the CONS English WU.com button because of automated invitation setup
+        /**** TODO ****
+                - Default button routing if visitor is not using the automated invitation (proactive chat) to start a chat.
+                - To get the ID for the return statement, go to Setup > Chat Buttons & Invitations
+        */
         embedded_svc.settings.directToButtonRouting = function(prechatFormData) {
-			// Dynamically changes the button ID based on what the visitor enters in the pre-chat form.
+            // Dynamically changes the button ID based on what the visitor enters in the pre-chat form.
             // Returns a valid button ID.
             return '5731500000008OV';
-		};
-
+        };
+        /**** TODO ****
+                - This event handler triggers when a user accepts a chat through the automated invitation pop-up (proactive chat)
+                - To get the ID for the return statement, go to Setup > Chat Buttons & Invitations
+        */
+        embedded_svc.addEventHandler("onInviteAccepted", function(data) {
+            console.log('onInviteAccepted event was fired.')
+            // Forcing it to go to the a button set up without Einstein Bot so that all automated invitations get an agent.
+            embedded_svc.settings.directToButtonRouting = function(prechatFormData) {
+                // Dynamically changes the button ID based on what the visitor enters in the pre-chat form.
+                // Returns a valid button ID.
+                return '5731500000008OV';
+            };
+        });
+        
+        // Setting the user logged in details
         embedded_svc.settings.westernUnionUserDetails = getLoggedInUserdetails();
-        //console.log(embedded_svc.settings.westernUnionUserDetails);
-        // Condition would be here to check language and/or auth vs unauth users.
+        // Check to see if user is logged in or not
         if(embedded_svc.settings.westernUnionUserDetails === '{}') {
-            //Change the parameters below for each different org. To get the code below, go to Setup>Embedded Service> Get Code
+            // This event handler triggers when the chat button is clicked and causes a creation of a mutation observer so that a privacy statement can be dynamically added when the pre-chat form loads.
+            embedded_svc.addEventHandler("onHelpButtonClick", function(data) {
+                console.log("onHelpButtonClick event was fired.");
+                //const targetNode = document.querySelector('input');
+                const targetNode = document.body;
+                const config = { attributes: true, subtree: true};
+                // Callback function to execute when mutations are observed
+                const mutationCallback = function(mutationsList, observer) {
+                    for(let mutation of mutationsList) {
+                        if (mutation.type === 'attributes' && mutation.target.className === 'Email slds-style-inputtext input') {
+                            console.log(mutation);
+                            createPrivacyStatement(observer);
+                            break;
+                        }
+                    }
+                };
+                // Create an observer instance linked to the callback function
+                const observer = new MutationObserver(mutationCallback);
+
+                // Start observing the target node for configured mutations
+                observer.observe(targetNode, config);
+            });
+            /**** TODO ****
+                - Change the parameters below for each different org, the below corresponds to the embedded service deployment that has pre-chat enabled (non-auth). 
+                - To get the code below, go to Setup>Embedded Service> Get Code
+            */
             embedded_svc.init(
                 'https://wuicare--VPM2.cs65.my.salesforce.com',
                 'https://vpm2-wucare.cs65.force.com/care',
                 gslbBaseURL,
                 '00D0m0000009fEK',
-                'WUCare_Embedded_Service_Non_Auth',
+                'HH_Embedded_Service_Non_Auth',
                 {
                     baseLiveAgentContentURL: 'https://c.la1-c1cs-ord.salesforceliveagent.com/content',
                     deploymentId: '5721500000007Ds',
                     buttonId: '5730m000000CatP',
                     baseLiveAgentURL: 'https://d.la1-c1cs-ord.salesforceliveagent.com/chat',
-                    eswLiveAgentDevName: 'EmbeddedServiceLiveAgent_Parent04I0m000000007lEAA_16b9ed43360',
+                    eswLiveAgentDevName: 'EmbeddedServiceLiveAgent_Parent04I0m000000CaTSEA0_16d21f54b92',
                     isOfflineSupportEnabled: false
                 }
             );
-            /*embedded_svc.init(
-                'https://wuicare--VPM2.cs65.my.salesforce.com',
-                'https://vpm2-wucare.cs65.force.com/care',
-                gslbBaseURL,
-                '00D0m0000009fEK',
-                'Test',
-                {
-                    baseLiveAgentContentURL: 'https://c.la1-c1cs-ord.salesforceliveagent.com/content',
-                    deploymentId: '5721500000007Ds',
-                    buttonId: '5730m000000CatP',
-                    baseLiveAgentURL: 'https://d.la1-c1cs-ord.salesforceliveagent.com/chat',
-                    eswLiveAgentDevName: 'EmbeddedServiceLiveAgent_Parent04I0m000000CaSyEAK_16c9bd1ded7',
-                    isOfflineSupportEnabled: false
-                }
-            );*/
         } else {
             const loggedInUser = JSON.parse(embedded_svc.settings.westernUnionUserDetails);
 
@@ -373,19 +396,22 @@
             };
 
             embedded_svc.settings.extraPrechatFormDetails.push(tempFirstName, tempLastName, tempEmail);
-            //Change the parameters below for each different org. To get the code below, go to Setup>Embedded Service> Get Code
+            /**** TODO ****
+                - Change the parameters below for each different org, the below corresponds to the embedded service deployment that has pre-chat disabled. 
+                - To get the code below, go to Setup>Embedded Service> Get Code
+            */
             embedded_svc.init(
                 'https://wuicare--VPM2.cs65.my.salesforce.com',
                 'https://vpm2-wucare.cs65.force.com/care',
                 gslbBaseURL,
                 '00D0m0000009fEK',
-                'WUCare_Embedded_Service',
+                'HH_Embedded_Service',
                 {
                     baseLiveAgentContentURL: 'https://c.la1-c1cs-ord.salesforceliveagent.com/content',
                     deploymentId: '5721500000007Ds',
                     buttonId: '5730m000000CatP',
                     baseLiveAgentURL: 'https://d.la1-c1cs-ord.salesforceliveagent.com/chat',
-                    eswLiveAgentDevName: 'EmbeddedServiceLiveAgent_Parent04I0m000000007bEAA_16b95707fb2',
+                    eswLiveAgentDevName: 'EmbeddedServiceLiveAgent_Parent04I0m000000CaTNEA0_16d071acbc6',
                     isOfflineSupportEnabled: false
                 }
             ); 
