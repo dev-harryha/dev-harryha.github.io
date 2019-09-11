@@ -67,6 +67,7 @@
         font-size: 10px;
         bottom: 0;
         padding: 0 24px 10px;
+        text-align: justify;
     }
 </style>
 
@@ -101,7 +102,7 @@
         }
         return JSON.stringify(userDetails);
     };    
-
+    // Function that creates the Privacy Statement in the pre-chat form and also closes out the mutation observer.
     var createPrivacyStatement = function(observer) {
         var privacyDiv = document.createElement('DIV');
         privacyDiv.className = 'embeddedChatPrivacy';
@@ -314,6 +315,7 @@
         //console.log(embedded_svc.settings.westernUnionUserDetails);
         // Condition would be here to check language and/or auth vs unauth users.
         if(embedded_svc.settings.westernUnionUserDetails === '{}') {
+            // This event handler triggers when the chat button is clicked and causes a creation of a mutation observer so that a privacy statement can be dynamically added when the pre-chat form loads.
             embedded_svc.addEventHandler("onHelpButtonClick", function(data) {
                 console.log("onHelpButtonClick event was fired.");
                 //const targetNode = document.querySelector('input');
@@ -327,7 +329,6 @@
                             createPrivacyStatement(observer);
                             break;
                         }
-                            //console.log(mutation);
                     }
                 };
                 // Create an observer instance linked to the callback function
