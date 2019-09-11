@@ -112,10 +112,9 @@
         a.title = "Learn more";
         a.href = "https://partners.westernunion.com/content/wucom/global/en/privacy-statement.html";
         a.target = '_blank';
-        document.querySelector("ul.fieldList").appendChild(privacyDiv);
-        document.querySelector("ul.fieldList").appendChild(privacyTextA);
-        document.querySelector("ul.fieldList").appendChild(a);
-        document.querySelector("ul.fieldList").appendChild(privacyTextB);
+        privacyDiv.appendChild(privacyTextA);
+        privacyDiv.appendChild(a);
+        privacyDiv.appendChild(privacyTextB);
         document.querySelector("ul.fieldList").appendChild(privacyDiv);
 
         if(observer) {
