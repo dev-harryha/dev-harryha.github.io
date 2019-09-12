@@ -101,7 +101,10 @@
             }                  
         }
         return JSON.stringify(userDetails);
-    };    
+    };
+    
+    let loggedInUserDetails = getLoggedInUserdetails();
+
     // Function that creates the Privacy Statement in the pre-chat form and also closes out the mutation observer.
     var createPrivacyStatement = function(observer) {
         var privacyDiv = document.createElement('DIV');
@@ -314,8 +317,8 @@
                 "label":"Email"
             }]
         }];
-
-        embedded_svc.settings.westernUnionUserDetails = getLoggedInUserdetails();
+        
+        embedded_svc.settings.westernUnionUserDetails = loggedInUserDetails;
         //console.log(embedded_svc.settings.westernUnionUserDetails);
         // Condition would be here to check language and/or auth vs unauth users.
         if(embedded_svc.settings.westernUnionUserDetails === '{}') {
