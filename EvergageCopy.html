@@ -350,7 +350,10 @@
                 // Start observing the target node for configured mutations
                 observer.observe(targetNode, config);
             });
-            //Change the parameters below for each different org. To get the code below, go to Setup>Embedded Service> Get Code
+            /**** TODO ****
+                - Change the parameters below for each different org, the below corresponds to the embedded service deployment that has pre-chat enabled (non-auth). 
+                - To get the code below, go to Setup>Embedded Service> Get Code
+            */
             embedded_svc.init(
                 'https://wuicare--VPM2.cs65.my.salesforce.com',
                 'https://vpm2-wucare.cs65.force.com/care',
@@ -387,7 +390,10 @@
             };
 
             embedded_svc.settings.extraPrechatFormDetails.push(tempFirstName, tempLastName, tempEmail);
-            //Change the parameters below for each different org. To get the code below, go to Setup>Embedded Service> Get Code
+            /**** TODO ****
+                - Change the parameters below for each different org, the below corresponds to the embedded service deployment that has pre-chat disabled. 
+                - To get the code below, go to Setup>Embedded Service> Get Code
+            */
             embedded_svc.init(
                 'https://wuicare--VPM2.cs65.my.salesforce.com',
                 'https://vpm2-wucare.cs65.force.com/care',
