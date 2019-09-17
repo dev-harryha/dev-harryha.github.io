@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
 </head>
 <body>
-<h1>WUCHAT Welcome!v3</h1>
+<h1>WUCHAT Welcome!v1</h1>
 <div>
     <label for="username">Username: </label>
     <input type="text" id="username" name="username">
@@ -161,7 +161,7 @@
             "value":window.location.href,
             "transcriptFields":["Chat_Origin__c"],
             "displayToAgent":true
-        }, {
+        }/*, {
             "label": "First Name",
             "value": "Harry",
             "displayToAgent": true
@@ -177,7 +177,7 @@
             "label": "issue",
             "value": "Overriding your setup",
             "displayToAgent": true
-            }
+            }*/
         ];
         
 
@@ -282,7 +282,7 @@
         embedded_svc.settings.westernUnionUserDetails = loggedInUserDetails;
         // Check to see if user is logged in or not
         //if(embedded_svc.settings.westernUnionUserDetails === '{}') {
-        if(false) {
+        if(true) {
              // This event handler triggers when the chat button is clicked and causes a creation of a mutation observer so that a privacy statement can be dynamically added when the pre-chat form loads.
             embedded_svc.addEventHandler("onHelpButtonClick", function(data) {
                 console.log("onHelpButtonClick event was fired.");
