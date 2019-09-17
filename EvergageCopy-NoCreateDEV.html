@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
 </head>
 <body>
-<h1>WUCHAT Welcome!debug32uat</h1>
+<h1>WUCHAT Welcome!debug12uat</h1>
 <div>
     <label for="username">Username: </label>
     <input type="text" id="username" name="username">
@@ -177,15 +177,15 @@
             "transcriptFields":["Chat_Origin__c"],
             "displayToAgent":true
         }, {
-            "label":"First Name",
+            "label":"LoggedFirstName",
             "value":"Bobby",
             "displayToAgent":true
         }, {
-            "label":"Last Name",
+            "label":"LoggedLastName",
             "value":"Lobby",
             "displayToAgent":true
         }, {
-            "label":"Email",
+            "label":"LoggedEmail",
             "value":"bobbylobby@wuchattest.com",
             "displayToAgent":true
         }];
@@ -194,26 +194,25 @@
         embedded_svc.settings.extraPrechatInfo = [{
             // Not creating the contact, but finding the contact from the PersonAccount and linking it to the Case (not possible it seems..)
             "entityFieldMaps":[{
-                "doCreate":true,
+                "doCreate":false,
                 "doFind":false,
                 "fieldName":"LastName",
                 "isExactMatch":false,
                 "label":"Last Name"
             }, {
-                "doCreate":true,
+                "doCreate":false,
                 "doFind":false,
                 "fieldName":"FirstName",
                 "isExactMatch":false,
                 "label":"First Name"
             }, {
-                "doCreate":true,
+                "doCreate":false,
                 "doFind":false,
                 "fieldName":"Email",
-                "isExactMatch":true,
+                "isExactMatch":false,
                 "label":"Email"
             }],
-            "entityName":"Contact",
-            "showOnCreate":true
+            "entityName":"Contact"
         }, {
             // Creating the map for the case fields required for WU
             "entityName":"Case",
@@ -272,19 +271,19 @@
                 "doFind":false,
                 "fieldName":"Supplied_First_Name__c",
                 "isExactMatch":false,
-                "label":"First Name"
+                "label":"LoggedFirstName"
             }, {
                 "doCreate":true,
                 "doFind":false,
                 "fieldName":"Supplied_Last_Name__c",
                 "isExactMatch":false,
-                "label":"Last Name"
+                "label":"LoggedLastName"
             }, {
                 "doCreate":true,
                 "doFind":false,
                 "fieldName":"SuppliedEmail",
                 "isExactMatch":false,
-                "label":"Email"
+                "label":"LoggedEmail"
             }]
         }];
 
