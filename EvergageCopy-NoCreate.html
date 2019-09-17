@@ -263,7 +263,7 @@
         // Setting the user logged in details
         embedded_svc.settings.westernUnionUserDetails = loggedInUserDetails;
         // Check to see if user is logged in or not
-        if(embedded_svc.settings.westernUnionUserDetails === '{}') {
+        /*if(embedded_svc.settings.westernUnionUserDetails === '{}') {
              // This event handler triggers when the chat button is clicked and causes a creation of a mutation observer so that a privacy statement can be dynamically added when the pre-chat form loads.
              embedded_svc.addEventHandler("onHelpButtonClick", function(data) {
                 console.log("onHelpButtonClick event was fired.");
@@ -290,7 +290,7 @@
                 - Change the parameters below for each different org, the below corresponds to the embedded service deployment that has pre-chat enabled (non-auth). 
                 - To get the code below, go to Setup>Embedded Service> Get Code
             */
-            embedded_svc.init(
+           /* embedded_svc.init(
                 'https://wuicare--UAT.cs43.my.salesforce.com',
                 'https://uat-wucare.cs43.force.com/care',
                 gslbBaseURL,
@@ -305,10 +305,10 @@
                     isOfflineSupportEnabled: false
                 }
             );
-        } else {
+        } else {*/
             const loggedInUser = JSON.parse(embedded_svc.settings.westernUnionUserDetails);
 
-            const tempFirstName = {
+            /*const tempFirstName = {
                 "label":"First Name",
                 "value":loggedInUser.fname,
                 "displayToAgent":true
@@ -322,6 +322,21 @@
                 "label":"Email",
                 "value":loggedInUser.email,
                 "displayToAgent":true
+            };*/
+            const tempFirstName = {
+                "label":"First Name",
+                "value":'Harry',
+                "displayToAgent":true
+            };
+            const tempLastName = {
+                "label":"Last Name",
+                "value":'Ha',
+                "displayToAgent":true
+            }; 
+            const tempEmail = {
+                "label":"Email",
+                "value":'harryh@slalom.com',
+                "displayToAgent":true
             };
 
             embedded_svc.settings.extraPrechatFormDetails.push(tempFirstName, tempLastName, tempEmail);
@@ -330,26 +345,26 @@
                 - To get the code below, go to Setup>Embedded Service> Get Code
             */
             embedded_svc.init(
-                'https://wuicare--VPM2.cs65.my.salesforce.com',
-                'https://vpm2-wucare.cs65.force.com/care',
+                'https://wuicare--UATChat.cs45.my.salesforce.com',
+                'https://uatchat-wucare.cs45.force.com/care',
                 gslbBaseURL,
-                '00D0m0000009fEK',
+                '00D8A0000009R2G',
                 'WUCare_Embedded_Service',
                 {
-                    baseLiveAgentContentURL: 'https://c.la1-c1cs-ord.salesforceliveagent.com/content',
+                    baseLiveAgentContentURL: 'https://c.la2-c2cs-ph2.salesforceliveagent.com/content',
                     deploymentId: '5721500000007Ds',
                     buttonId: '5731500000008OV',
-                    baseLiveAgentURL: 'https://d.la1-c1cs-ord.salesforceliveagent.com/chat',
-                    eswLiveAgentDevName: 'EmbeddedServiceLiveAgent_Parent04I0m000000007bEAA_16b95707fb2',
+                    baseLiveAgentURL: 'https://d.la2-c2cs-ph2.salesforceliveagent.com/chat',
+                    eswLiveAgentDevName: 'EmbeddedServiceLiveAgent_Parent04I8A000000002HUAQ_16d010414d6',
                     isOfflineSupportEnabled: false
                 }
             ); 
-        }        
+        //}        
 	};
 
 	if (!window.embedded_svc) {
 		var s = document.createElement('script');
-		s.setAttribute('src', 'https://wuicare--VPM2.cs65.my.salesforce.com/embeddedservice/5.0/esw.min.js');
+		s.setAttribute('src', 'https://wuicare--UATChat.cs45.my.salesforce.com/embeddedservice/5.0/esw.min.js');
 		s.onload = function() {
 			initESW(null);
 		};
