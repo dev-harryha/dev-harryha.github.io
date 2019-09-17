@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
 </head>
 <body>
-<h1>WUCHAT Welcome!v1</h1>
+<h1>WUCHAT Welcome!v3</h1>
 <div>
     <label for="username">Username: </label>
     <input type="text" id="username" name="username">
@@ -310,7 +310,7 @@
             );
         } else {
             const loggedInUser = JSON.parse(embedded_svc.settings.westernUnionUserDetails);
-            const tempFirstName = {
+            /*const tempFirstName = {
                 "label":"First Name",
                 "name":"FirstName",
                 "value":loggedInUser.fname,
@@ -326,6 +326,25 @@
             const tempEmail = {
                 "label":"Email",
                 "value":loggedInUser.email,
+                "transcriptFields":[],
+                "displayToAgent":true
+            };*/
+            const tempFirstName = {
+                "label":"First Name",
+                "name":"FirstName",
+                "value":'Bobby',
+                "transcriptFields":[],
+                "displayToAgent":true
+            };
+            const tempLastName = {
+                "label":"Last Name",
+                "value":'Brown',
+                "transcriptFields":[],
+                "displayToAgent":true
+            }; 
+            const tempEmail = {
+                "label":"Email",
+                "value":'bobbybrown@wuchattest.com',
                 "transcriptFields":[],
                 "displayToAgent":true
             };
