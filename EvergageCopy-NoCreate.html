@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
 </head>
 <body>
-<h1>WUCHAT Welcome!v13</h1>
+<h1>WUCHAT Welcome!v12</h1>
 <div>
     <label for="username">Username: </label>
     <input type="text" id="username" name="username">
@@ -289,6 +289,12 @@
                 // Start observing the target node for configured mutations
                 observer.observe(targetNode, config);
             });
+            console.log('==Table below for extraPrechatFormDetails:==');
+            console.table(embedded_svc.settings.extraPrechatFormDetails);
+            console.log('=====');
+            console.log('==Table below for extraPrechatInfo:==');
+            console.table(embedded_svc.settings.extraPrechatInfo);
+            console.log('=====');
             /**** TODO ****
                 - Change the parameters below for each different org, the below corresponds to the embedded service deployment that has pre-chat enabled (non-auth). 
                 - To get the code below, go to Setup>Embedded Service> Get Code
@@ -354,8 +360,11 @@
             };*/
 
             embedded_svc.settings.extraPrechatFormDetails.push(tempFirstName, tempLastName, tempEmail);
-            console.log('==Table below:==');
+            console.log('==Table below for extraPrechatFormDetails:==');
             console.table(embedded_svc.settings.extraPrechatFormDetails);
+            console.log('=====');
+            console.log('==Table below for extraPrechatInfo:==');
+            console.table(embedded_svc.settings.extraPrechatInfo);
             console.log('=====');
             /**** TODO ****
                 - Change the parameters below for each different org, the below corresponds to the embedded service deployment that has pre-chat disabled. 
