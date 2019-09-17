@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
 </head>
 <body>
-<h1>WUCHAT Welcome!debug</h1>
+<h1>WUCHAT Welcome!debug1</h1>
 <div>
     <label for="username">Username: </label>
     <input type="text" id="username" name="username">
@@ -246,19 +246,19 @@
                 "doFind":false,
                 "fieldName":"Supplied_First_Name__c",
                 "isExactMatch":false,
-                "label":"First Name"
+                "label":"LoggedInUserFirstName"
             }, {
                 "doCreate":true,
                 "doFind":false,
                 "fieldName":"Supplied_Last_Name__c",
                 "isExactMatch":false,
-                "label":"Last Name"
+                "label":"LoggedInUserLastName"
             }, {
                 "doCreate":true,
                 "doFind":false,
                 "fieldName":"SuppliedEmail",
                 "isExactMatch":false,
-                "label":"Email"
+                "label":"LoggedInUserEmail"
             }]
         }];
 
@@ -276,7 +276,7 @@
         embedded_svc.settings.westernUnionUserDetails = loggedInUserDetails;
         // Check to see if user is logged in or not
         //if(embedded_svc.settings.westernUnionUserDetails === '{}') {
-        if(true) {
+        if(false) {
              // This event handler triggers when the chat button is clicked and causes a creation of a mutation observer so that a privacy statement can be dynamically added when the pre-chat form loads.
             embedded_svc.addEventHandler("onHelpButtonClick", function(data) {
                 console.log("onHelpButtonClick event was fired.");
@@ -332,20 +332,20 @@
             loggedInUser.email = 'bobbybrown@wuchattest.com';
 
             const tempFirstName = {
-                "label":"First Name",
+                "label":"LoggedInUserFirstName",
                 "name":"FirstName",
                 "value":loggedInUser.fname,
                 "transcriptFields":[],
                 "displayToAgent":true
             };
             const tempLastName = {
-                "label":"Last Name",
+                "label":"LoggedInUserLastName",
                 "value":loggedInUser.lname,
                 "transcriptFields":[],
                 "displayToAgent":true
             }; 
             const tempEmail = {
-                "label":"Email",
+                "label":"LoggedInUserEmail",
                 "value":loggedInUser.email,
                 "transcriptFields":[],
                 "displayToAgent":true
