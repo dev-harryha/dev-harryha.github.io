@@ -161,7 +161,24 @@
             "value":window.location.href,
             "transcriptFields":["Chat_Origin__c"],
             "displayToAgent":true
-        }];
+        }, {
+            "label": "First Name",
+            "value": "Harry",
+            "displayToAgent": true
+            }, {
+            "label": "Last Name",
+            "value": "Ha",
+            "displayToAgent": true
+            }, {
+            "label": "Email",
+            "value": "harryh@slalom.com",
+            "displayToAgent": true
+            }, {
+            "label": "issue",
+            "value": "Overriding your setup",
+            "displayToAgent": true
+            }
+        ];
         
 
         embedded_svc.settings.extraPrechatInfo = [{
@@ -308,7 +325,7 @@
                 }
             );
         } else {
-            const loggedInUser = JSON.parse(embedded_svc.settings.westernUnionUserDetails);
+            /*const loggedInUser = JSON.parse(embedded_svc.settings.westernUnionUserDetails);
             const tempFirstName = {
                 "label":"First Name",
                 "name":"FirstName",
@@ -326,7 +343,7 @@
                 "displayToAgent":true
             };
 
-            embedded_svc.settings.extraPrechatFormDetails.push(tempFirstName, tempLastName, tempEmail);
+            embedded_svc.settings.extraPrechatFormDetails.push(tempFirstName, tempLastName, tempEmail);*/
             /**** TODO ****
                 - Change the parameters below for each different org, the below corresponds to the embedded service deployment that has pre-chat disabled. 
                 - To get the code below, go to Setup>Embedded Service> Get Code
