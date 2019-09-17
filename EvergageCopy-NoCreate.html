@@ -68,6 +68,13 @@
     .embeddedServiceHelpButton .helpButtonEnabled:hover {
         background-color: #ffcc00
     }
+    .embeddedChatPrivacy {
+        position: absolute;
+        font-size: 10px;
+        bottom: 0;
+        padding: 0 24px 10px;
+        text-align: justify;
+    }
 </style>
 
 <script type='text/javascript' src='https://service.force.com/embeddedservice/5.0/esw.min.js'></script>
@@ -91,32 +98,40 @@
 
     let loggedInUserDetails = getLoggedInUserdetails();
 
+    // Function that creates the Privacy Statement in the pre-chat form and also closes out the mutation observer.
+    var createPrivacyStatement = function(observer) {
+        var privacyDiv = document.createElement('DIV');
+        privacyDiv.className = 'embeddedChatPrivacy';
+        var privacyTextA = document.createTextNode("The chat may be logged and monitored for quality assurance purposes. Please avoid sending any sensitive personal information. ");
+        var privacyTextB = document.createTextNode(" about Western Union's privacy practices.");
+        var a = document.createElement('a');
+        var linkText = document.createTextNode("Learn more");
+        a.appendChild(linkText);
+        a.title = "Learn more";
+        a.href = "https://partners.westernunion.com/content/wucom/global/en/privacy-statement.html";
+        a.target = '_blank';
+        privacyDiv.appendChild(privacyTextA);
+        privacyDiv.appendChild(a);
+        privacyDiv.appendChild(privacyTextB);
+        document.querySelector("div.formContent.embeddedServiceSidebarForm").appendChild(privacyDiv);
+
+        if(observer) {
+            console.log('observer not null, disconnecting');
+            observer.disconnect();
+        }
+    }
+
 	var initESW = function(gslbBaseURL) {
 		embedded_svc.settings.displayHelpButton = true; //Or false
 		embedded_svc.settings.language = 'en'; //For example, enter 'en' or 'en-US'
-        //embedded_svc.settings.smallCompanyLogoImgURL = 'https://wuicare--vpm2--c.cs65.visual.force.com/resource/1563475528000/WU_Chat_Icon';
         embedded_svc.settings.avatarImgURL = 'https://www.westernunion.com/content/dam/wu/us/en/Logo_40x40.png';
-
 		embedded_svc.settings.defaultMinimizedText = 'Chat'; //(Defaults to Chat with an Expert)
 		embedded_svc.settings.disabledMinimizedText = 'Chat'; //(Defaults to Agent Offline)
 		embedded_svc.settings.widgetFontSize = "14px";
-
-		//embedded_svc.settings.loadingText = ''; //(Defaults to Loading)
 		embedded_svc.settings.storageDomain = window.location.host; //(Sets the domain for your deployment so that visitors can navigate subdomains during a chat session)
-
-		// Settings for Chat
-		//embedded_svc.settings.directToButtonRouting = function(prechatFormData) {
-			// Dynamically changes the button ID based on what the visitor enters in the pre-chat form.
-			// Returns a valid button ID.
-		//};
-		//embedded_svc.settings.prepopulatedPrechatFields = {}; //Sets the auto-population of pre-chat form fields
-		//embedded_svc.settings.fallbackRouting = []; //An array of button IDs, user IDs, or userId_buttonId
-        //embedded_svc.settings.offlineSupportMinimizedText = '...'; //(Defaults to Contact Us)
-
-        
 		embedded_svc.settings.enabledFeatures = ['LiveAgent'];
         embedded_svc.settings.entryFeature = 'LiveAgent';
-        console.log(window.location.href);
+
         embedded_svc.settings.extraPrechatFormDetails = [{
             "label":"CaseSubject",
             "value":"Western Union",
@@ -245,10 +260,32 @@
             }]
         }];
 
+        // Setting the user logged in details
         embedded_svc.settings.westernUnionUserDetails = loggedInUserDetails;
-        //console.log(embedded_svc.settings.westernUnionUserDetails);
-        // Condition would be here to check language and/or auth vs unauth users.
+        // Check to see if user is logged in or not
         if(embedded_svc.settings.westernUnionUserDetails === '{}') {
+             // This event handler triggers when the chat button is clicked and causes a creation of a mutation observer so that a privacy statement can be dynamically added when the pre-chat form loads.
+             embedded_svc.addEventHandler("onHelpButtonClick", function(data) {
+                console.log("onHelpButtonClick event was fired.");
+                //const targetNode = document.querySelector('input');
+                const targetNode = document.body;
+                const config = { attributes: true, subtree: true};
+                // Callback function to execute when mutations are observed
+                const mutationCallback = function(mutationsList, observer) {
+                    for(let mutation of mutationsList) {
+                        if (mutation.type === 'attributes' && mutation.target.className === 'Email slds-style-inputtext input') {
+                            console.log(mutation);
+                            createPrivacyStatement(observer);
+                            break;
+                        }
+                    }
+                };
+                // Create an observer instance linked to the callback function
+                const observer = new MutationObserver(mutationCallback);
+
+                // Start observing the target node for configured mutations
+                observer.observe(targetNode, config);
+            });
             /**** TODO ****
                 - Change the parameters below for each different org, the below corresponds to the embedded service deployment that has pre-chat enabled (non-auth). 
                 - To get the code below, go to Setup>Embedded Service> Get Code
