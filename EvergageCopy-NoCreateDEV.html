@@ -339,24 +339,24 @@
                 "value":loggedInUser.email,
                 "displayToAgent":true
             };
-            const tempFirstName = {
+            const tempFirstName2 = {
                 "label":"SuppliedFirstName",
                 "name":"FirstName",
                 "value":loggedInUser.fname,
                 "displayToAgent":true
             };
-            const tempLastName = {
+            const tempLastName2 = {
                 "label":"SuppliedLastName",
                 "value":loggedInUser.lname,
                 "displayToAgent":true
             }; 
-            const tempEmail = {
+            const tempEmail2 = {
                 "label":"SuppliedEmail",
                 "value":loggedInUser.email,
                 "displayToAgent":true
             };
 
-            embedded_svc.settings.extraPrechatFormDetails.push(tempFirstName, tempLastName, tempEmail);
+            embedded_svc.settings.extraPrechatFormDetails.push(tempFirstName, tempLastName, tempEmail,tempFirstName2, tempLastName2, tempEmail2);
             //Change the parameters below for each different org. To get the code below, go to Setup>Embedded Service> Get Code
             embedded_svc.init(
                 'https://wuicare--UATChat.cs45.my.salesforce.com',
