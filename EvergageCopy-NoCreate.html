@@ -186,7 +186,8 @@
                 "label":"Email"
             }],
             "entityName":"Contact",
-            "saveToTranscript":"ContactId"
+            "saveToTranscript":"ContactId",
+            "showOnCreate":false
         }, {
             // Creating the map for the case fields required for WU
             "entityName":"Case",
@@ -309,26 +310,30 @@
             );
         } else {
             const loggedInUser = JSON.parse(embedded_svc.settings.westernUnionUserDetails);
-            console.log(loggedInUser);
             const tempFirstName = {
                 "label":"First Name",
                 "name":"FirstName",
-                "value":'Harry',
+                "value":loggedInUser.fname,
+                "transcriptFields":[],
                 "displayToAgent":true
             };
             const tempLastName = {
                 "label":"Last Name",
-                "value":'Ha',
+                "value":loggedInUser.lname,
+                "transcriptFields":[],
                 "displayToAgent":true
             }; 
             const tempEmail = {
                 "label":"Email",
-                "value":'harryh@slalom.com',
+                "value":loggedInUser.email,
+                "transcriptFields":[],
                 "displayToAgent":true
             };
 
             embedded_svc.settings.extraPrechatFormDetails.push(tempFirstName, tempLastName, tempEmail);
+            console.log('==Table below:==');
             console.table(embedded_svc.settings.extraPrechatFormDetails);
+            console.log('=====');
             /**** TODO ****
                 - Change the parameters below for each different org, the below corresponds to the embedded service deployment that has pre-chat disabled. 
                 - To get the code below, go to Setup>Embedded Service> Get Code
