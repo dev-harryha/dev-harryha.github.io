@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
 </head>
 <body>
-<h1>WUCHAT Welcome!v12-debug</h1>
+<h1>WUCHAT Welcome!debug</h1>
 <div>
     <label for="username">Username: </label>
     <input type="text" id="username" name="username">
@@ -262,6 +262,16 @@
             }]
         }];
 
+        embedded_svc.addEventHandler("onChatRequestSuccess", function(data) {
+            console.log("onChatRequestSuccess event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
+            console.log('==Table below for extraPrechatFormDetails:==');
+            console.table(embedded_svc.settings.extraPrechatFormDetails);
+            console.log('=====');
+            console.log('==Table below for extraPrechatInfo:==');
+            console.table(embedded_svc.settings.extraPrechatInfo);
+            console.log('=====');
+        });
+
         // Setting the user logged in details
         embedded_svc.settings.westernUnionUserDetails = loggedInUserDetails;
         // Check to see if user is logged in or not
@@ -295,15 +305,6 @@
             console.log('==Table below for extraPrechatInfo:==');
             console.table(embedded_svc.settings.extraPrechatInfo);
             console.log('=====');
-            embedded_svc.addEventHandler("onChatRequestSuccess", function(data) {
-                console.log("onChatRequestSuccess event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
-                console.log('==Table below for extraPrechatFormDetails:==');
-                console.table(embedded_svc.settings.extraPrechatFormDetails);
-                console.log('=====');
-                console.log('==Table below for extraPrechatInfo:==');
-                console.table(embedded_svc.settings.extraPrechatInfo);
-                console.log('=====');
-            });
             /**** TODO ****
                 - Change the parameters below for each different org, the below corresponds to the embedded service deployment that has pre-chat enabled (non-auth). 
                 - To get the code below, go to Setup>Embedded Service> Get Code
@@ -325,6 +326,7 @@
             );
         } else {
             let loggedInUser = JSON.parse(embedded_svc.settings.westernUnionUserDetails);
+            // DEBUG
             loggedInUser.fname = 'Bobby';
             loggedInUser.lname = 'Brown';
             loggedInUser.email = 'bobbybrown@wuchattest.com';
@@ -348,25 +350,6 @@
                 "transcriptFields":[],
                 "displayToAgent":true
             };
-            /*const tempFirstName = {
-                "label":"First Name",
-                "name":"FirstName",
-                "value":'Bobby',
-                "transcriptFields":[],
-                "displayToAgent":true
-            };
-            const tempLastName = {
-                "label":"Last Name",
-                "value":'Brown',
-                "transcriptFields":[],
-                "displayToAgent":true
-            }; 
-            const tempEmail = {
-                "label":"Email",
-                "value":'bobbybrown@wuchattest.com',
-                "transcriptFields":[],
-                "displayToAgent":true
-            };*/
 
             embedded_svc.settings.extraPrechatFormDetails.push(tempFirstName, tempLastName, tempEmail);
             console.log('==Table below for extraPrechatFormDetails:==');
