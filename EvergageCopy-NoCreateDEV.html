@@ -182,25 +182,26 @@
         embedded_svc.settings.extraPrechatInfo = [{
             // Not creating the contact, but finding the contact from the PersonAccount and linking it to the Case (not possible it seems..)
             "entityFieldMaps":[{
-                "doCreate":false,
+                "doCreate":true,
                 "doFind":false,
                 "fieldName":"LastName",
                 "isExactMatch":false,
                 "label":"Last Name"
             }, {
-                "doCreate":false,
+                "doCreate":true,
                 "doFind":false,
                 "fieldName":"FirstName",
                 "isExactMatch":false,
                 "label":"First Name"
             }, {
-                "doCreate":false,
+                "doCreate":true,
                 "doFind":false,
                 "fieldName":"Email",
                 "isExactMatch":true,
                 "label":"Email"
             }],
-            "entityName":"Contact"
+            "entityName":"Contact",
+            "showOnCreate":true
         }, {
             // Creating the map for the case fields required for WU
             "entityName":"Case",
