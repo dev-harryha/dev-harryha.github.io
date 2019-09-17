@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
 </head>
 <body>
-<h1>WUCHAT Welcome!debug2dev</h1>
+<h1>WUCHAT Welcome!debug1dev</h1>
 <div>
     <label for="username">Username: </label>
     <input type="text" id="username" name="username">
@@ -168,51 +168,48 @@
         
 
         embedded_svc.settings.extraPrechatInfo = [{
-            // Not creating the contact, but finding the contact from the PersonAccount and linking it to the Case (not possible it seems..)
-            "entityFieldMaps":[{
-                "doCreate":false,
-                "doFind":false,
-                "fieldName":"LastName",
-                "isExactMatch":false,
-                "label":"Last Name"
-            }, {
-                "doCreate":false,
-                "doFind":false,
-                "fieldName":"FirstName",
-                "isExactMatch":false,
-                "label":"First Name"
-            }, {
-                "doCreate":false,
-                "doFind":false,
-                "fieldName":"Email",
-                "isExactMatch":false,
-                "label":"Email"
-            }],
-            "entityName":"Contact"
-        }, {
-            "entityName":"Case",
-            "showOnCreate":true,
-            "saveToTranscript":"CaseId",
+            "entityName": "Contact",
+            "showOnCreate": true,
+            "linkToEntityName": "Case",
+            "linkToEntityField": "ContactId",
+            "saveToTranscript": "ContactId",
             "entityFieldMaps": [{
-                "isExactMatch":false,
-                "fieldName":"Subject",
-                "doCreate":true,
-                "doFind":false,
-                "label":"issue"
-              }, {
-                "isExactMatch":false,
-                "fieldName":"Status",
-                "doCreate":true,
-                "doFind":false,
-                "label":"Status"
-              }, {
-                "isExactMatch":false,
-                "fieldName":"Origin",
-                "doCreate":true,
-                "doFind":false,
-                "label":"Origin"
+              "isExactMatch": true,
+              "fieldName": "FirstName",
+              "doCreate": true,
+              "doFind": true,
+              "label": "First Name"
+            }, {
+              "isExactMatch": true,
+              "fieldName": "LastName",
+              "doCreate": true,
+              "doFind": true,
+              "label": "Last Name"
+            }, {
+              "isExactMatch": true,
+              "fieldName": "Email",
+              "doCreate": true,
+              "doFind": true,
+              "label": "Email"
             }]
-        }];
+          }, {
+            "entityName": "Case",
+            "showOnCreate": true,
+            "saveToTranscript": "CaseId",
+            "entityFieldMaps": [{
+              "isExactMatch": false,
+              "fieldName": "Subject",
+              "doCreate": true,
+              "doFind": false,
+              "label": "issue"
+            }, {
+              "isExactMatch": false,
+              "fieldName": "Status",
+              "doCreate": true,
+              "doFind": false,
+              "label": "Status"
+            }]
+          }]
 
         //console.log(embedded_svc.settings.westernUnionUserDetails);
         // Condition would be here to check language and/or auth vs unauth users.
