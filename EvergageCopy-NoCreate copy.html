@@ -97,7 +97,7 @@
     };
 
     let loggedInUserDetails = getLoggedInUserdetails();
-
+    
     // Function that creates the Privacy Statement in the pre-chat form and also closes out the mutation observer.
     var createPrivacyStatement = function(observer) {
         var privacyDiv = document.createElement('DIV');
@@ -124,14 +124,29 @@
 	var initESW = function(gslbBaseURL) {
 		embedded_svc.settings.displayHelpButton = true; //Or false
 		embedded_svc.settings.language = 'en'; //For example, enter 'en' or 'en-US'
+        //embedded_svc.settings.smallCompanyLogoImgURL = 'https://wuicare--vpm2--c.cs65.visual.force.com/resource/1563475528000/WU_Chat_Icon';
         embedded_svc.settings.avatarImgURL = 'https://www.westernunion.com/content/dam/wu/us/en/Logo_40x40.png';
+
 		embedded_svc.settings.defaultMinimizedText = 'Chat'; //(Defaults to Chat with an Expert)
 		embedded_svc.settings.disabledMinimizedText = 'Chat'; //(Defaults to Agent Offline)
 		embedded_svc.settings.widgetFontSize = "14px";
+
+		//embedded_svc.settings.loadingText = ''; //(Defaults to Loading)
 		embedded_svc.settings.storageDomain = window.location.host; //(Sets the domain for your deployment so that visitors can navigate subdomains during a chat session)
+
+		// Settings for Chat
+		//embedded_svc.settings.directToButtonRouting = function(prechatFormData) {
+			// Dynamically changes the button ID based on what the visitor enters in the pre-chat form.
+			// Returns a valid button ID.
+		//};
+		//embedded_svc.settings.prepopulatedPrechatFields = {}; //Sets the auto-population of pre-chat form fields
+		//embedded_svc.settings.fallbackRouting = []; //An array of button IDs, user IDs, or userId_buttonId
+        //embedded_svc.settings.offlineSupportMinimizedText = '...'; //(Defaults to Contact Us)
+
+        
 		embedded_svc.settings.enabledFeatures = ['LiveAgent'];
         embedded_svc.settings.entryFeature = 'LiveAgent';
-
+        console.log(window.location.href);
         embedded_svc.settings.extraPrechatFormDetails = [{
             "label":"CaseSubject",
             "value":"Western Union",
@@ -180,14 +195,12 @@
                 "label":"First Name"
             }, {
                 "doCreate":false,
-                "doFind":true,
+                "doFind":false,
                 "fieldName":"Email",
                 "isExactMatch":true,
                 "label":"Email"
             }],
-            "entityName":"Contact",
-            "saveToTranscript":"ContactId",
-            "showOnCreate":false
+            "entityName":"Contact"
         }, {
             // Creating the map for the case fields required for WU
             "entityName":"Case",
@@ -262,12 +275,11 @@
             }]
         }];
 
-        // Setting the user logged in details
         embedded_svc.settings.westernUnionUserDetails = loggedInUserDetails;
-        // Check to see if user is logged in or not
-        //if(embedded_svc.settings.westernUnionUserDetails === '{}') {
-        if(true) {
-             // This event handler triggers when the chat button is clicked and causes a creation of a mutation observer so that a privacy statement can be dynamically added when the pre-chat form loads.
+        //console.log(embedded_svc.settings.westernUnionUserDetails);
+        // Condition would be here to check language and/or auth vs unauth users.
+        if(embedded_svc.settings.westernUnionUserDetails === '{}') {
+            // This event handler triggers when the chat button is clicked and causes a creation of a mutation observer so that a privacy statement can be dynamically added when the pre-chat form loads.
             embedded_svc.addEventHandler("onHelpButtonClick", function(data) {
                 console.log("onHelpButtonClick event was fired.");
                 //const targetNode = document.querySelector('input');
@@ -289,69 +301,56 @@
                 // Start observing the target node for configured mutations
                 observer.observe(targetNode, config);
             });
-            /**** TODO ****
-                - Change the parameters below for each different org, the below corresponds to the embedded service deployment that has pre-chat enabled (non-auth). 
-                - To get the code below, go to Setup>Embedded Service> Get Code
-            */
+            //Change the parameters below for each different org. To get the code below, go to Setup>Embedded Service> Get Code
             embedded_svc.init(
-                'https://wuicare--UATChat.cs45.my.salesforce.com',
-                'https://uatchat-wucare.cs45.force.com/care',
+                'https://wuicare--VPM2.cs65.my.salesforce.com',
+                'https://vpm2-wucare.cs65.force.com/care',
                 gslbBaseURL,
-                '00D8A0000009R2G',
+                '00D0m0000009fEK',
                 'WUCare_Embedded_Service_Non_Auth',
                 {
-                    baseLiveAgentContentURL: 'https://c.la2-c2cs-ph2.salesforceliveagent.com/content',
+                    baseLiveAgentContentURL: 'https://c.la1-c1cs-ord.salesforceliveagent.com/content',
                     deploymentId: '5721500000007Ds',
                     buttonId: '5731500000008OV',
-                    baseLiveAgentURL: 'https://d.la2-c2cs-ph2.salesforceliveagent.com/chat',
-                    eswLiveAgentDevName: 'EmbeddedServiceLiveAgent_Parent04I8A000000002MUAQ_16d010c8ab1',
+                    baseLiveAgentURL: 'https://d.la1-c1cs-ord.salesforceliveagent.com/chat',
+                    eswLiveAgentDevName: 'EmbeddedServiceLiveAgent_Parent04I0m000000007lEAA_16b9ed43360',
                     isOfflineSupportEnabled: false
                 }
             );
         } else {
-            let loggedInUser = JSON.parse(embedded_svc.settings.westernUnionUserDetails);
-            // DEBUG
-            loggedInUser.fname = 'Bobby';
-            loggedInUser.lname = 'Brown';
-            loggedInUser.email = 'bobbybrown@wuchattest.com';
+            const loggedInUser = JSON.parse(embedded_svc.settings.westernUnionUserDetails);
 
             const tempFirstName = {
                 "label":"First Name",
                 "name":"FirstName",
                 "value":loggedInUser.fname,
-                "transcriptFields":[],
                 "displayToAgent":true
             };
             const tempLastName = {
                 "label":"Last Name",
                 "value":loggedInUser.lname,
-                "transcriptFields":[],
                 "displayToAgent":true
             }; 
             const tempEmail = {
                 "label":"Email",
                 "value":loggedInUser.email,
-                "transcriptFields":[],
                 "displayToAgent":true
             };
 
             embedded_svc.settings.extraPrechatFormDetails.push(tempFirstName, tempLastName, tempEmail);
-            /**** TODO ****
-                - Change the parameters below for each different org, the below corresponds to the embedded service deployment that has pre-chat disabled. 
-                - To get the code below, go to Setup>Embedded Service> Get Code
-            */
+            //Change the parameters below for each different org. To get the code below, go to Setup>Embedded Service> Get Code
             embedded_svc.init(
-                'https://wuicare--UATChat.cs45.my.salesforce.com',
-                'https://uatchat-wucare.cs45.force.com/care',
+                'https://wuicare--VPM2.cs65.my.salesforce.com',
+                'https://vpm2-wucare.cs65.force.com/care',
                 gslbBaseURL,
-                '00D8A0000009R2G',
+                '00D0m0000009fEK',
                 'WUCare_Embedded_Service',
                 {
-                    baseLiveAgentContentURL: 'https://c.la2-c2cs-ph2.salesforceliveagent.com/content',
+                    baseLiveAgentContentURL: 'https://c.la1-c1cs-ord.salesforceliveagent.com/content',
                     deploymentId: '5721500000007Ds',
                     buttonId: '5731500000008OV',
-                    baseLiveAgentURL: 'https://d.la2-c2cs-ph2.salesforceliveagent.com/chat',
-                    eswLiveAgentDevName: 'EmbeddedServiceLiveAgent_Parent04I8A000000002HUAQ_16d010414d6',
+                    baseLiveAgentURL: 'https://d.la1-c1cs-ord.salesforceliveagent.com/chat',
+                    eswLiveAgentDevName: 'EmbeddedServiceLiveAgent_Parent04I0m000000007bEAA_16b95707fb2',
                     isOfflineSupportEnabled: false
                 }
             ); 
@@ -360,7 +359,7 @@
 
 	if (!window.embedded_svc) {
 		var s = document.createElement('script');
-		s.setAttribute('src', 'https://wuicare--UATChat.cs45.my.salesforce.com/embeddedservice/5.0/esw.min.js');
+		s.setAttribute('src', 'https://wuicare--VPM2.cs65.my.salesforce.com/embeddedservice/5.0/esw.min.js');
 		s.onload = function() {
 			initESW(null);
 		};
