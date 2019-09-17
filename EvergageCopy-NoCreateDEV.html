@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
 </head>
 <body>
-<h1>WUCHAT Welcome!debug12uat--</h1>
+<h1>WUCHAT Welcome!debug12uat-</h1>
 <div>
     <label for="username">Username: </label>
     <input type="text" id="username" name="username">
@@ -259,19 +259,19 @@
                 "doFind":false,
                 "fieldName":"Supplied_First_Name__c",
                 "isExactMatch":false,
-                "label":"First Name"
+                "label":"SuppliedFirstName"
             }, {
                 "doCreate":true,
                 "doFind":false,
                 "fieldName":"Supplied_Last_Name__c",
                 "isExactMatch":false,
-                "label":"Last Name"
+                "label":"SuppliedLastName"
             }, {
                 "doCreate":true,
                 "doFind":false,
                 "fieldName":"SuppliedEmail",
                 "isExactMatch":false,
-                "label":"Email"
+                "label":"SuppliedEmail"
             }]
         }];
 
@@ -336,6 +336,22 @@
             }; 
             const tempEmail = {
                 "label":"Email",
+                "value":loggedInUser.email,
+                "displayToAgent":true
+            };
+            const tempFirstName = {
+                "label":"SuppliedFirstName",
+                "name":"FirstName",
+                "value":loggedInUser.fname,
+                "displayToAgent":true
+            };
+            const tempLastName = {
+                "label":"SuppliedLastName",
+                "value":loggedInUser.lname,
+                "displayToAgent":true
+            }; 
+            const tempEmail = {
+                "label":"SuppliedEmail",
                 "value":loggedInUser.email,
                 "displayToAgent":true
             };
