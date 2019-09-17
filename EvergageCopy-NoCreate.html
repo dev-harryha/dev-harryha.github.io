@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
 </head>
 <body>
-<h1>WUCHAT Welcome!v1</h1>
+<h1>WUCHAT Welcome!v2</h1>
 <div>
     <label for="username">Username: </label>
     <input type="text" id="username" name="username">
@@ -161,24 +161,7 @@
             "value":window.location.href,
             "transcriptFields":["Chat_Origin__c"],
             "displayToAgent":true
-        }/*, {
-            "label": "First Name",
-            "value": "Harry",
-            "displayToAgent": true
-            }, {
-            "label": "Last Name",
-            "value": "Ha",
-            "displayToAgent": true
-            }, {
-            "label": "Email",
-            "value": "harryh@slalom.com",
-            "displayToAgent": true
-            }, {
-            "label": "issue",
-            "value": "Overriding your setup",
-            "displayToAgent": true
-            }*/
-        ];
+        }];
         
 
         embedded_svc.settings.extraPrechatInfo = [{
@@ -197,7 +180,7 @@
                 "label":"First Name"
             }, {
                 "doCreate":false,
-                "doFind":false,
+                "doFind":true,
                 "fieldName":"Email",
                 "isExactMatch":true,
                 "label":"Email"
@@ -282,7 +265,7 @@
         embedded_svc.settings.westernUnionUserDetails = loggedInUserDetails;
         // Check to see if user is logged in or not
         //if(embedded_svc.settings.westernUnionUserDetails === '{}') {
-        if(true) {
+        if(false) {
              // This event handler triggers when the chat button is clicked and causes a creation of a mutation observer so that a privacy statement can be dynamically added when the pre-chat form loads.
             embedded_svc.addEventHandler("onHelpButtonClick", function(data) {
                 console.log("onHelpButtonClick event was fired.");
@@ -325,7 +308,8 @@
                 }
             );
         } else {
-            /*const loggedInUser = JSON.parse(embedded_svc.settings.westernUnionUserDetails);
+            const loggedInUser = JSON.parse(embedded_svc.settings.westernUnionUserDetails);
+            console.log(loggedInUser);
             const tempFirstName = {
                 "label":"First Name",
                 "name":"FirstName",
@@ -343,7 +327,8 @@
                 "displayToAgent":true
             };
 
-            embedded_svc.settings.extraPrechatFormDetails.push(tempFirstName, tempLastName, tempEmail);*/
+            embedded_svc.settings.extraPrechatFormDetails.push(tempFirstName, tempLastName, tempEmail);
+            console.table(embedded_svc.settings.extraPrechatFormDetails);
             /**** TODO ****
                 - Change the parameters below for each different org, the below corresponds to the embedded service deployment that has pre-chat disabled. 
                 - To get the code below, go to Setup>Embedded Service> Get Code
