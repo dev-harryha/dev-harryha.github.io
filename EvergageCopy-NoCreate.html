@@ -182,10 +182,11 @@
                 "doCreate":false,
                 "doFind":false,
                 "fieldName":"Email",
-                "isExactMatch":false,
+                "isExactMatch":true,
                 "label":"Email"
             }],
-            "entityName":"Contact"
+            "entityName":"Contact",
+            "saveToTranscript":"ContactId"
         }, {
             // Creating the map for the case fields required for WU
             "entityName":"Case",
@@ -263,7 +264,8 @@
         // Setting the user logged in details
         embedded_svc.settings.westernUnionUserDetails = loggedInUserDetails;
         // Check to see if user is logged in or not
-        if(embedded_svc.settings.westernUnionUserDetails === '{}') {
+        //if(embedded_svc.settings.westernUnionUserDetails === '{}') {
+        if(false) {
              // This event handler triggers when the chat button is clicked and causes a creation of a mutation observer so that a privacy statement can be dynamically added when the pre-chat form loads.
             embedded_svc.addEventHandler("onHelpButtonClick", function(data) {
                 console.log("onHelpButtonClick event was fired.");
@@ -307,22 +309,6 @@
             );
         } else {
             const loggedInUser = JSON.parse(embedded_svc.settings.westernUnionUserDetails);
-
-            /*const tempFirstName = {
-                "label":"First Name",
-                "value":loggedInUser.fname,
-                "displayToAgent":true
-            };
-            const tempLastName = {
-                "label":"Last Name",
-                "value":loggedInUser.lname,
-                "displayToAgent":true
-            }; 
-            const tempEmail = {
-                "label":"Email",
-                "value":loggedInUser.email,
-                "displayToAgent":true
-            };*/
             const tempFirstName = {
                 "label":"First Name",
                 "name":"FirstName",
