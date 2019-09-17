@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
 </head>
 <body>
-<h1>WUCHAT Welcome!debug2dev</h1>
+<h1>WUCHAT Welcome!debug2d2ev</h1>
 <div>
     <label for="username">Username: </label>
     <input type="text" id="username" name="username">
@@ -296,7 +296,7 @@
 
             embedded_svc.settings.extraPrechatFormDetails.push(tempFirstName, tempLastName, tempEmail,tempFirstName2, tempLastName2, tempEmail2);*/
             //Change the parameters below for each different org. To get the code below, go to Setup>Embedded Service> Get Code
-            embedded_svc.init(
+            /*embedded_svc.init(
                 'https://wuicare--VPM2.cs65.my.salesforce.com',
                 'https://vpm2-wucare.cs65.force.com/care',
                 gslbBaseURL,
@@ -309,7 +309,21 @@
                     baseLiveAgentURL: 'https://d.la1-c1cs-ord.salesforceliveagent.com/chat',
                     eswLiveAgentDevName: 'EmbeddedServiceLiveAgent_Parent04I0m000000007bEAA_16b95707fb2',
                     isOfflineSupportEnabled: false
-                }
+                }*/
+            embedded_svc.init(
+			'https://wuicare--VPM2.cs65.my.salesforce.com',
+			'https://vpm2-wucare.cs65.force.com/care',
+			gslbBaseURL,
+			'00D0m0000009fEK',
+			'WUCare_Embedded_Service_Non_Auth',
+			{
+				baseLiveAgentContentURL: 'https://c.la1-c1cs-ord.salesforceliveagent.com/content',
+				deploymentId: '5721500000007Ds',
+				buttonId: '5731500000008OV',
+				baseLiveAgentURL: 'https://d.la1-c1cs-ord.salesforceliveagent.com/chat',
+				eswLiveAgentDevName: 'EmbeddedServiceLiveAgent_Parent04I0m000000007lEAA_16b9ed43360',
+				isOfflineSupportEnabled: false
+			}
             ); 
         }        
 	};
