@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
 </head>
 <body>
-<h1>WUCHAT Welcome!v12</h1>
+<h1>WUCHAT Welcome!v12-debug</h1>
 <div>
     <label for="username">Username: </label>
     <input type="text" id="username" name="username">
@@ -266,7 +266,7 @@
         embedded_svc.settings.westernUnionUserDetails = loggedInUserDetails;
         // Check to see if user is logged in or not
         //if(embedded_svc.settings.westernUnionUserDetails === '{}') {
-        if(false) {
+        if(true) {
              // This event handler triggers when the chat button is clicked and causes a creation of a mutation observer so that a privacy statement can be dynamically added when the pre-chat form loads.
             embedded_svc.addEventHandler("onHelpButtonClick", function(data) {
                 console.log("onHelpButtonClick event was fired.");
@@ -295,6 +295,15 @@
             console.log('==Table below for extraPrechatInfo:==');
             console.table(embedded_svc.settings.extraPrechatInfo);
             console.log('=====');
+            embedded_svc.addEventHandler("onChatRequestSuccess", function(data) {
+                console.log("onChatRequestSuccess event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
+                console.log('==Table below for extraPrechatFormDetails:==');
+                console.table(embedded_svc.settings.extraPrechatFormDetails);
+                console.log('=====');
+                console.log('==Table below for extraPrechatInfo:==');
+                console.table(embedded_svc.settings.extraPrechatInfo);
+                console.log('=====');
+            });
             /**** TODO ****
                 - Change the parameters below for each different org, the below corresponds to the embedded service deployment that has pre-chat enabled (non-auth). 
                 - To get the code below, go to Setup>Embedded Service> Get Code
