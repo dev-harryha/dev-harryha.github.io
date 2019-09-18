@@ -271,9 +271,7 @@
 				"label": "CaseRecordType"
 			}]
         }];
-
-        // Setting the user logged in details
-        embedded_svc.settings.westernUnionUserDetails = loggedInUserDetails;
+        
         // Check to see if user is logged in or not
         //if(embedded_svc.settings.westernUnionUserDetails === '{}') {
         if(false) {
@@ -316,7 +314,7 @@
                 }
             );
         } else {
-            let loggedInUser = JSON.parse(embedded_svc.settings.westernUnionUserDetails);
+            let loggedInUser = JSON.parse(loggedInUserDetails);
             // DEBUG
             loggedInUser.fname = 'Bobby';
             loggedInUser.lname = 'Brown';
