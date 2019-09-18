@@ -74,7 +74,11 @@
 			"label": "issue",
 			"value": "HQHQHQ",
 			"displayToAgent": true
-		  }];
+		  }, {
+			// Case RecordType for General
+			"label":"CaseRecordType",
+			"value":"01215000001cpEwAAI"
+		}];
 		  
 		  embedded_svc.settings.extraPrechatInfo = [{
 			"entityName": "Contact",
@@ -109,6 +113,12 @@
 			  "doCreate": true,
 			  "doFind": false,
 			  "label": "issue"
+			}, {
+				"doCreate": true,
+				"doFind": false,
+				"fieldName": "RecordTypeId",
+				"isExactMatch": false, 
+				"label": "CaseRecordType"
 			}/*, {
 			  "isExactMatch": false,
 			  "fieldName": "Status",
