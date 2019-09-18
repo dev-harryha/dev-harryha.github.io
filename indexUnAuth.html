@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
 </head>
 <body>
-<h1>WUCHAT Wel1come!!21</h1>
+<h1>WUCHAT Wel1come!!22</h1>
 <div>
     <label for="username">Username: </label>
     <input type="text" id="username" name="username">
@@ -65,29 +65,6 @@
 		}];
 		  
 		  embedded_svc.settings.extraPrechatInfo = [{
-			"entityName": "Contact",
-			"showOnCreate": true,
-			"saveToTranscript": "ContactId",
-			"entityFieldMaps": [{
-			  "isExactMatch": true,
-			  "fieldName": "FirstName",
-			  "doCreate": true,
-			  "doFind": true,
-			  "label": "First Name"
-			}, {
-			  "isExactMatch": true,
-			  "fieldName": "LastName",
-			  "doCreate": true,
-			  "doFind": true,
-			  "label": "Last Name"
-			}, {
-			  "isExactMatch": true,
-			  "fieldName": "Email",
-			  "doCreate": true,
-			  "doFind": true,
-			  "label": "Email"
-			}]
-		  }, {
 			"entityName": "Case",
 			"showOnCreate": true,
 			"saveToTranscript": "CaseId",
@@ -108,7 +85,7 @@
                 "doFind":false,
                 "fieldName":"Supplied_First_Name__c",
                 "isExactMatch":false,
-                "label":"2First Name"
+                "label":"First Name"
             }, {
                 "doCreate":true,
                 "doFind":false,
@@ -134,7 +111,30 @@
 			  "doFind": false,
 			  "label": "Origin"
 			}*/]
-		  }]
+		  }, {
+			"entityName": "Contact",
+			"showOnCreate": true,
+			"saveToTranscript": "ContactId",
+			"entityFieldMaps": [{
+			  "isExactMatch": true,
+			  "fieldName": "FirstName",
+			  "doCreate": true,
+			  "doFind": true,
+			  "label": "First Name"
+			}, {
+			  "isExactMatch": true,
+			  "fieldName": "LastName",
+			  "doCreate": true,
+			  "doFind": true,
+			  "label": "Last Name"
+			}, {
+			  "isExactMatch": true,
+			  "fieldName": "Email",
+			  "doCreate": true,
+			  "doFind": true,
+			  "label": "Email"
+			}]
+		  }];
 
 
 
