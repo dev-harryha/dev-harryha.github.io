@@ -126,10 +126,10 @@
 			}]
 		  }]
 
-		  
+
 
 		embedded_svc.init(
-			'https://resourceful-otter-apzfu6-dev-ed.my.salesforce.com',
+			/*'https://resourceful-otter-apzfu6-dev-ed.my.salesforce.com',
 			'https://hh-category1biking-developer-edition.na85.force.com/',
 			gslbBaseURL,
 			'00D1U0000013Gpm',
@@ -141,13 +141,26 @@
 				baseLiveAgentURL: 'https://d.la2-c1-ph2.salesforceliveagent.com/chat',
 				eswLiveAgentDevName: 'Chat_Agents',
 				isOfflineSupportEnabled: false
-			}
+			}*/
+			'https://wuicare--VPM2.cs65.my.salesforce.com',
+                'https://vpm2-wucare.cs65.force.com/care',
+                gslbBaseURL,
+                '00D0m0000009fEK',
+                'WUCare_Embedded_Service',
+                {
+                    baseLiveAgentContentURL: 'https://c.la1-c1cs-ord.salesforceliveagent.com/content',
+                    deploymentId: '5721500000007Ds',
+                    buttonId: '5731500000008OV',
+                    baseLiveAgentURL: 'https://d.la1-c1cs-ord.salesforceliveagent.com/chat',
+                    eswLiveAgentDevName: 'EmbeddedServiceLiveAgent_Parent04I0m000000007bEAA_16b95707fb2',
+                    isOfflineSupportEnabled: false
+                }
 		);
 	};
 
 	if (!window.embedded_svc) {
 		var s = document.createElement('script');
-		s.setAttribute('src', 'https://resourceful-otter-apzfu6-dev-ed.my.salesforce.com/embeddedservice/5.0/esw.min.js');
+		s.setAttribute('src', 'https://wuicare--VPM2.cs65.my.salesforce.com/embeddedservice/5.0/esw.min.js');
 		s.onload = function() {
 			initESW(null);
 		};
