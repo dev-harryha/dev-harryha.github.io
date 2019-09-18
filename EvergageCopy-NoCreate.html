@@ -161,7 +161,11 @@
             "value":window.location.href,
             "transcriptFields":["Chat_Origin__c"],
             "displayToAgent":true
-        }];
+        }, {
+			// Case RecordType for General
+			"label":"CaseRecordType",
+			"value":"01215000001cpEwAAI"
+		}];
         
 
         embedded_svc.settings.extraPrechatInfo = [{
@@ -259,14 +263,20 @@
                 "fieldName":"SuppliedEmail",
                 "isExactMatch":false,
                 "label":"Email"
-            }]
+            }, {
+				"doCreate": true,
+				"doFind": false,
+				"fieldName": "RecordTypeId",
+				"isExactMatch": false, 
+				"label": "CaseRecordType"
+			}]
         }];
 
         // Setting the user logged in details
         embedded_svc.settings.westernUnionUserDetails = loggedInUserDetails;
         // Check to see if user is logged in or not
         //if(embedded_svc.settings.westernUnionUserDetails === '{}') {
-        if(true) {
+        if(false) {
              // This event handler triggers when the chat button is clicked and causes a creation of a mutation observer so that a privacy statement can be dynamically added when the pre-chat form loads.
             embedded_svc.addEventHandler("onHelpButtonClick", function(data) {
                 console.log("onHelpButtonClick event was fired.");
