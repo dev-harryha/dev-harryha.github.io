@@ -133,11 +133,6 @@
         embedded_svc.settings.entryFeature = 'LiveAgent';
 
         embedded_svc.settings.extraPrechatFormDetails = [{
-            "label": "First Name",
-            "name": "FirstName",
-            "value": 'Test',
-            "displayToAgent": true
-        },{
             "label":"CaseSubject",
             "value":"Western Union",
             "displayToAgent":true
@@ -279,7 +274,7 @@
 
         // Check to see if user is logged in or not
         //if(embedded_svc.settings.westernUnionUserDetails === '{}') {
-        if(false) {
+        if(true) {
              // This event handler triggers when the chat button is clicked and causes a creation of a mutation observer so that a privacy statement can be dynamically added when the pre-chat form loads.
             embedded_svc.addEventHandler("onHelpButtonClick", function(data) {
                 const targetNode = document.body;
@@ -325,12 +320,12 @@
             loggedInUser.lname = 'Brown';
             loggedInUser.email = 'bobbybrown2@wuchattest.com';
 
-            /*const tempFirstName = {
+            const tempFirstName = {
                 "label": "First Name",
                 "name": "FirstName",
                 "value": 'Test',
                 "displayToAgent": true
-            };*/
+            };
             const tempLastName = {
                 "label": "Last Name",
                 "value": loggedInUser.lname,
@@ -342,8 +337,7 @@
                 "displayToAgent": true
             };
 
-            //embedded_svc.settings.extraPrechatFormDetails.unshift(tempFirstName, tempLastName, tempEmail);
-            embedded_svc.settings.extraPrechatFormDetails.unshift(tempLastName, tempEmail);
+            embedded_svc.settings.extraPrechatFormDetails.unshift(tempFirstName, tempLastName, tempEmail);
             /**** TODO ****
                 - Change the parameters below for each different org, the below corresponds to the embedded service deployment that has pre-chat disabled. 
                 - To get the code below, go to Setup>Embedded Service> Get Code
