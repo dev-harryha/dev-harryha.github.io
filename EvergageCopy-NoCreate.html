@@ -321,20 +321,20 @@
             loggedInUser.email = 'bobbybrown2@wuchattest.com';
 
             const tempFirstName = {
-                "label":"First Name",
-                "name":"FirstName",
-                "value":loggedInUser.fname,
-                "displayToAgent":true
+                "label": "First Name",
+                "name": "FirstName",
+                "value": 'Test',
+                "displayToAgent": true
             };
             const tempLastName = {
-                "label":"Last Name",
-                "value":loggedInUser.lname,
-                "displayToAgent":true
+                "label": "Last Name",
+                "value": loggedInUser.lname,
+                "displayToAgent": true
             }; 
             const tempEmail = {
-                "label":"Email",
-                "value":loggedInUser.email,
-                "displayToAgent":true
+                "label": "Email",
+                "value": loggedInUser.email,
+                "displayToAgent": true
             };
 
             embedded_svc.settings.extraPrechatFormDetails.unshift(tempFirstName, tempLastName, tempEmail);
