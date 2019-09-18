@@ -169,7 +169,7 @@
         
 
         embedded_svc.settings.extraPrechatInfo = [{
-            // Not creating the contact, but finding the contact from the PersonAccount and linking it to the Case (not possible it seems..)
+            // Not creating the contact, but finding an existing contact and linking it to the Case
             "entityFieldMaps":[{
                 "doCreate":false,
                 "doFind":false,
@@ -279,15 +279,12 @@
         if(false) {
              // This event handler triggers when the chat button is clicked and causes a creation of a mutation observer so that a privacy statement can be dynamically added when the pre-chat form loads.
             embedded_svc.addEventHandler("onHelpButtonClick", function(data) {
-                console.log("onHelpButtonClick event was fired.");
-                //const targetNode = document.querySelector('input');
                 const targetNode = document.body;
                 const config = { attributes: true, subtree: true};
                 // Callback function to execute when mutations are observed
                 const mutationCallback = function(mutationsList, observer) {
                     for(let mutation of mutationsList) {
                         if (mutation.type === 'attributes' && mutation.target.className === 'Email slds-style-inputtext input') {
-                            console.log(mutation);
                             createPrivacyStatement(observer);
                             break;
                         }
@@ -323,7 +320,7 @@
             // DEBUG
             loggedInUser.fname = 'Bobby';
             loggedInUser.lname = 'Brown';
-            loggedInUser.email = 'bobbybrown@wuchattest.com';
+            loggedInUser.email = 'bobbybrown2@wuchattest.com';
 
             const tempFirstName = {
                 "label":"First Name",
