@@ -79,8 +79,6 @@
 		  embedded_svc.settings.extraPrechatInfo = [{
 			"entityName": "Contact",
 			"showOnCreate": true,
-			"linkToEntityName": "Case",
-			"linkToEntityField": "ContactId",
 			"saveToTranscript": "ContactId",
 			"entityFieldMaps": [{
 			  "isExactMatch": true,
@@ -111,7 +109,7 @@
 			  "doCreate": true,
 			  "doFind": false,
 			  "label": "issue"
-			}, {
+			}/*, {
 			  "isExactMatch": false,
 			  "fieldName": "Status",
 			  "doCreate": true,
@@ -123,7 +121,7 @@
 			  "doCreate": true,
 			  "doFind": false,
 			  "label": "Origin"
-			}]
+			}*/]
 		  }]
 
 
@@ -141,8 +139,8 @@
 				baseLiveAgentURL: 'https://d.la2-c1-ph2.salesforceliveagent.com/chat',
 				eswLiveAgentDevName: 'Chat_Agents',
 				isOfflineSupportEnabled: false
-			}
-			/*'https://wuicare--VPM2.cs65.my.salesforce.com',
+			}/*
+			'https://wuicare--VPM2.cs65.my.salesforce.com',
                 'https://vpm2-wucare.cs65.force.com/care',
                 gslbBaseURL,
                 '00D0m0000009fEK',
@@ -160,7 +158,7 @@
 
 	if (!window.embedded_svc) {
 		var s = document.createElement('script');
-		s.setAttribute('src', 'https://resourceful-otter-apzfu6-dev-ed.my.salesforce.com/embeddedservice/5.0/esw.min.js');
+		s.setAttribute('src', 'https://wuicare--VPM2.cs65.my.salesforce.com/embeddedservice/5.0/esw.min.js');
 		s.onload = function() {
 			initESW(null);
 		};
