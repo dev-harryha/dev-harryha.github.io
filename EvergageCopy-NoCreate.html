@@ -337,7 +337,7 @@
                 "displayToAgent":true
             };
 
-            embedded_svc.settings.extraPrechatFormDetails.push(tempFirstName, tempLastName, tempEmail);
+            embedded_svc.settings.extraPrechatFormDetails.unshift(tempFirstName, tempLastName, tempEmail);
             /**** TODO ****
                 - Change the parameters below for each different org, the below corresponds to the embedded service deployment that has pre-chat disabled. 
                 - To get the code below, go to Setup>Embedded Service> Get Code
