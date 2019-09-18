@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
 </head>
 <body>
-<h1>WUCHAT Welcome!debug!123</h1>
+<h1>WUCHAT Welcome!debug!1123</h1>
 <div>
     <label for="username">Username: </label>
     <input type="text" id="username" name="username">
@@ -169,34 +169,33 @@
         
 
         embedded_svc.settings.extraPrechatInfo = [{
-            // Not creating the contact, but finding an existing contact and linking it to the Case
-            "entityFieldMaps":[{
-                "doCreate":false,
-                "doFind":false,
-                "fieldName":"LastName",
-                "isExactMatch":false,
-                "label":"Last Name"
-            }, {
-                "doCreate":false,
-                "doFind":false,
-                "fieldName":"FirstName",
-                "isExactMatch":false,
-                "label":"First Name"
-            }, {
-                "doCreate":false,
-                "doFind":true,
-                "fieldName":"Email",
-                "isExactMatch":true,
-                "label":"Email"
-            }],
-            "entityName":"Contact",
-            "saveToTranscript":"ContactId",
-            "showOnCreate":false
-        }, {
+			"entityName": "Contact",
+			"showOnCreate": false,
+			"saveToTranscript": "ContactId",
+			"entityFieldMaps": [{
+			  "isExactMatch": false,
+			  "fieldName": "FirstName",
+			  "doCreate": false,
+			  "doFind": false,
+			  "label": "First Name"
+			}, {
+			  "isExactMatch": false,
+			  "fieldName": "LastName",
+			  "doCreate": false,
+			  "doFind": false,
+			  "label": "Last Name"
+			}, {
+			  "isExactMatch": false,
+			  "fieldName": "Email",
+			  "doCreate": false,
+			  "doFind": true,
+			  "label": "Email"
+			}]
+		  }, {
             // Creating the map for the case fields required for WU
-            "entityName":"Case",
-            "showOnCreate":true,
-            "saveToTranscript":"CaseId",
+            "entityName": "Case",
+            "showOnCreate": true,
+            "saveToTranscript": "CaseId",
             "entityFieldMaps": [{
                 "doCreate":true,
                 "doFind":false,
