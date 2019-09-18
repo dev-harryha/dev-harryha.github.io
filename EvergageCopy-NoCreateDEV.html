@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
 </head>
 <body>
-<h1>WUCHAT Welcome!debug-dev</h1>
+<h1>WUCHAT Welcome!debug-dev1</h1>
 <div>
     <label for="username">Username: </label>
     <input type="text" id="username" name="username">
@@ -167,41 +167,55 @@
         }];
         
 
-        embedded_svc.settings.extraPrechatInfo = [{
-            "entityName": "Contact",
-            "showOnCreate": true,
-            "saveToTranscript": "ContactId",
-            "entityFieldMaps": [{
-              "isExactMatch": true,
-              "fieldName": "FirstName",
-              "doCreate": true,
-              "doFind": true,
-              "label": "First Name"
+        embedded_svc.settings.extraPrechatInfo = [
+            {
+                "entityName": "Contact",
+                "showOnCreate": true,
+                "saveToTranscript": "ContactId",
+                "entityFieldMaps": [{
+                    "isExactMatch": true,
+                    "fieldName": "FirstName",
+                    "doCreate": true,
+                    "doFind": true,
+                    "label": "First Name"
+                    }, {
+                    "isExactMatch": true,
+                    "fieldName": "LastName",
+                    "doCreate": true,
+                    "doFind": true,
+                    "label": "Last Name"
+                    }, {
+                    "isExactMatch": true,
+                    "fieldName": "Email",
+                    "doCreate": true,
+                    "doFind": true,
+                    "label": "Email"
+                }]
             }, {
-              "isExactMatch": true,
-              "fieldName": "LastName",
-              "doCreate": true,
-              "doFind": true,
-              "label": "Last Name"
-            }, {
-              "isExactMatch": true,
-              "fieldName": "Email",
-              "doCreate": true,
-              "doFind": true,
-              "label": "Email"
-            }]
-          }, {
-            "entityName": "Case",
-            "showOnCreate": true,
-            "saveToTranscript": "CaseId",
-            "entityFieldMaps": [{
-              "isExactMatch": false,
-              "fieldName": "Subject",
-              "doCreate": true,
-              "doFind": false,
-              "label": "issue"
-            }]
-          }]
+                "entityName": "Case",
+                "showOnCreate": true,
+                "saveToTranscript": "CaseId",
+                "entityFieldMaps": [{
+                    "isExactMatch": false,
+                    "fieldName": "Subject",
+                    "doCreate": true,
+                    "doFind": false,
+                    "label": "issue"
+                }, {
+                    "isExactMatch": false,
+                    "fieldName": "Status",
+                    "doCreate": true,
+                    "doFind": false,
+                    "label": "Status"
+                },  {
+                    "isExactMatch": false,
+                    "fieldName": "Origin",
+                    "doCreate": true,
+                    "doFind": false,
+                    "label": "Origin"
+                }]
+            }
+        ];
 
         //console.log(embedded_svc.settings.westernUnionUserDetails);
         // Condition would be here to check language and/or auth vs unauth users.
