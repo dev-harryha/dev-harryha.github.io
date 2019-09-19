@@ -62,13 +62,6 @@
     .embeddedServiceHelpButton .helpButtonDisabled:hover {
         background-color: #D3D3D3;
     }
-
-    /*.embeddedServiceHelpButton .helpButton .uiButton:focus {
-        outline: 1px solid #FFDA1A;
-    }
-    .embeddedServiceHelpButton .helpButton .uiButton:hover {
-        background-color: #ffcc00
-    }*/
     .embeddedServiceHelpButton .helpButtonEnabled:focus {
         outline: 1px solid #FFDA1A;
     }
@@ -109,7 +102,7 @@
     var createPrivacyStatement = function(observer) {
         var privacyDiv = document.createElement('DIV');
         privacyDiv.className = 'embeddedChatPrivacy';
-        var privacyTextA = document.createTextNode("The chat may be logged and monitored for quality assurance purposes. Please avoid sending any sensitive personal information. ");
+        var privacyTextA = document.createTextNode("This chat may be logged and monitored. Please avoid sharing sensitive information such as payment information, social security numbers or passwords. ");
         var privacyTextB = document.createTextNode(" about Western Union's privacy practices.");
         var a = document.createElement('a');
         var linkText = document.createTextNode("Learn more");
