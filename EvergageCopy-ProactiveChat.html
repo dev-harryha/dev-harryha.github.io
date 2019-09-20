@@ -27,6 +27,7 @@
 
 <!-- START CHAT CODE -->
 <style type='text/css'>
+    /* Mobile Desktop Browser branding */
 	@media only screen and (max-width: 600px) {
         .embeddedServiceHelpButton .helpButton .uiButton {
             min-width: 2em;
@@ -36,6 +37,12 @@
             min-width: 2em;
             width: 95px;
             padding: 0 14px;
+        }
+    }
+    /* Hides the privacy chat when screen height causes it to overlap with fields */
+    @media only screen and (max-height: 400px) {
+        .embeddedChatPrivacy {
+            display: none;
         }
     }
     
@@ -68,6 +75,7 @@
     .embeddedServiceHelpButton .helpButtonEnabled:hover {
         background-color: #ffcc00
     }
+    /* Privacy Statement branding */
     .embeddedChatPrivacy {
         position: absolute;
         font-size: 10px;
@@ -76,6 +84,7 @@
         text-align: justify;
     }
 
+    /* Automated Invitation (Proactive Chat) branding */
     #snapins_invite { background-color: #FFFFFF; font-family: "Arial", sans-serif; overflow: visible; border-radius: 8px; visibility: hidden; }
 	.embeddedServiceInvitation { background-color: transparent; max-width: 500px; max-height: 210px; -webkit-box-shadow: 0 7px 12px rgba(0,0,0,0.28); -moz-box-shadow: 0 7px 12px rgba(0,0,0,0.28); box-shadow: 0 7px 12px rgba(0,0,0,0.28); }
 	@media only screen and (min-width: 48em) { /*mobile*/ .embeddedServiceInvitation { max-width: 332px; max-height: 210px; } }
@@ -94,7 +103,7 @@
 	.embeddedServiceInvitationFooter > #rejectInvite { background-color: #FFFFFF; color: #1599BB; }
 </style>
 
-<!-- Start of Invitations -->
+<!-- Start of Automated Invitation HTML Code -->
 <div class="embeddedServiceInvitation" id="snapins_invite" inert aria-live="assertive" role="dialog" aria-atomic="true">
 	<div class="embeddedServiceInvitationHeader" aria-labelledby="snapins_titletext" aria-describedby="snapins_bodytext">
 		<img id="embeddedServiceAvatar">
@@ -109,17 +118,19 @@
 		<button type="button" class="embeddedServiceActionButton" id="acceptInvite">Start Chat</button>
 	</div>
 </div>
-<!-- End of Invitations -->
+<!-- End of Automated Invitation HTML Code -->
 <!-- The following js library is required -->
 <script type='text/javascript' src='https://service.force.com/embeddedservice/5.0/esw.min.js'></script>
+<!-- START Embedded Service Javascript -->
 <script type='text/javascript'>
+    /* START Init function for the automated invitation */
     (function() {
 		document.getElementById('closeInvite').onclick = function() { embedded_svc.inviteAPI.inviteButton.rejectInvite(); };
 		document.getElementById('rejectInvite').onclick = function() { embedded_svc.inviteAPI.inviteButton.rejectInvite(); }; // use this API call to reject invitations
 		document.getElementById('acceptInvite').onclick = function() { embedded_svc.inviteAPI.inviteButton.acceptInvite(); }; // use this API call to start chat from invitations
 		document.addEventListener('keyup', function(event) { if (event.keyCode == 27) { embedded_svc.inviteAPI.inviteButton.rejectInvite(); }})
     })();
-    console.log(window.location.href);
+    /* END Init function for the automated invitation */
 	// Retrieve the logged in user details from browser sessionStorage. This snippet provided by WU team
     var getLoggedInUserdetails =  function() {
         var userDetails = {};
@@ -337,15 +348,12 @@
                 return '5731500000008OV';
             };
         });
-        
-        // Setting the user logged in details
-        embedded_svc.settings.westernUnionUserDetails = loggedInUserDetails;
+
         // Check to see if user is logged in or not
-        if(embedded_svc.settings.westernUnionUserDetails === '{}') {
+        if(loggedInUserDetails === '{}') {
             // This event handler triggers when the chat button is clicked and causes a creation of a mutation observer so that a privacy statement can be dynamically added when the pre-chat form loads.
             embedded_svc.addEventHandler("onHelpButtonClick", function(data) {
                 console.log("onHelpButtonClick event was fired.");
-                //const targetNode = document.querySelector('input');
                 const targetNode = document.body;
                 const config = { attributes: true, subtree: true};
                 // Callback function to execute when mutations are observed
@@ -384,7 +392,8 @@
                 }
             );
         } else {
-            const loggedInUser = JSON.parse(embedded_svc.settings.westernUnionUserDetails);
+            /* Mapping the values from the sessionStorage to pre-chat values to pass into Salesforce */
+            const loggedInUser = JSON.parse(loggedInUserDetails);
 
             const tempFirstName = {
                 "label":"First Name",
@@ -425,7 +434,10 @@
             ); 
         }        
 	};
-
+    /**** TODO ****
+                - Change the src below in the s.setAttribute() to point to the right org.
+                - To get the code below, go to Setup>Embedded Service> Get Code
+    */
 	if (!window.embedded_svc) {
 		var s = document.createElement('script');
 		s.setAttribute('src', 'https://wuicare--VPM2.cs65.my.salesforce.com/embeddedservice/5.0/esw.min.js');
@@ -437,6 +449,7 @@
 		initESW('https://service.force.com');
 	}
 </script>
-<!-- END OF CHAT CODE -->
+<!-- END Embedded Service Javascript -->
+<!-- END CHAT CODE -->
 </body>
 </html>
