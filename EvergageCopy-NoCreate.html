@@ -90,6 +90,9 @@
 <script type='text/javascript' src='https://service.force.com/embeddedservice/5.0/esw.min.js'></script>
 <!-- START Embedded Service Javascript -->
 <script type='text/javascript'>
+    require(['dompurify'], function(DOMPurify) {
+        var clean = DOMPurify.sanitize(dirty);
+    });
 	// Retrieve the logged in user details from browser sessionStorage. This snippet provided by WU team
     var getLoggedInUserdetails =  function() {
         var userDetails = {};
