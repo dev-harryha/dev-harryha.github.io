@@ -125,7 +125,31 @@
 <script type='text/javascript'>
     /* START Init function for the automated invitation */
     (function() {
-        document.getElementById('snapins_bodytext').innerHTML = ((window.location.href.indexOf("ProactiveChat") > -1) ? 'Hello! Can I help you today!?' : 'No thanks');
+        switch(true) {
+            case (window.location.href.indexOf("/send-money/app/register") > -1):
+                document.getElementById('snapins_bodytext').innerHTML = 'Hi. Looks like you are trying to sign up. May I help you with that?';
+                break;
+            case (window.location.href.indexOf("/send-money/app/login") > -1):
+                document.getElementById('snapins_bodytext').innerHTML = 'Hi. Looks like you are trying to log in. May I help you with that?';
+                break;
+            case (window.location.href.indexOf("/send-money/start") > -1):
+                document.getElementById('snapins_bodytext').innerHTML = 'Hi. Looks like you are trying to send money. May I help you with that?';
+                break;
+            case (window.location.href.indexOf("/send-money/app/payment") > -1):
+                document.getElementById('snapins_bodytext').innerHTML = 'Hi. Looks like you are trying to send money. May I help you with that?';
+                break;
+            case (window.location.href.indexOf("/send-money/app/receiver") > -1):
+                document.getElementById('snapins_bodytext').innerHTML = 'Hi. Looks like you are trying to send money. May I help you with that?';
+                break;
+            case (window.location.href.indexOf("ProactiveChat") > -1):
+                document.getElementById('snapins_bodytext').innerHTML = 'Hi. Looks like you are trying to proactivechat. May I help you with that?';
+                break;
+            case (window.location.href.indexOf("/send-money/app/review") > -1):
+                document.getElementById('snapins_bodytext').innerHTML = 'Hi. Looks like you are trying to send money. May I help you with that?';
+                break;
+            default:
+                document.getElementById('snapins_bodytext').innerHTML = 'How can we help you today?';
+        };
 		document.getElementById('closeInvite').onclick = function() { embedded_svc.inviteAPI.inviteButton.rejectInvite(); };
 		document.getElementById('rejectInvite').onclick = function() { embedded_svc.inviteAPI.inviteButton.rejectInvite(); }; // use this API call to reject invitations
 		document.getElementById('acceptInvite').onclick = function() { embedded_svc.inviteAPI.inviteButton.acceptInvite(); }; // use this API call to start chat from invitations
