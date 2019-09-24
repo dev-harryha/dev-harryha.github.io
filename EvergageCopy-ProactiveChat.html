@@ -125,6 +125,7 @@
 <script type='text/javascript'>
     /* START Init function for the automated invitation */
     (function() {
+        document.getElementById('snapins_bodytext').value = (window.location.href.indexOf("ProactiveChat") > -1) ? 'Hello! Can I help you today!?' : 'No thanks';
 		document.getElementById('closeInvite').onclick = function() { embedded_svc.inviteAPI.inviteButton.rejectInvite(); };
 		document.getElementById('rejectInvite').onclick = function() { embedded_svc.inviteAPI.inviteButton.rejectInvite(); }; // use this API call to reject invitations
 		document.getElementById('acceptInvite').onclick = function() { embedded_svc.inviteAPI.inviteButton.acceptInvite(); }; // use this API call to start chat from invitations
