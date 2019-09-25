@@ -309,17 +309,17 @@
                 - To get the code below, go to Setup>Embedded Service> Get Code
             */
             embedded_svc.init(
-                'https://wuicare--UATChat.cs45.my.salesforce.com',
-                'https://uatchat-wucare.cs45.force.com/care',
+                'https://wuicare--UAT.cs43.my.salesforce.com',
+                'https://uat-wucare.cs43.force.com/care',
                 gslbBaseURL,
-                '00D8A0000009R2G',
+                '00D630000009THr',
                 'WUCare_Embedded_Service_Non_Auth',
                 {
-                    baseLiveAgentContentURL: 'https://c.la2-c2cs-ph2.salesforceliveagent.com/content',
+                    baseLiveAgentContentURL: 'https://c.la1-c2cs-ph2.salesforceliveagent.com/content',
                     deploymentId: '5721500000007Ds',
                     buttonId: '5731500000008OV',
-                    baseLiveAgentURL: 'https://d.la2-c2cs-ph2.salesforceliveagent.com/chat',
-                    eswLiveAgentDevName: 'EmbeddedServiceLiveAgent_Parent04I8A000000002MUAQ_16d010c8ab1',
+                    baseLiveAgentURL: 'https://d.la1-c2cs-ph2.salesforceliveagent.com/chat',
+                    eswLiveAgentDevName: 'EmbeddedServiceLiveAgent_Parent04I630000008OL4EAM_16d2178499c',
                     isOfflineSupportEnabled: false
                 }
             );
@@ -371,7 +371,7 @@
     */
 	if (!window.embedded_svc) {
 		var s = document.createElement('script');
-		s.setAttribute('src', 'https://wuicare--UATChat.cs45.my.salesforce.com/embeddedservice/5.0/esw.min.js');
+		s.setAttribute('src', 'https://wuicare--UAT.cs43.my.salesforce.com/embeddedservice/5.0/esw.min.js');
 		s.onload = function() {
 			initESW(null);
 		};
