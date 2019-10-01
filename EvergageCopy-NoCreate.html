@@ -177,14 +177,14 @@
 			// Case RecordType for General
 			"label":"CaseRecordType",
 			"value":"01215000001cpEwAAI"
-		}, {
+		}/*, {
             "label":"First Name1",
             "name":"FirstName",
             "transcriptFields":["First_Name__c"]
         }, {
             "label":"Last Name1",
             "transcriptFields":["Last_Name__c"]
-        }];
+        }*/];
         
         /* Extra Prechat Info used to map values from pre-chat form and extraprechatformdetails[] to Salesforce records */
         embedded_svc.settings.extraPrechatInfo = [{
@@ -269,13 +269,13 @@
                 "doFind":false,
                 "fieldName":"Supplied_First_Name__c",
                 "isExactMatch":false,
-                "label":"First Name1"
+                "label":"First Name"
             }, {
                 "doCreate":true,
                 "doFind":false,
                 "fieldName":"Supplied_Last_Name__c",
                 "isExactMatch":false,
-                "label":"Last Name1"
+                "label":"Last Name"
             }, {
                 "doCreate":true,
                 "doFind":false,
@@ -290,11 +290,11 @@
 				"label": "CaseRecordType"
 			}]
         }];
-        embedded_svc.settings.directToButtonRouting = function(prechatFormData) {
+        /*embedded_svc.settings.directToButtonRouting = function(prechatFormData) {
             // Dynamically changes the button ID based on what the visitor enters in the pre-chat form.
             // Returns a valid button ID.
             console.log(prechatFormData);
-        };
+        };*/
         // Check to see if user is logged in or not
         if(loggedInUserDetails === '{}') {
              // This event handler triggers when the chat button is clicked and causes a creation of a mutation observer so that a privacy statement can be dynamically added when the pre-chat form loads.
