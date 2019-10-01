@@ -262,13 +262,13 @@
                 "doFind":false,
                 "fieldName":"Supplied_First_Name__c",
                 "isExactMatch":false,
-                "label":"First Name"
+                "label":"First Name1"
             }, {
                 "doCreate":true,
                 "doFind":false,
                 "fieldName":"Supplied_Last_Name__c",
                 "isExactMatch":false,
-                "label":"Last Name"
+                "label":"Last Name1"
             }, {
                 "doCreate":true,
                 "doFind":false,
@@ -330,7 +330,7 @@
 
             const tempFirstName = {
                 "label": "First Name",
-                "value": 'Test',
+                "value": loggedInUser.fname,
                 "displayToAgent": true
             };
             const tempLastName = {
