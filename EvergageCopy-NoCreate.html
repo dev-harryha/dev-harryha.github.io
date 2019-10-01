@@ -6,7 +6,7 @@
 <script type="text/javascript" src="https://www.westernunion.com/etc/clientlibs/westernunion/optimus/vendors/require.js"></script>
 </head>
 <body>
-<h1>WUCHAT Welcome!v2 Apostrophe Issue Fix with DOMPurify framework (purify.js)</h1>
+<h1>WUCHAT Welcome!v1 Apostrophe Issue Fix with DOMPurify framework (purify.js)</h1>
 <div>
     <label for="username">Username: </label>
     <input type="text" id="username" name="username">
@@ -289,15 +289,13 @@
 				"label": "CaseRecordType"
 			}]
         }];
-
+        embedded_svc.settings.directToButtonRouting = function(prechatFormData) {
+            // Dynamically changes the button ID based on what the visitor enters in the pre-chat form.
+            // Returns a valid button ID.
+            console.log(prechatFormData);
+        };
         // Check to see if user is logged in or not
         if(loggedInUserDetails === '{}') {
-            embedded_svc.addEventHandler("onChatRequestSuccess", function(data) {
-                    console.log("onChatRequestSuccess event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
-                    console.log(data);
-                    console.log(prechatFormData);
-                });
-                
              // This event handler triggers when the chat button is clicked and causes a creation of a mutation observer so that a privacy statement can be dynamically added when the pre-chat form loads.
             embedded_svc.addEventHandler("onHelpButtonClick", function(data) {
                 const targetNode = document.body;
