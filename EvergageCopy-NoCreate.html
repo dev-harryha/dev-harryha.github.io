@@ -6,7 +6,7 @@
 <script type="text/javascript" src="https://www.westernunion.com/etc/clientlibs/westernunion/optimus/vendors/require.js"></script>
 </head>
 <body>
-<h1>WUCHAT Welcome!v1 Apostrophe Issue Fix with DOMPurify framework (purify.js)</h1>
+<h1>WUCHAT Welcome!v12 Apostrophe Issue Fix with DOMPurify framework (purify.js)</h1>
 <div>
     <label for="username">Username: </label>
     <input type="text" id="username" name="username">
@@ -178,13 +178,14 @@
 			"label":"CaseRecordType",
 			"value":"01215000001cpEwAAI"
 		}, {
-            "label":"First Name1",
-            "value": prechatFormData[0],
+            "label":"First Name",
             "transcriptFields":["First_Name__c"]
         }, {
-            "label":"Last Name1",
-            "value": "test",
+            "label":"Last Name",
             "transcriptFields":["Last_Name__c"]
+        }, , {
+            "label":"Email",
+            "transcriptFields":["Email__c"]
         }];
         
         /* Extra Prechat Info used to map values from pre-chat form and extraprechatformdetails[] to Salesforce records */
@@ -265,7 +266,7 @@
                 "fieldName":"Preferred_Language__c",
                 "isExactMatch":false,
                 "label":"PreferredLanguage"
-            }, {
+            }/*, {
                 "doCreate":true,
                 "doFind":false,
                 "fieldName":"Supplied_First_Name__c",
@@ -283,7 +284,7 @@
                 "fieldName":"SuppliedEmail",
                 "isExactMatch":false,
                 "label":"Email"
-            }, {
+            }*/, {
 				"doCreate": true,
 				"doFind": false,
 				"fieldName": "RecordTypeId",
