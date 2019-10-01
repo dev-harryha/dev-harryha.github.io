@@ -191,7 +191,7 @@
 			"entityName": "Contact",
 			"showOnCreate": false,
 			"saveToTranscript": "ContactId",
-			"entityFieldMaps": [/*{
+			"entityFieldMaps": [{
 			  "isExactMatch": false,
 			  "fieldName": "FirstName",
 			  "doCreate": false,
@@ -203,7 +203,7 @@
 			  "doCreate": false,
 			  "doFind": false,
 			  "label": "Last Name"
-			},*/ {
+			}, {
 			  "isExactMatch": false,
 			  "fieldName": "Email",
 			  "doCreate": false,
@@ -292,6 +292,12 @@
 
         // Check to see if user is logged in or not
         if(loggedInUserDetails === '{}') {
+            embedded_svc.addEventHandler("onChatRequestSuccess", function(data) {
+                    console.log("onChatRequestSuccess event was fired.  liveAgentSessionKey was " + data.liveAgentSessionKey);
+                    console.log(data);
+                    console.log(prechatFormData);
+                });
+                
              // This event handler triggers when the chat button is clicked and causes a creation of a mutation observer so that a privacy statement can be dynamically added when the pre-chat form loads.
             embedded_svc.addEventHandler("onHelpButtonClick", function(data) {
                 const targetNode = document.body;
