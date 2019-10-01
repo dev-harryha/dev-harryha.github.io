@@ -6,7 +6,7 @@
 <script type="text/javascript" src="https://www.westernunion.com/etc/clientlibs/westernunion/optimus/vendors/require.js"></script>
 </head>
 <body>
-<h1>WUCHAT Welcome!v1 Apostrophe Issue Fix with DOMPurify framework (purify.js)</h1>
+<h1>WUCHAT Welcome!v2 Apostrophe Issue Fix with DOMPurify framework (purify.js)</h1>
 <div>
     <label for="username">Username: </label>
     <input type="text" id="username" name="username">
@@ -188,30 +188,6 @@
         
         /* Extra Prechat Info used to map values from pre-chat form and extraprechatformdetails[] to Salesforce records */
         embedded_svc.settings.extraPrechatInfo = [{
-            // Not creating the person account or contact as this is done by Apex triggers established by WU already.
-			"entityName": "Contact",
-			"showOnCreate": false,
-			"saveToTranscript": "ContactId",
-			"entityFieldMaps": [{
-			  "isExactMatch": false,
-			  "fieldName": "FirstName",
-			  "doCreate": false,
-			  "doFind": false,
-			  "label": "First Name"
-			}, {
-			  "isExactMatch": false,
-			  "fieldName": "LastName",
-			  "doCreate": false,
-			  "doFind": false,
-			  "label": "Last Name"
-			}, {
-			  "isExactMatch": false,
-			  "fieldName": "Email",
-			  "doCreate": false,
-			  "doFind": true,
-			  "label": "Email"
-			}]
-		  }, {
             // Creating the map for the case fields required for WU
             "entityName": "Case",
             "showOnCreate": true,
@@ -289,7 +265,31 @@
 				"isExactMatch": false, 
 				"label": "CaseRecordType"
 			}]
-        }];
+        }, {
+            // Not creating the person account or contact as this is done by Apex triggers established by WU already.
+			"entityName": "Contact",
+			"showOnCreate": false,
+			"saveToTranscript": "ContactId",
+			"entityFieldMaps": [{
+			  "isExactMatch": false,
+			  "fieldName": "FirstName",
+			  "doCreate": false,
+			  "doFind": false,
+			  "label": "First Name"
+			}, {
+			  "isExactMatch": false,
+			  "fieldName": "LastName",
+			  "doCreate": false,
+			  "doFind": false,
+			  "label": "Last Name"
+			}, {
+			  "isExactMatch": false,
+			  "fieldName": "Email",
+			  "doCreate": false,
+			  "doFind": true,
+			  "label": "Email"
+			}]
+		  }];
         /*embedded_svc.settings.directToButtonRouting = function(prechatFormData) {
             // Dynamically changes the button ID based on what the visitor enters in the pre-chat form.
             // Returns a valid button ID.
