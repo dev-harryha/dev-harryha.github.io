@@ -251,34 +251,36 @@
             "displayToAgent":true
         }];
         
-
+        /* Extra Prechat Info used to map values from pre-chat form and extraprechatformdetails[] to Salesforce records */
         embedded_svc.settings.extraPrechatInfo = [{
             // Not creating the person account or contact as this is done by Apex triggers established by WU already.
-            "entityFieldMaps":[{
-                "doCreate":false,
-                "doFind":false,
-                "fieldName":"LastName",
-                "isExactMatch":false,
-                "label":"Last Name"
-            }, {
-                "doCreate":false,
-                "doFind":false,
-                "fieldName":"FirstName",
-                "isExactMatch":false,
-                "label":"First Name"
-            }, {
-                "doCreate":false,
-                "doFind":false,
-                "fieldName":"Email",
-                "isExactMatch":true,
-                "label":"Email"
-            }],
-            "entityName":"Contact"
-        }, {
+			"entityName": "Contact",
+			"showOnCreate": false,
+			"saveToTranscript": "ContactId",
+			"entityFieldMaps": [{
+			  "isExactMatch": false,
+			  "fieldName": "FirstName",
+			  "doCreate": false,
+			  "doFind": false,
+			  "label": "First Name"
+			}, {
+			  "isExactMatch": false,
+			  "fieldName": "LastName",
+			  "doCreate": false,
+			  "doFind": false,
+			  "label": "Last Name"
+			}, {
+			  "isExactMatch": false,
+			  "fieldName": "Email",
+			  "doCreate": false,
+			  "doFind": true,
+			  "label": "Email"
+			}]
+		  }, {
             // Creating the map for the case fields required for WU
-            "entityName":"Case",
-            "showOnCreate":true,
-            "saveToTranscript":"CaseId",
+            "entityName": "Case",
+            "showOnCreate": true,
+            "saveToTranscript": "CaseId",
             "entityFieldMaps": [{
                 "doCreate":true,
                 "doFind":false,
@@ -345,7 +347,13 @@
                 "fieldName":"SuppliedEmail",
                 "isExactMatch":false,
                 "label":"Email"
-            }]
+            }, {
+				"doCreate": true,
+				"doFind": false,
+				"fieldName": "RecordTypeId",
+				"isExactMatch": false, 
+				"label": "CaseRecordType"
+			}]
         }];
 
         /**** TODO ****
