@@ -287,6 +287,75 @@
 				"label": "CaseRecordType"
 			}]
         }];
+
+        /* BEGIN HTML ENCODED CHARACTERS FIX */
+        function decodeTextEndChat(){
+            if($(".messageWrapper")[0]){
+                var elementArray = $(".messageWrapper")[0].childNodes;
+                for(var i=0 ; i< elementArray.length ;i++)
+                {
+                    var encodedString = encodeURIComponent($(".messageWrapper")[0].childNodes[i].childNodes[1].childNodes[0].childNodes[0].textContent);
+                    elementArray[i].childNodes[1].childNodes[0].childNodes[0].innerHTML= decodeURIComponent(encodedString);
+                }
+            }
+        }
+        
+         function decodeTextEndChat2(){
+            if($(".messageWrapper")[0]){
+                var elementArray = $(".messageWrapper")[0].childNodes;
+                for(var i=0 ; i< elementArray.length-1 ;i++)
+                {
+                    var encodedString = encodeURIComponent($(".messageWrapper")[0].childNodes[i].childNodes[1].childNodes[0].childNodes[0].textContent);
+                    elementArray[i].childNodes[1].childNodes[0].childNodes[0].innerHTML= decodeURIComponent(encodedString);
+                }
+            }
+        }
+        //onChatEndedByAgent
+        embedded_svc.addEventHandler("onChatEndedByAgent", function(data) {
+            console.log('onChatEndedByChasitor');
+            var myVar = setInterval(function(){
+                 if(document.querySelector('.messageArea')){
+                    clearInterval(myVar);
+                    decodeTextEndChat2();
+                 }
+            }, 0);  
+        });
+        
+        embedded_svc.addEventHandler("onChatEndedByChasitor", function(data) {
+            console.log('onChatEndedByChasitor');
+            var myVar = setInterval(function(){
+                 if(document.querySelector('.messageArea')){
+                    clearInterval(myVar);
+                    decodeTextEndChat2();
+                 }
+            }, 0);  
+        });
+   
+        //onAgentMessage
+        embedded_svc.addEventHandler("onAgentMessage", function(data) {
+         console.log("onChasitorMessage event was fired.");
+            var myVar = setInterval(function(){
+                 if(document.querySelector('.messageArea')){
+                    clearInterval(myVar);
+                    decodeTextEndChat();
+                 }
+            }, 0); 
+             
+        });
+        
+        embedded_svc.addEventHandler("onChasitorMessage", function(data) {
+         console.log("onChasitorMessage event was fired.");
+            var myVar = setInterval(function(){
+                 if(document.querySelector('.messageArea')){
+                    clearInterval(myVar);
+                    decodeTextEndChat();
+                 }
+            }, 0); 
+             
+        });
+        /* END HTML ENCODED CHARACTERS FIX */
+
+
         // Check to see if user is logged in or not
         if(loggedInUserDetails === '{}') {
              // This event handler triggers when the chat button is clicked and causes a creation of a mutation observer so that a privacy statement can be dynamically added when the pre-chat form loads.
