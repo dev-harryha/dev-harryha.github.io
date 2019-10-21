@@ -4,21 +4,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
 </head>
 <body>
-		<div id="componentHolder">
-			</div>
-			<script src="https://hh-category1biking-developer-edition.na85.force.com/lightning/lightning.out.js"></script>
+		<div id="componentHolder"/>
+			<script src="https://resourceful-otter-apzfu6-dev-ed.lightning.force.com/lightning/lightning.out.js"></script>
 			
 			<script>
-				$Lightning.use("c:TestApp", function() {
-				$Lightning.createComponent("c:Test",
+				$Lightning.use("c:ContactViewerApp", function() {
+				$Lightning.createComponent("c:ContactViewerCmp",
 				{ },
 			   "componentHolder",
 				function(component) {
 				  console.log("LWC component was created");
 				});
 			 },
-			   'https://hh-category1biking-developer-edition.na85.force.com/lightning/lightning.out.js',
+			   'https://https://resourceful-otter-apzfu6-dev-ed.lightning.force.com/lightning/lightning.out.js',
 			   'session-id');
 			 </script>
+			 <div id="dataTable" />
 </body>
 </html>
