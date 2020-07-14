@@ -6,7 +6,7 @@
 <script type="text/javascript" src="https://www.westernunion.com/etc/clientlibs/westernunion/optimus/vendors/require.js"></script>
 </head>
 <body>
-<h1>WUCHAT Welcome!v1 Apostrophe Issue Fix with DOMPurify framework (purify.js)</h1>
+<h1>GMI Chat Test</h1>
 <div>
     <label for="username">Username: </label>
     <input type="text" id="username" name="username">
@@ -18,20 +18,17 @@
            minlength="8" required>
 </div>
 <p> <a href='/index2'><input type="button" value="Sign in"></a> </p>
-<style type='text/css'>
-	.embeddedServiceHelpButton .helpButton .uiButton {
-		background-color: #F26722;
-		font-family: "Arial", sans-serif;
-	}
-	.embeddedServiceHelpButton .helpButton .uiButton:focus {
-		outline: 1px solid #F26722;
-	}
-</style>
+	
+<button onclick="embedded_svc.changeDisplayHelpButton()" type="button">Ask Me</button>
 
 <script type='text/javascript' src='https://service.force.com/embeddedservice/5.0/esw.min.js'></script>
 <script type='text/javascript'>
+	var changeDisplayHelpButton = function() {
+		embedded_svc.settings.displayHelpButton = true;
+	}
+	
 	var initESW = function(gslbBaseURL) {
-		embedded_svc.settings.displayHelpButton = true; //Or false
+		embedded_svc.settings.displayHelpButton = false;
 		embedded_svc.settings.language = ''; //For example, enter 'en' or 'en-US'
 
 		//embedded_svc.settings.defaultMinimizedText = '...'; //(Defaults to Chat with an Expert)
