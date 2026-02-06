@@ -102,7 +102,8 @@
   // CUSTOM STYLES
   // ============================================
   
-    document.querySelector("#amazon-connect-widget-frame").style.borderRadius = "20px";
+    const acWidgetFrame = document.querySelector("#amazon-connect-widget-frame");
+    acWidgetFrame.style.borderRadius = "20px";
     amazon_connect('customStyles', {
     global: {
       fontSize: '13px',
