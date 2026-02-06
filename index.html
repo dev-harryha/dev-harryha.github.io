@@ -1,62 +1,257 @@
-<style type='text/css'>
-	.embeddedServiceHelpButton .helpButton .uiButton {
-		background-color: #005290;
-		font-family: "Arial", sans-serif;
-	}
-	.embeddedServiceHelpButton .helpButton .uiButton:focus {
-		outline: 1px solid #005290;
-	}
-</style>
+<!DOCTYPE html>
+<html>
 
-<script type='text/javascript' src='https://service.force.com/embeddedservice/5.0/esw.min.js'></script>
-<script type='text/javascript'>
-	var initESW = function(gslbBaseURL) {
-		embedded_svc.settings.displayHelpButton = true; //Or false
-		embedded_svc.settings.language = ''; //For example, enter 'en' or 'en-US'
+<head>
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body>
 
-		//embedded_svc.settings.defaultMinimizedText = '...'; //(Defaults to Chat with an Expert)
-		//embedded_svc.settings.disabledMinimizedText = '...'; //(Defaults to Agent Offline)
+    <div>
+        <section class="section-main" id="section-main" style="position: absolute; float: left; width: 50%;">
+            <header>
+                <h1>Amazon Connect - Custom Implementation of Customer Chat</h1>
+            </header>
+        </section>
+    </div>
+    <!--
+  Amazon Connect Chat Widget - FPL Configuration
+  This widget snippet includes all FPL customizations
+  Place this code before the closing </body> tag on your website
+-->
+<script type="text/javascript">
+  // ============================================
+  // CHAT SESSION PERSISTENCE (Cross-tab support)
+  // ============================================
+  (function() {
+    const cookie = document.cookie.split('; ').find(c => c.startsWith('activeChat='));
+    if (cookie) {
+      const activeChatValue = cookie.split('=')[1];
+      sessionStorage.setItem('persistedChatSession', activeChatValue);
+    }
+  })();
 
-		//embedded_svc.settings.loadingText = ''; //(Defaults to Loading)
-		//embedded_svc.settings.storageDomain = 'yourdomain.com'; //(Sets the domain for your deployment so that visitors can navigate subdomains during a chat session)
+  // ============================================
+  // WIDGET INITIALIZATION
+  // ============================================
+  (function(w, d, x, id){
+    s=d.createElement('script');
+    s.src='https://2xsftv-cai-co.my.connect.aws/connectwidget/static/amazon-connect-chat-interface-client.js';
+    s.async=1;
+    s.id=id;
+    d.getElementsByTagName('head')[0].appendChild(s);
+    w[x] = w[x] || function() { (w[x].ac = w[x].ac || []).push(arguments) };
+  })(window, document, 'amazon_connect', 'd10d73fe-6e85-41ed-8235-1e0148d9c706');
 
-		// Settings for Chat
-		//embedded_svc.settings.directToButtonRouting = function(prechatFormData) {
-			// Dynamically changes the button ID based on what the visitor enters in the pre-chat form.
-			// Returns a valid button ID.
-		//};
-		//embedded_svc.settings.prepopulatedPrechatFields = {}; //Sets the auto-population of pre-chat form fields
-		//embedded_svc.settings.fallbackRouting = []; //An array of button IDs, user IDs, or userId_buttonId
-		//embedded_svc.settings.offlineSupportMinimizedText = '...'; //(Defaults to Contact Us)
+  // ============================================
+  // JWT AUTHENTICATION
+  // ============================================
+  // NOTE: JWT authentication is DISABLED for this widget
+  // The widget (5319bbda-4d17-4210-820a-239bf38b31e4) has security set to "No"
+  // If you need to re-enable JWT, uncomment the code below and enable security in Amazon Connect
+  /*
+  amazon_connect('authenticate', function(callback) {
+    fetch('/token')
+      .then(response => response.json())
+      .then(data => callback(data.data))
+      .catch(err => {
+        console.error('Failed to fetch JWT:', err);
+        callback('');
+      });
+  });
+  */
 
-		embedded_svc.settings.enabledFeatures = ['LiveAgent'];
-		embedded_svc.settings.entryFeature = 'LiveAgent';
+  // ============================================
+  // SESSION PERSISTENCE CALLBACKS
+  // ============================================
+  amazon_connect('registerCallback', {
+    'CONNECTION_ESTABLISHED': () => {
+      document.cookie = "activeChat=" + sessionStorage.getItem("persistedChatSession") + "; SameSite=None; Secure";
+    },
+    'CHAT_ENDED': () => {
+      document.cookie = "activeChat=; SameSite=None; Secure";
+    }
+  });
 
-		embedded_svc.init(
-			'https://neuraflash-ee-dev-ed.my.salesforce.com',
-			'https://neuraflash-ee-dev-ed.my.salesforce-sites.com/liveAgentSetupFlow',
-			gslbBaseURL,
-			'00D5f000006NiHE',
-			'Web_Live_Chat_Team',
-			{
-				baseLiveAgentContentURL: 'https://c.la4-c1-ia5.salesforceliveagent.com/content',
-				deploymentId: '5725f000000QCFY',
-				buttonId: '5735f000000QYO2',
-				baseLiveAgentURL: 'https://d.la4-c1-ia5.salesforceliveagent.com/chat',
-				eswLiveAgentDevName: 'Web_Live_Chat_Team',
-				isOfflineSupportEnabled: false
-			}
-		);
-	};
+  // ============================================
+  // WIDGET STYLING
+  // ============================================
+  amazon_connect('styles', {
+    iconType: 'CHAT',
+    openChat: { color: '#ffffff', backgroundColor: '#0073a8' },
+    closeChat: { color: '#ffffff', backgroundColor: '#0073a8' }
+  });
 
-	if (!window.embedded_svc) {
-		var s = document.createElement('script');
-		s.setAttribute('src', 'https://neuraflash-ee-dev-ed.my.salesforce.com/embeddedservice/5.0/esw.min.js');
-		s.onload = function() {
-			initESW(null);
-		};
-		document.body.appendChild(s);
-	} else {
-		initESW('https://service.force.com');
-	}
+  // ============================================
+  // WIDGET SNIPPET ID
+  // ============================================
+  amazon_connect('snippetId', 'QVFJREFIaFg3VVJ2dFRXb2IrUUdndUkvUzRJMnRnQ1NJL3Erc1JKT0lFQ3lCQlNlUEFHTHc3RTB1ZUlmVEZsb0g2Qi9YRWp1QUFBQWJqQnNCZ2txaGtpRzl3MEJCd2FnWHpCZEFnRUFNRmdHQ1NxR1NJYjNEUUVIQVRBZUJnbGdoa2dCWlFNRUFTNHdFUVFNY0FKWHlWUGxEbm82elYwQkFnRVFnQ3NYeFIySkxLMDV3ck10WGVEY3pXeWd5QS82UWdESWRjOEJkTGxFMitZcUlvQ2FzNElnQTdTdUxISlM6OlIxZVM0NzJHWjFsZmFMWktHMWdUQmo0enNwT0h5K3lvblhTS001b1hmajB4ZXNGSUhqTldMOExYWXBGUTdWY3gzRXp6OUg3YjhMRHpBZDZhUXZDN0xqZTdLYnJKYm9CdUUvT21UOHZyN1g4MnpJOW9lb2pOdm1WSjNXMVMyZUJwSXZpdkZrb0o5TURuT2pnbXAzcmNSNjFnT1ptK3VrTT0=');
+
+  // ============================================
+  // SUPPORTED MESSAGE CONTENT TYPES
+  // ============================================
+  amazon_connect('supportedMessagingContentTypes', [
+    'text/plain',
+    'text/markdown',
+    'application/vnd.amazonaws.connect.message.interactive',
+    'application/vnd.amazonaws.connect.message.interactive.response'
+  ]);
+
+  // ============================================
+  // CUSTOM STYLES
+  // ============================================
+  amazon_connect('customStyles', {
+    global: {
+      fontSize: '13px',
+      frameWidth: '420px',
+      frameHeight: '640px',
+    },
+    transcript: {
+      customerMessageTextColor: '#ffffff'
+    },
+    logo: {
+      logoMaxHeight: '90px',
+      logoMaxWidth: '95%',
+      logoBackgroundColor: '#000000',
+    },
+    footer: {
+      buttonBackgroundColor: '#0073a8',
+      buttonTextColor: '#ffffff',
+      buttonBorderColor: '#0073a8'
+    },
+    fullscreenMode: true,
+    // Make the chat window wider
+    // chatWidget: {
+    //   width: '800px',  // Default is 360px, increase to make wider
+    //   height: '600px'  // Optional: adjust height too
+    // }
+  });
+
+  // ============================================
+  // CUSTOMIZATION OBJECT
+  // ============================================
+  amazon_connect('customizationObject', {
+    header: {
+      dropdown: false,
+      dynamicHeader: false,
+      hideTranscriptDownloadButton: true,
+    },
+    transcript: {
+      hideDisplayNames: true,
+      displayIcons: true,
+      iconSources: {
+        botMessage: "https://amazon-connect-5c1e40e94c61.s3.us-east-1.amazonaws.com/connect/jakesandbox/CustomChatItems/fpl_resized_icon.png",
+        systemMessage: "https://amazon-connect-5c1e40e94c61.s3.us-east-1.amazonaws.com/connect/jakesandbox/CustomChatItems/fpl_resized_icon.png",
+        agentMessage: "https://amazon-connect-5c1e40e94c61.s3.us-east-1.amazonaws.com/connect/jakesandbox/CustomChatItems/fpl_resized_icon.png"
+      },
+      eventNames: {
+        customer: "You",
+        agent: "FPL Agent",
+        supervisor: "FPL Supervisor"
+      },
+      eventMessages: {
+        participantJoined: "Chat started",
+        participantLeft: "{name} left the chat",
+        chatEnded: "Chat ended. Thank you for contacting FPL.",
+      },
+    },
+    composer: {
+      disableEmojiPicker: true,
+      disableCustomerAttachments: true,
+      alwaysHideToolbar: true,
+    },
+    footer: {
+      disabled: false,
+      skipCloseChatButton: true,
+    },
+    endChat: {
+      enableConfirmationDialog: false,
+    },
+    attachment: {
+      rejectedErrorMessage: "Custom Error Message: Files cannot exceed 15 MB."
+    }
+  });
+  // ============================================
+  // OS-BASED RESPONSIVE SIZING
+  // ============================================
+  function detectOSAndResize() {
+    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+    let width = '420px';
+    let height = '640px';
+    let maxHeight = '85vh';
+
+    // iOS (iPhone, iPad, iPod)
+    if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+      width = '90vw';
+      height = '80vh';
+      maxHeight = '80vh';
+    }
+    // Android
+    else if (/android/i.test(userAgent)) {
+      width = '90vw';
+      height = '75vh';
+      maxHeight = '75vh';
+    }
+    // Windows - use viewport height to handle scaling
+    else if (navigator.platform.indexOf('Win') > -1) {
+      width = '420px';
+      height = '640px';
+      maxHeight = '85vh';
+    }
+    // Mac
+    else if (navigator.platform.indexOf('Mac') > -1) {
+      width = '420px';
+      height = '640px';
+      maxHeight = '85vh';
+    }
+    // Linux
+    else if (navigator.platform.indexOf('Linux') > -1) {
+      width = '420px';
+      height = '640px';
+      maxHeight = '85vh';
+    }
+
+    const style = document.createElement('style');
+    style.innerHTML = `
+      /* Target the actual Amazon Connect frame container */
+      [class*="acFrameContainer"].show {
+        width: ${width} !important;
+        height: ${height} !important;
+        max-width: ${width} !important;
+        max-height: ${maxHeight} !important;
+      }
+
+      /* Ensure iframe inside fills the container */
+      [class*="acFrameContainer"].show iframe {
+        width: 100% !important;
+        height: 100% !important;
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  // Watch for the widget to appear
+  const observer = new MutationObserver((mutations) => {
+    const widgetContainer = document.querySelector('[class*="acFrameContainer"].show');
+    if (widgetContainer) {
+      detectOSAndResize();
+      observer.disconnect(); // Stop watching once found
+    }
+  });
+
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true,
+    attributes: true,
+    attributeFilter: ['class']
+  });
 </script>
+
+<!-- Auto-scroll fix for streaming messages -->
+<!-- <script src="/chat-scroll-fix.js"></script> -->
+
+<!-- Timestamp position/hide fix -->
+<!-- <script src="/chat-timestamp-fix.js"></script> -->
+
+</body>
